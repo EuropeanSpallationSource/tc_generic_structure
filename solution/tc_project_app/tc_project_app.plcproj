@@ -162,6 +162,9 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS_ParamControl.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS_ParamControlCmd.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS_State.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -174,10 +177,22 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1204.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1302.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1304.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1602.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_5008.TcDUT">
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1a04.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1b04.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1b08.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_5010.TcDUT">

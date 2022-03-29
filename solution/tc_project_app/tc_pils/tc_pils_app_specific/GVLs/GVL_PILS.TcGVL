@@ -11,7 +11,7 @@
 //First available memory area for PILS devices is 104. 64-99 is used by the indexer
 //Run the python script "check_fix_gvl_pils.py" to check that the PILS devices have a correct memory allocation
 
-(* Example code to define 2 Axes and other devices:
+(*//Example code to define an Axis AND other devices:
 
     stVariable1 AT %MB104: ST_1201;
     stVariable2 AT %MB108: ST_1202;
@@ -22,8 +22,8 @@
     stMotorM1Param: ST_AxisParameters;
     stMotorM1EncoderRaw AT %MB148: ST_1202;
 	stMotor1Temp AT %MB184: ST_1302;
-
 *)
+
 
 // Array of Devices
 // Modify the array to fit the number of devices you have
