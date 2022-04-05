@@ -6,11 +6,13 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Interface between PILS and AXIS
-(* Example code of how to link the axis and PILS:
+      <ST><![CDATA[//Interface between PILS and TwinCAT variables
+//Example code of how to link the varaibles and PILS:
+(*
 fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
 stMotor1Temp.fValue := Axis_1.fMotTemp1;
 stMotorM1EncoderRaw.nValue := nEncoderValueAxis1;
+fbCylinderC1(stPneumaticStruct:= astPneumaticAxes[1], stDeviceStructPILS:= stCylinderC1);
 *)
 
 ]]></ST>
@@ -18,8 +20,10 @@ stMotorM1EncoderRaw.nValue := nEncoderValueAxis1;
     <LineIds Name="PILS_DEVICES">
       <LineId Id="20" Count="0" />
       <LineId Id="28" Count="1" />
+      <LineId Id="38" Count="0" />
       <LineId Id="14" Count="0" />
       <LineId Id="30" Count="0" />
+      <LineId Id="34" Count="0" />
       <LineId Id="11" Count="1" />
       <LineId Id="2" Count="0" />
     </LineIds>

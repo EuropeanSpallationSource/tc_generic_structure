@@ -11,30 +11,34 @@
 //First available memory area for PILS devices is 104. 64-99 is used by the indexer
 //Run the python script "check_fix_gvl_pils.py" to check that the PILS devices have a correct memory allocation
 
-(*//Example code to define an Axis and other devices:
-
+//Example code to define an Axis and other devices:
+(*
     stVariable1 AT %MB104: ST_1201;
     stVariable2 AT %MB108: ST_1202;
 
-        //Axis #1
+    //Axis #1
     stMotorM1       AT %MB128: ST_5010;
     fbMotorM1: FB_5010_Axis := (nPILSDeviceNumber := 3);
     stMotorM1Param: ST_AxisParameters;
     stMotorM1EncoderRaw AT %MB148: ST_1202;
 	stMotor1Temp AT %MB184: ST_1302;
+	
+	//Pneumatics
+    stCylinderC1 AT %MB208: ST_1e04;
+    fbCylinderC1: FB_1e04_Pneumatic := (nPILSDeviceNumber := 6);
 *)
-
 
 // Array of Devices
 // Modify the array to fit the number of devices you have
 // nUnit codes: mm = 16xfd04, degrees = 16x000C, Celsius =16x0009, Kelvin 16x0008
 
-    astDevices: ARRAY [1..5] OF ST_DeviceInfo :=[
+    astDevices: ARRAY [1..6] OF ST_DeviceInfo :=[
         (nTypCode := 16#1201, sName := 'Variable1', nOffset := 104),
         (nTypCode := 16#1202, sName := 'Variable2', nOffset := 108),
 		(nTypCode := 16#5010, sName := 'M1 Example', nOffset := 152, nUnit := 16#FD04, asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('InterlockFwd'),('InterlockBwd'),('localMode'),('inTargetPos'),('homeSensor'),('notHomed'),('enabled')], nFlags := 1),
         (nTypCode := 16#1202, sName := 'encoder1Raw', nOffset := 148),
-        (nTypCode := 16#1302, sName := 'Temp#1', nOffset := 184, nUnit := 16#0009)];
+        (nTypCode := 16#1302, sName := 'Temp#1', nOffset := 184, nUnit := 16#0009),
+		(nTypCode := 16#1E04, sName := 'CylinderC1', nOffset := 208, asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('SolenoidActive'),('Retracted'),('Extracted'),('Retracting'),('Extending')], nFlags := 1)];
 END_VAR]]></Declaration>
   </GVL>
 </TcPlcObject>
