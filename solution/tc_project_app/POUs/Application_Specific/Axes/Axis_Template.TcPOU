@@ -22,7 +22,13 @@ END_IF*)
 //Define ACTIONS() or write exclusive code for an specific axis.
 (*Eg. Stop when temperature reaches certain values, reduce speed if  a signal is activated, etc.
 Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;*)
-]]></ST>
+
+// Default handling for the Permit Signal: Reflect bPermitReq back to bPermitAck;
+// When using real permits on certain axes(e.g. for airpads or brakes) typically bPermitRequest has to be copied to a digital output and a digital input has to be copied to bPermitAck.
+// Optionally, also delays can be inserted here.
+FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
+    GVL.astAxes[GVL.iAxis].stStatus.bPermitAck := GVL.astAxes[GVL.iAxis].stControl.bPermitReq;
+END_FOR]]></ST>
     </Implementation>
     <LineIds Name="Axis_Template">
       <LineId Id="20" Count="0" />
@@ -34,7 +40,12 @@ Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;*)
       <LineId Id="21" Count="0" />
       <LineId Id="24" Count="0" />
       <LineId Id="33" Count="0" />
+      <LineId Id="42" Count="0" />
       <LineId Id="23" Count="0" />
+      <LineId Id="43" Count="0" />
+      <LineId Id="45" Count="0" />
+      <LineId Id="47" Count="1" />
+      <LineId Id="46" Count="0" />
     </LineIds>
   </POU>
 </TcPlcObject>
