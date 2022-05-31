@@ -1,6 +1,6 @@
 [submodule "solution/tc_project_app/tc_mca_std_lib"]
 	path = solution/tc_project_app/tc_mca_std_lib
-	url = https://bitbucket.org/europeanspallationsource/tc_mca_std_lib.git
+	url = https://gitlab.esss.lu.se/mcag/sources/tc_mca_std_lib.git
 [submodule "solution/tc_project_app/tc_pils/tc_pils_generic"]
 	path = solution/tc_project_app/tc_pils/tc_pils_generic
 	url = https://gitlab.esss.lu.se/mcag/sources/tc_pils_generic.git
