@@ -8,6 +8,8 @@ VAR
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis;
     hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
     hmiPneumaticAxisSelection: INT := 1;
+    nTestNum: UINT := 0; //variable use for fat-sat scripts
+
 //Startup, Shutdown and UPS
     fbUPS: FB_S_UPS_CX51x0;
     eUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown;
@@ -20,7 +22,6 @@ VAR
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbRestorePosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     fbGetDeviceIdentification: FB_GetDeviceIdentification;
-    nTestNum: UINT := 0; //variable use for fat-sat scripts
 END_VAR
 
 VAR PERSISTENT
