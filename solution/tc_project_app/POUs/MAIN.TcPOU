@@ -20,6 +20,7 @@ VAR
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbRestorePosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     fbGetDeviceIdentification: FB_GetDeviceIdentification;
+    nTestNum: UINT := 0; //variable use for fat-sat scripts
 END_VAR
 
 VAR PERSISTENT
