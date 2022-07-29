@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GlobalTextList Name="GlobalTextList" Id="{c3494959-baa5-4f73-b0cd-9c11912145dd}">
     <XmlArchive>
       <Data>
@@ -8,6 +8,11 @@
             <o>
               <v n="TextID">"947"</v>
               <v n="TextDefault">"   LocalMode"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"972"</v>
+              <v n="TextDefault">"  bLocalMode"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -48,6 +53,11 @@
             <o>
               <v n="TextID">"940"</v>
               <v n="TextDefault">"%x"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"433"</v>
+              <v n="TextDefault">"Active Ctrl:"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -186,8 +196,23 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"335"</v>
+              <v n="TextDefault">"Change Control Loop"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"563"</v>
+              <v n="TextDefault">"Ctrl Select:"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"986"</v>
               <v n="TextDefault">"ehomeDirect"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"350"</v>
+              <v n="TextDefault">"eHomeDirect"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -253,6 +278,11 @@
             <o>
               <v n="TextID">"109"</v>
               <v n="TextDefault">"English"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1004"</v>
+              <v n="TextDefault">"eReadParameter"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -363,6 +393,11 @@
             <o>
               <v n="TextID">"123"</v>
               <v n="TextDefault">"HOME"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"568"</v>
+              <v n="TextDefault">"Home"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
