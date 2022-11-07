@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
     sVersion: STRING := '1.0.0';
+	aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis;
     afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis;
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis;
     hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
@@ -30,23 +31,33 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[POSITION_RECOVERY();
 AXES();
-PROG();]]></ST>
+PROG();
+PILSv2();]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
     <Action Name="AXES" Id="{7eb32732-9b53-4934-8cd9-20ba971dd8ff}">
       <Implementation>
-        <ST><![CDATA[//Get task index for Axes parameters initialization.
-GVL.fbGetCurTaskIndex();
+        <ST><![CDATA[//First cycle, assign FB_axis to interface array
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
+        afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
+        aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
+    END_FOR
+    //Custom axis types defined and linked to aiAxes here
+      //FB_CustomAxis extends FB_axis
+        //fbCustomAxis.stAxis REF= astAxes[x];
+        //aIAxes[x] := fbCustomAxis;
+END_IF
 
-//Create an stAxisStruct for every axis in the project.
+//Execute FB_Axis logic
 FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
-    afbAxes[GVL.iAxis](stAxisStruct := GVL.astAxes[GVL.iAxis]);
+    aIAxes[GVL.iAxis].Run();
 END_FOR
 
+//Execute Pneumatic Axis logic
 FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
     afbPneumaticAxes[GVL.iPneumaticAxis](stPneumaticAxisStruct := GVL.astPneumaticAxes[GVL.iPneumaticAxis]);
-END_FOR
-]]></ST>
+END_FOR]]></ST>
       </Implementation>
     </Action>
     <Action Name="CHECK_UPS" Id="{f0f28f50-53b8-4f73-b0f5-6d7ce4c1636f}" FolderPath="POSITION_RECOVERY\">
@@ -212,50 +223,5 @@ END_IF]]></ST>
 END_FOR]]></ST>
       </Implementation>
     </Action>
-    <LineIds Name="MAIN">
-      <LineId Id="505" Count="0" />
-      <LineId Id="81" Count="0" />
-      <LineId Id="538" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.AXES">
-      <LineId Id="11" Count="1" />
-      <LineId Id="14" Count="1" />
-      <LineId Id="1" Count="0" />
-      <LineId Id="4" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="18" Count="3" />
-      <LineId Id="17" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.CHECK_UPS">
-      <LineId Id="2" Count="11" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.POSITION_RECOVERY">
-      <LineId Id="2" Count="3" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.PROG">
-      <LineId Id="4" Count="1" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="6" Count="0" />
-      <LineId Id="8" Count="0" />
-      <LineId Id="11" Count="0" />
-      <LineId Id="10" Count="0" />
-      <LineId Id="9" Count="0" />
-      <LineId Id="3" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.RESTORE_POSITIONS">
-      <LineId Id="567" Count="105" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
-    <LineIds Name="MAIN.STORE_PERSISTENT">
-      <LineId Id="10" Count="0" />
-      <LineId Id="3" Count="0" />
-      <LineId Id="5" Count="1" />
-      <LineId Id="8" Count="1" />
-      <LineId Id="7" Count="0" />
-      <LineId Id="4" Count="0" />
-      <LineId Id="1" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>

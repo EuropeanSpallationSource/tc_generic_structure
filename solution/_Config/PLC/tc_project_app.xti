@@ -8,11 +8,6 @@
 				<Context>
 					<Id NeedCalleeCall="true">0</Id>
 					<Name>PlcTaskCom</Name>
-					<ManualConfig>
-						<OTCID>#x02010060</OTCID>
-					</ManualConfig>
-					<Priority>5</Priority>
-					<CycleTime>1000000</CycleTime>
 				</Context>
 				<Context>
 					<Id NeedCalleeCall="true">1</Id>
@@ -25,7 +20,7 @@
 				</Context>
 			</Contexts>
 			<TaskPouOids>
-				<TaskPouOid Prio="5" OTCID="#x08502041"/>
+				<TaskPouOid Prio="0" OTCID="#x08502041"/>
 				<TaskPouOid Prio="10" OTCID="#x08502042"/>
 			</TaskPouOids>
 		</Instance>

@@ -1,0 +1,58 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+  <POU Name="PILSv2" Id="{90d527b3-98ed-47d0-a704-81d6444f3844}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM PILSv2
+VAR
+    // Indexer variables
+    nDevices: WORD;
+    nDevNum: WORD;
+    nInfoType: WORD;
+    bIsInitialized: BOOL := FALSE;
+    nITemp: BYTE;
+    nTempofs: WORD;
+    fbTonStartDelay: TON;
+    nPLCopenStateMachine1: WORD := 0;
+// Persistent stuff up to %MB62
+    fMagic AT %MB0: REAL := 2015.02; //Version of PILS, must be 2014.0 - 2046.0
+    nOffset AT %MB4: WORD := 64; //Pointer to which byte address of Indexer
+    stIndexer AT %MB64: ST_Indexer;
+    nCycle: WORD := 0;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbTonStartDelay(IN:=TRUE,PT:=T#4S);
+IF fbTonStartDelay.Q THEN
+    fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
+
+  
+    // Encoder
+    //GVL_PILS.stEL5101CounterValue.nValue := GVL_APP.nEL5101CounterValue;
+    //GVL_PILS.stEL5101CounterValue.nValue := TINC^NC-Task 1 SAF^Axes^Axis 1^Enc^Inputs^In^nDataIn1[0];
+        // Stepper terminal
+    //GVL_PILS.stEL7037STM_Velocity.nValue := GVL_APP.nEL7037STM_Velocity;
+   // GVL_PILS.stEL7037STM_CounterValue.nValue := GVL_APP.nEL7037STM_CounterValue;
+
+    //  AUX bits for motor 1
+//    stMotorM1.nStatus.16;
+//    stMotorM1.nStatus.15;
+//    stMotorM1.nStatus.14;
+//    stMotorM1.nStatus.13;
+//    stMotorM1.nStatus.12;
+//    stMotorM1.nStatus.11;
+//    stMotorM1.nStatus.10;
+//    stMotorM1.nStatus.9;
+//    stMotorM1.nStatus.8;
+//    stMotorM1.nStatus.7;
+//    stMotorM1.nStatus.6; 
+//    stMotorM1.nStatus.5;
+//    stMotorM1.nStatus.4;
+//    stMotorM1.nStatus.3;
+//    stMotorM1.nStatus.2;
+//    stMotorM1.nStatus.1;
+//    stMotorM1.nStatus.0;
+END_IF
+INDEXER_COMM();
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
