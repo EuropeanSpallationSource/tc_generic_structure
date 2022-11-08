@@ -24,7 +24,7 @@ END_VAR
 IF fbTonStartDelay.Q THEN
     fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
 
-  
+
     // Encoder
     //GVL_PILS.stEL5101CounterValue.nValue := GVL_APP.nEL5101CounterValue;
     //GVL_PILS.stEL5101CounterValue.nValue := TINC^NC-Task 1 SAF^Axes^Axis 1^Enc^Inputs^In^nDataIn1[0];
@@ -43,7 +43,7 @@ IF fbTonStartDelay.Q THEN
 //    stMotorM1.nStatus.9;
 //    stMotorM1.nStatus.8;
 //    stMotorM1.nStatus.7;
-//    stMotorM1.nStatus.6; 
+//    stMotorM1.nStatus.6;
 //    stMotorM1.nStatus.5;
 //    stMotorM1.nStatus.4;
 //    stMotorM1.nStatus.3;
