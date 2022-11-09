@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <POU Name="PILSv2" Id="{90d527b3-98ed-47d0-a704-81d6444f3844}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PILSv2
 VAR
