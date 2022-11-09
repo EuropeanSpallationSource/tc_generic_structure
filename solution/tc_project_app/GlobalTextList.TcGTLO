@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GlobalTextList Name="GlobalTextList" Id="{c3494959-baa5-4f73-b0cd-9c11912145dd}">
     <XmlArchive>
       <Data>
@@ -196,6 +196,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"350"</v>
+              <v n="TextDefault">"eHomeDirect"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"198"</v>
               <v n="TextDefault">"eHomeToEncPulse_Bwd"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -241,6 +246,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"87"</v>
+              <v n="TextDefault">"Elapsed time (ms)"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"104"</v>
               <v n="TextDefault">"ENABLE"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -256,8 +266,28 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1009"</v>
+              <v n="TextDefault">"End switches simulation"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"554"</v>
+              <v n="TextDefault">"EndSwitchBwd"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1084"</v>
+              <v n="TextDefault">"EndSwitchFwd"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"109"</v>
               <v n="TextDefault">"English"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1004"</v>
+              <v n="TextDefault">"eReadParameter"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -368,6 +398,11 @@
             <o>
               <v n="TextID">"123"</v>
               <v n="TextDefault">"HOME"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"568"</v>
+              <v n="TextDefault">"Home"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

@@ -28,9 +28,6 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="PlcTaskCom.TcTTO">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Application_Template.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -41,6 +38,36 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\PILSv2.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisControl.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisDescription.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisError_1.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisInputs.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisPersistent.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisStatus.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisStruct.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_GearAxis.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisParameters.TcTLEO">
@@ -62,6 +89,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_RestorePosition.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\I_Axis.TcIO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticAxisErrors.TcDUT">
@@ -91,34 +121,16 @@
     <Compile Include="tc_mca_std_lib\DUTs\E_SlitPairStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisConfig.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisControl.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_MotionFunctions.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisDescription.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\ST_AxisError.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisInputs.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\ST_McStatus.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisPersistent.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_GearAxis.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisStatus.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\ST_AxisStruct.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\ST_MonitoringAlarm.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\GVLs\GVL.TcGVL">
@@ -195,6 +207,9 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1b08.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1e04.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_5010.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -216,10 +231,16 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\U_IndexerData.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_pils\tc_pils_generic\POUs\COMM.TcPOU">
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\U_ParamValue64.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\FB_1e04_Pneumatic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\FB_5010_Axis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\INDEXER_COMM.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="Visualization Manager.TcVMO">
@@ -229,6 +250,7 @@
   <ItemGroup>
     <Folder Include="DUTs" />
     <Folder Include="GVLs" />
+    <Folder Include="tc_mca_std_lib\DUTs\Axis_Structures" />
     <Folder Include="POUs\Application_Specific" />
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Axes" />
