@@ -17,15 +17,5 @@ fbCylinderC1(stPneumaticStruct:= astPneumaticAxes[1], stDeviceStructPILS:= stCyl
 
 ]]></ST>
     </Implementation>
-    <LineIds Name="PILS_DEVICES">
-      <LineId Id="20" Count="0" />
-      <LineId Id="28" Count="1" />
-      <LineId Id="38" Count="0" />
-      <LineId Id="14" Count="0" />
-      <LineId Id="30" Count="0" />
-      <LineId Id="34" Count="0" />
-      <LineId Id="11" Count="1" />
-      <LineId Id="2" Count="0" />
-    </LineIds>
   </POU>
 </TcPlcObject>
