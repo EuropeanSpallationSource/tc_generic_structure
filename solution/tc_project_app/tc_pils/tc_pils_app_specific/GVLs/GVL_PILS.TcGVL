@@ -37,6 +37,7 @@
         (nTypCode := 16#1202, sName := 'RawEncStep#1', nOffset := 168),
         (nTypCode := 16#1302, sName := 'Temp#1', nOffset := 172, nUnit := 16#0009),
         (nTypCode := 16#1E04, sName := 'CylinderC1', nOffset := 176, asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('SolenoidActive'),('Retracted'),('Extracted'),('Retracting'),('Extending')], nFlags := 1)];
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
   </GVL>
 </TcPlcObject>
