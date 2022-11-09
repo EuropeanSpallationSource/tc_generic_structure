@@ -1,0 +1,3 @@
+build:
+  script:
+    ./check_no_lineids.sh
