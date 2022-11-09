@@ -145,17 +145,17 @@ END_IF
 IF bRestoreExecute AND NOT bPositionRestoreDone THEN
     //Cycle through function blocks that read the encoder reference system i.e. whether axis is incremental or absolute
     FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        afbReadEncRefSys[iAxes](
-          Axis := GVL.astAxes[iAxes].Axis,
-          ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
-          ReadMode := E_READMODE.READMODE_ONCE);
+         afbReadEncRefSys[iAxes](
+            Axis := GVL.astAxes[iAxes].Axis,
+            ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
+            ReadMode := E_READMODE.READMODE_ONCE);
     END_FOR
 
     //Cycle through set position and MC_WritePArameter function blocks for each axis
     FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
         afbSetPosition[iAxes](
-         Axis := GVL.astAxes[iAxes].Axis,
-         Position := astAxesPersistent[iAxes].fPositionAtShutdown);
+            Axis := GVL.astAxes[iAxes].Axis,
+            Position := astAxesPersistent[iAxes].fPositionAtShutdown);
 
         afbWritePositionBias[iAxes](
             Axis:= GVL.astAxes[iAxes].Axis,
@@ -165,23 +165,23 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
     CASE eStartUp OF
         eColdStart:
-        //First cycle of the PLC, do nothing just give one cycle for variables to initialise
+            //First cycle of the PLC, do nothing just give one cycle for variables to initialise
             IF NOT bPositionRestoreDone THEN
                 eStartUp := eReadAxisFeedbackType;
                 nRetry := 0;
             END_IF
 
         eReadAxisFeedbackType:
-        //Exectute the function blocks to read the encoder reference system (0=inc OR 1=ABS)
+            //Exectute the function blocks to read the encoder reference system (0=inc OR 1=ABS)
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
                 afbReadEncRefSys[iAxes].Enable := TRUE;
-            eStartUp := eCheckReadDone;
+                eStartUp := eCheckReadDone;
             END_FOR
 
         eCheckReadDone:
-        //Check the encoder reference system has been read for all axis -> if busy then continue with PLC cycle and check again next time.
-        //If afbReadEncRefSys not started then go back a step.
-        //If any axes result in an error the code will get stuck here, this happens if GVL_APP.nAXIS_NUM is not set correctly
+            //Check the encoder reference system has been read for all axis -> if busy then continue with PLC cycle and check again next time.
+            //If afbReadEncRefSys not started then go back a step.
+            //If any axes result in an error the code will get stuck here, this happens if GVL_APP.nAXIS_NUM is not set correctly
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
                 IF NOT afbReadEncRefSys[iAxes].Valid THEN
                     IF afbReadEncRefSys[iAxes].Busy THEN
@@ -203,8 +203,8 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
         eExecuteRestore:
             //Execute position and encoder BIAS restore by setting Execute = TRUE
-            FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                    IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
+           FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
                     //Restore position value for incremental encoders
                     IF NOT astAxesPersistent[iAxes].bMovingAtShutdown AND
                     (afbReadEncRefSys[iAxes].Value = 0 OR
@@ -226,10 +226,10 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
         eCheckRestore:
             //Check the set position and write enocder BIAS fbs are finished
-        //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
-        //bPositionRestoreDone will never get set to TRUE and will take up cycle time
+            //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
+            //bPositionRestoreDone will never get set to TRUE and will take up cycle time
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                    IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
+                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
                     IF NOT astAxesPersistent[iAxes].bMovingAtShutdown AND
                     (afbReadEncRefSys[iAxes].Value = 0 OR
                      afbReadEncRefSys[iAxes].Value = 2 OR
@@ -246,21 +246,21 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                             afbWritePositionBias[iAxes].Execute := FALSE;
                             eStartUp := eExecuteRestore;
                             RETURN;
+                        END_IF
                     END_IF
-                END_IF
                 ELSE
                     RETURN;
                 END_IF
             END_FOR
-            eStartUp := eFinishRestore;
+            eStartUp :=  eFinishRestore;
 
         eFinishRestore:
             //Remove execute = TRUE for afbRestorePosition and fbWritePositionBias
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
                 afbSetPosition[iAxes].Execute := FALSE;
                 afbWritePositionBias[iAxes].Execute := FALSE;
-            bPositionRestoreDone := TRUE;
-            bRestoreExecute := FALSE;
+                bPositionRestoreDone := TRUE;
+                bRestoreExecute := FALSE;
             END_FOR
     END_CASE
 END_IF]]></ST>
