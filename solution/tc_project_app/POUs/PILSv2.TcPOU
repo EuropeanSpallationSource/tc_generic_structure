@@ -22,7 +22,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[fbTonStartDelay(IN:=TRUE,PT:=T#4S);
 IF fbTonStartDelay.Q THEN
-    fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
+    //fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
 
 
     // Encoder
