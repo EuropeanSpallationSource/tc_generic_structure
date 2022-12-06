@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Slit_Prog" Id="{c85adad8-3e0e-4939-ab93-f86e8caa7aa1}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Slit_Prog
+VAR
+    mySlits : FB_SlitPairV2;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[mySlits(nIdPositiveAxis:=1,nIdNegativeAxis:=2,nIdGapSizeAxis:=3,nIdGapCentreAxis:=4,bEnable:= TRUE);]]></ST>
+    </Implementation>
+    <LineIds Name="Slit_Prog">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

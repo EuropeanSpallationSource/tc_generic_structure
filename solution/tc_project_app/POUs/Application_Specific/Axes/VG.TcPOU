@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="VG" Id="{2b978893-b887-4b9b-a25f-0ef7883917a6}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM VG
+VAR
+//Outputs: Power for Limit switches, Home Sensors, etc.
+    //bPowerSwitchesAxis1 AT %Q*: BOOL:= TRUE;
+
+//Hardware interlocks
+    //bInterlockFwdOK AT %I*: BOOL;
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Initial parameters of an Axis
+(*IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    //Initial default values:
+    GVL.astAxes[1].stConfig.eHomeSeq := 0;
+    GVL.astAxes[1].stConfig.fHomePosition := 0.0;
+    GVL.astAxes[1].stConfig.fHomeFinishDistance := 0.0;
+    GVL.astAxes[1].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
+END_IF*)
+
+//Define ACTIONS() or write exclusive code for an specific axis.
+(*Eg. Stop when temperature reaches certain values, reduce speed if  a signal is activated, etc.
+Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;*)]]></ST>
+    </Implementation>
+    <LineIds Name="VG">
+      <LineId Id="3" Count="10" />
+      <LineId Id="2" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

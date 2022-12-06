@@ -23,6 +23,12 @@ VAR
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
+    
+    
+    //OVERRIDE AXES
+    Axis_VG : FB_Axis_VirtualSlit;
+    Axis_VC : FB_Axis_VirtualSlit;
+    
 END_VAR
 
 VAR PERSISTENT
@@ -31,7 +37,8 @@ END_VAR]]></Declaration>
     <Implementation>
       <ST><![CDATA[POSITION_RECOVERY();
 PROG();
-AXES();]]></ST>
+AXES();
+]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
     <Action Name="AXES" Id="{7eb32732-9b53-4934-8cd9-20ba971dd8ff}">
@@ -46,6 +53,10 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
       //FB_CustomAxis extends FB_axis
         //fbCustomAxis.stAxis REF= astAxes[x];
         //aIAxes[x] := fbCustomAxis;
+        Axis_VG.stAxis REF= astAxes[3];
+        Axis_VC.stAxis REF= astAxes[4];
+        aIAxes[3] := Axis_VG;
+        aIAxes[4] := Axis_VC;
 END_IF
 
 //Execute FB_Axis logic
@@ -108,7 +119,13 @@ GVL.fbGetCurTaskIndex();
 //Pneumatics_Template();
 
 //Application program calls
-//Application_Template();]]></ST>
+//Application_Template();
+
+North();
+South();
+VG();
+VC();
+Slit_Prog();]]></ST>
       </Implementation>
     </Action>
     <Action Name="RESTORE_POSITIONS" Id="{0c7ee537-7bd9-4833-b428-c17cbb57e893}" FolderPath="POSITION_RECOVERY\">
@@ -281,5 +298,39 @@ END_IF]]></ST>
 END_FOR]]></ST>
       </Implementation>
     </Action>
+    <LineIds Name="MAIN">
+      <LineId Id="3" Count="1" />
+      <LineId Id="2" Count="0" />
+      <LineId Id="38" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.AXES">
+      <LineId Id="2" Count="9" />
+      <LineId Id="22" Count="3" />
+      <LineId Id="12" Count="9" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.CHECK_UPS">
+      <LineId Id="2" Count="21" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.POSITION_RECOVERY">
+      <LineId Id="2" Count="3" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.PROG">
+      <LineId Id="2" Count="10" />
+      <LineId Id="1" Count="0" />
+      <LineId Id="14" Count="0" />
+      <LineId Id="13" Count="0" />
+      <LineId Id="15" Count="3" />
+    </LineIds>
+    <LineIds Name="MAIN.RESTORE_POSITIONS">
+      <LineId Id="2" Count="146" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
+    <LineIds Name="MAIN.STORE_PERSISTENT">
+      <LineId Id="2" Count="12" />
+      <LineId Id="1" Count="0" />
+    </LineIds>
   </POU>
 </TcPlcObject>
