@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Slits" Id="{f77a44d6-02e8-441c-8fcf-819361deb1ce}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Slits
+VAR
+    slitTest : FB_SlitPairV2();
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[slitTest(nIdPositiveAxis:=1, nIdNegativeAxis:=2, nIdGapSizeAxis:=3, nIdGapCentreAxis:=4, bEnable:= TRUE);]]></ST>
+    </Implementation>
+    <LineIds Name="Slits">
+      <LineId Id="5" Count="0" />
+    </LineIds>
+  </POU>
+</TcPlcObject>

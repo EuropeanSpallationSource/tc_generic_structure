@@ -29,28 +29,13 @@
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Application_Specific\Applications\Application_Template.TcPOU">
+    <Compile Include="POUs\Application_Specific\Applications\limitsPower.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Application_Specific\Applications\Slit_Prog.TcPOU">
+    <Compile Include="POUs\Application_Specific\Applications\Slits.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\Axis_Template.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\North.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\South.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\VG.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\VC.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="POUs\Application_Specific\Axes\Pneumatics_Template.TcPOU">
+    <Compile Include="POUs\Application_Specific\Axes\testProg.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\MAIN.TcPOU">

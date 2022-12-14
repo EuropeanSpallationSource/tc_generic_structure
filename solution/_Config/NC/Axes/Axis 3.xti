@@ -1406,11 +1406,11 @@ External Setpoint Generation:
 			</Relations>
 		</DataType>
 	</DataTypes>
-	<Axis Id="4" CreateSymbols="true" AxisType="1">
+	<Axis Id="3" CreateSymbols="true" AxisType="1">
 		<Name>__FILENAME__</Name>
 		<AxisPara>
-			<Dynamic AccelerationMaximum="10" DecelerationMaximum="10" Acceleration="10" Deceleration="10" Jerk="100"/>
-			<Velo SlowManual="1" FastManual="2" Maximum="2"/>
+			<Dynamic AccelerationMaximum="1500" DecelerationMaximum="1500" Acceleration="150" Deceleration="150" Jerk="225"/>
+			<Velo SlowManual="2" FastManual="4" Maximum="5"/>
 			<OtherSettings AllowMotionCmdToSlave="true" AllowMotionCmdToExtSetGenAxis="true"/>
 		</AxisPara>
 		<Encoder Name="Enc" EncType="16">
@@ -1474,7 +1474,6 @@ External Setpoint Generation:
 		<Drive Name="Drive" DrvType="5">
 			<DrvPara>
 				<Analog TorqueSetpointScale="10" ScaleFactorActTorque="0.1"/>
-				<TimeComp TaskDelayCycles="1"/>
 			</DrvPara>
 			<Vars VarGrpType="1">
 				<Name>Inputs</Name>

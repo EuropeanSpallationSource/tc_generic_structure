@@ -965,7 +965,7 @@ External Setpoint Generation:
 		</DataType>
 	</DataTypes>
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{90F4D44E-F07D-BA76-B7BA-3498EF2BC24B}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{7DC9BED4-9DD2-868E-D92D-37397C9A4641}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -1078,16 +1078,40 @@ External Setpoint Generation:
 					<Name>GVL.astAxes[4].Axis.NcToPlc</Name>
 					<Type GUID="{10036166-C9D3-404B-BDD3-323034AAA7F4}" Namespace="MC">NCTOPLC_AXIS_REF</Type>
 				</Var>
+				<Var>
+					<Name>Slits.slitTest.bPositiveAxis_FwdLimit</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Slits.slitTest.bPositiveAxis_BwdLimit</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Slits.slitTest.bNegativeAxis_FwdLimit</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Slits.slitTest.bNegativeAxis_BwdLimit</Name>
+					<Type>BOOL</Type>
+				</Var>
 			</Vars>
 			<Vars VarGrpType="2" AreaNo="1">
 				<Name>PlcTask Outputs</Name>
 				<Var>
-					<Name>Slit_Prog.mySlits.nGapSizeEncoder</Name>
-					<Type>UDINT</Type>
+					<Name>limitsPower.bEnableAxis1Limits</Name>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>Slit_Prog.mySlits.nGapCentreEncoder</Name>
-					<Type>UDINT</Type>
+					<Name>limitsPower.bEnableAxis2Limits</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>limitsPower.bEnableAxis1Enc</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>limitsPower.bEnableAxis2Enc</Name>
+					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL.astAxes[1].Axis.PlcToNc</Name>
@@ -1104,6 +1128,14 @@ External Setpoint Generation:
 				<Var>
 					<Name>GVL.astAxes[4].Axis.PlcToNc</Name>
 					<Type GUID="{63A84524-72E3-41C8-BEAB-4CCE44690A13}" Namespace="MC">PLCTONC_AXIS_REF</Type>
+				</Var>
+				<Var>
+					<Name>Slits.slitTest.nGapSizeEncoder</Name>
+					<Type>UDINT</Type>
+				</Var>
+				<Var>
+					<Name>Slits.slitTest.nGapCentreEncoder</Name>
+					<Type>UDINT</Type>
 				</Var>
 			</Vars>
 			<Contexts>
@@ -1124,23 +1156,39 @@ External Setpoint Generation:
 	</Project>
 	<Mappings>
 		<OwnerA Name="tc_project_app Instance">
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^N">
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 2 (EL1808)">
+				<Link VarA="PlcTask Inputs^GVL.astAxes[1].stInputs.bHomeSensor" VarB="Channel 3^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL.astAxes[2].stInputs.bHomeSensor" VarB="Channel 7^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^Slits.slitTest.bNegativeAxis_BwdLimit" VarB="Channel 5^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^Slits.slitTest.bNegativeAxis_FwdLimit" VarB="Channel 6^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^Slits.slitTest.bPositiveAxis_BwdLimit" VarB="Channel 2^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^Slits.slitTest.bPositiveAxis_FwdLimit" VarB="Channel 1^Input" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 3 (EL2819)">
+				<Link VarA="PlcTask Outputs^limitsPower.bEnableAxis1Limits" VarB="DIG Outputs^Channel 1^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^limitsPower.bEnableAxis2Limits" VarB="DIG Outputs^Channel 5^Output" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 1 (EtherCAT)^Term 1 (EK1200)^Term 5 (EL2014)">
+				<Link VarA="PlcTask Outputs^limitsPower.bEnableAxis1Enc" VarB="DIG Outputs^Channel 1^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^limitsPower.bEnableAxis2Enc" VarB="DIG Outputs^Channel 2^Output" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 1">
 				<Link VarA="PlcTask Inputs^GVL.astAxes[1].Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^GVL.astAxes[1].Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^S">
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 2">
 				<Link VarA="PlcTask Inputs^GVL.astAxes[2].Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^GVL.astAxes[2].Axis.PlcToNc" VarB="Inputs^FromPlc"/>
 			</OwnerB>
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^VC">
-				<Link VarA="PlcTask Inputs^GVL.astAxes[4].Axis.NcToPlc" VarB="Outputs^ToPlc"/>
-				<Link VarA="PlcTask Outputs^GVL.astAxes[4].Axis.PlcToNc" VarB="Inputs^FromPlc"/>
-				<Link VarA="PlcTask Outputs^Slit_Prog.mySlits.nGapCentreEncoder" VarB="Enc^Inputs^In^nDataIn1"/>
-			</OwnerB>
-			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^VG">
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 3">
 				<Link VarA="PlcTask Inputs^GVL.astAxes[3].Axis.NcToPlc" VarB="Outputs^ToPlc"/>
 				<Link VarA="PlcTask Outputs^GVL.astAxes[3].Axis.PlcToNc" VarB="Inputs^FromPlc"/>
-				<Link VarA="PlcTask Outputs^Slit_Prog.mySlits.nGapSizeEncoder" VarB="Enc^Inputs^In^nDataIn1"/>
+				<Link VarA="PlcTask Outputs^Slits.slitTest.nGapSizeEncoder" VarB="Enc^Inputs^In^nDataIn1"/>
+			</OwnerB>
+			<OwnerB Name="TINC^NC-Task 1 SAF^Axes^Axis 4">
+				<Link VarA="PlcTask Inputs^GVL.astAxes[4].Axis.NcToPlc" VarB="Outputs^ToPlc"/>
+				<Link VarA="PlcTask Outputs^GVL.astAxes[4].Axis.PlcToNc" VarB="Inputs^FromPlc"/>
+				<Link VarA="PlcTask Outputs^Slits.slitTest.nGapCentreEncoder" VarB="Enc^Inputs^In^nDataIn1"/>
 			</OwnerB>
 		</OwnerA>
 	</Mappings>
