@@ -93,9 +93,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\I_Axis.TcIO">
-	  <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\E_SlitPairStatesV2.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticAxisErrors.TcDUT">
@@ -122,7 +119,13 @@
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisStruct.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\E_SlitPairStates.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\Slits\E_AxisLimitState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Slits\E_SlitPairLimitState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Slits\E_SlitPairStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\ST_MonitoringAlarm.TcDUT">
@@ -143,10 +146,13 @@
     <Compile Include="tc_mca_std_lib\POUs\Motion\FB_Axis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Motion\FB_Axis_VirtualSlit.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Motion\FB_SlitPair.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\Motion\FB_SlitPairV2.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Motion\FB_SlitPair_ISIS.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Motion\Homing\FB_Homing.TcPOU">
@@ -180,6 +186,7 @@
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Axes" />
     <Folder Include="tc_mca_std_lib\DUTs\Axis_Structures" />
+    <Folder Include="tc_mca_std_lib\DUTs\Slits" />
     <Folder Include="tc_mca_std_lib\DUTs\Pneumatics" />
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Axes" />

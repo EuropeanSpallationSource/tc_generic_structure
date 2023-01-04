@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<Refactors>
+  <Renames>
+    <RenamedSymbol>
+      <Type guid="b3c09412-d9b8-4fdb-95f8-f2ca5d9e6945">FB_SlitPair_ISIS</Type>
+      <From>fVeloSetpointPositiveAxis_New</From>
+      <To>fVeloSetpointPositiveAxis_Nominal</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="b3c09412-d9b8-4fdb-95f8-f2ca5d9e6945">FB_SlitPair_ISIS</Type>
+      <From>fVeloSetpointNegativeAxis_New</From>
+      <To>fVeloSetpointNegativeAxis_Nominal</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="b3c09412-d9b8-4fdb-95f8-f2ca5d9e6945">FB_SlitPair_ISIS</Type>
+      <From>fVeloSetpointGapSizeAxis_New</From>
+      <To>fVeloSetpointGapSizeAxis_Nominal</To>
+    </RenamedSymbol>
+    <RenamedSymbol>
+      <Type guid="b3c09412-d9b8-4fdb-95f8-f2ca5d9e6945">FB_SlitPair_ISIS</Type>
+      <From>fVeloSetpointGapCentreAxis_New</From>
+      <To>fVeloSetpointGapCentreAxis_Nominal</To>
+    </RenamedSymbol>
+  </Renames>
+</Refactors>
