@@ -1,3 +1,16 @@
-build:
+default:
+  tags:
+    - docker
+
+image: python:3.8
+
+stages:
+  - check
+
+run pre-commit:
+  stage: check
+
   script:
-    ./check_no_lineids.sh
+    - ./check_no_lineids.sh
+    - ./check_fix_white_space.py
+
