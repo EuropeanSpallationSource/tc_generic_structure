@@ -146,6 +146,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"512"</v>
+              <v n="TextDefault">"bInVelocity"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"541"</v>
+              <v n="TextDefault">"bInVeloit"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"485"</v>
               <v n="TextDefault">"bMovingExtend"</v>
               <l n="LanguageTexts" t="ArrayList" />
