@@ -19,7 +19,7 @@ VAR
     bRestoreExecute: BOOL := FALSE;
     bExecuteReadEncRefSys: BOOL := FALSE;
     nRetry: INT;
-    iAxes : UINT; //index for for loops in Position recovery actions
+    iAxes: UINT; //index for for loops in Position recovery actions
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbSetPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
@@ -36,6 +36,7 @@ END_VAR
 PROG();
 AXES();
 PILSv2();
+
 ]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
@@ -117,6 +118,7 @@ Pneumatics_Template();
 
 //Application program calls
 Application_Template();
+
 ]]></ST>
       </Implementation>
     </Action>

@@ -13,9 +13,8 @@ _CompileInfo/
 _Config/IO
 _Config/NC/Axes
 _Libraries/
-*LineIDs.dbg
+LineIDs.dbg
 logs.0*
 solution/TrialLicense.tclrs
 tools/linux/ADS/
 tools/linux/getADSState/getADSState.bin
-UpgradeLog.htm
