@@ -109,11 +109,11 @@ GVL.fbGetCurTaskIndex();
 //Create as many programs in that folder as axes and applications you have or need
 
 //Axes initial parameters and program
-//Axis_Template();
+Axis_Template();
 //Pneumatics_Template();
 
 //Application program calls
-//Application_Template();
+Application_Template();
 ]]></ST>
       </Implementation>
     </Action>
