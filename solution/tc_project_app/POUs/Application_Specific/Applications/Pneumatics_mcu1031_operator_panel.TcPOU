@@ -1,0 +1,50 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+  <POU Name="Pneumatics_mcu1031_operator_panel" Id="{f0d41dcb-32b4-49cb-acfd-0a4b7f2819f3}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Pneumatics_mcu1031_operator_panel
+VAR
+    bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
+    bRetractedLight AT %Q*: BOOL; //Power output for Close position + LED
+    bMovingLight AT %Q*: BOOL; //Power output for cylinder Moving LED
+    bNoPermitLight AT %Q*: BOOL; //Power output for No permit LED
+    bErrorLight AT %Q*: BOOL; //Power output for Error LED
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Assign LED to the permit status
+IF NOT gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisInputs.bPSSPermit THEN
+    bNoPermitLight := TRUE;
+    ELSE
+        bNoPermitLight := FALSE;
+    END_IF
+
+//Assign LED to the error status
+IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bError    THEN
+    bErrorLight := TRUE;
+    ELSE
+        bErrorLight := FALSE;
+    END_IF
+
+//Assign LEDs to the end switches statuses
+IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtended THEN
+    bExtendedLight := TRUE;
+    ELSE
+        bExtendedLight := FALSE;
+    END_IF
+
+IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracted THEN
+    bRetractedLight := TRUE;
+    ELSE
+        bRetractedLight := FALSE;
+    END_IF
+
+
+//Checking the condition for the Moving LED
+IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracting OR gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtending THEN
+        bMovingLight := TRUE;
+    ELSE
+        bMovingLight := FALSE;
+    END_IF  ]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
