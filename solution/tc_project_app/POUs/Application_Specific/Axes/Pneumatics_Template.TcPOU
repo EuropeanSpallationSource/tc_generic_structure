@@ -3,12 +3,26 @@
   <POU Name="Pneumatics_Template" Id="{7bf401fb-a600-4741-a67b-36f20e194cfc}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Pneumatics_Template
 VAR
+    bPowerOutputs AT %Q*: BOOL := TRUE; //Power for the end position switches
+    bAirPressureOn AT %Q*: BOOL := TRUE; //Power for the SPAU pressure sensor
+    bPressureExtendOn AT %Q*: BOOL := TRUE; //Power output for air pressure switch
+    bPressureRetractOn AT %Q*: BOOL := TRUE; //Power output for air pressure switch
+    bPressureExtendOn1 AT %Q*: BOOL := TRUE; //Power output for air pressure switch
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Test the program to control pneumatic acutator through PneumaticsVisu.
 //Currently implemented control of single solenoid through PLC and and manually, with two momentary push buttons.
+gvl.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToExtend := 10;
+gvl.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToRetract := 10;
+gvl.astPneumaticAxes[1].stPneumaticAxisInputs.bPSSPermit := TRUE;
+//gvl.astPneumaticAxes[1].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
+//gvl.astPneumaticAxes[1].stPneumaticAxisConfig.fLowLimitPressureValue := 2.2;
+//gvl.astPneumaticAxes[1].stPneumaticAxisConfig.fHighLimitPressureValue := 5.5;
 
+//gvl.astPneumaticAxes[2].stPneumaticAxisConfig.nTimeToExtend := 10;
+//gvl.astPneumaticAxes[2].stPneumaticAxisConfig.nTimeToRetract := 10;
+//gvl.astPneumaticAxes[2].stPneumaticAxisInputs.bPSSPermit := TRUE;
 
 
 
