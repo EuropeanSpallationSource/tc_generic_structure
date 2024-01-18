@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.32" ClassName="CNestedPlcProjDef">
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{F554F00D-366E-E985-F660-6F8067E43B5A}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{8BC23C00-C44B-9337-1368-A9BE3882D09B}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -37,9 +37,9 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisInputs.nAirPressureValve</Name>
-					<Comment><![CDATA[Input signal of air pressure for pneumatic valve]]></Comment>
-					<Type>REAL</Type>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisInputs.nAirPressureValueRaw</Name>
+					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic valve]]></Comment>
+					<Type>INT</Type>
 				</Var>
 				<Var>
 					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisInputs.bOpenManual</Name>
@@ -80,6 +80,31 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
+					<Name>Pneumatics_mcu1031_operator_panel.bExtendedLight</Name>
+					<Comment><![CDATA[Power output for Open position + LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatics_mcu1031_operator_panel.bRetractedLight</Name>
+					<Comment><![CDATA[Power output for Close position + LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatics_mcu1031_operator_panel.bMovingLight</Name>
+					<Comment><![CDATA[Power output for cylinder Moving LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatics_mcu1031_operator_panel.bNoPermitLight</Name>
+					<Comment><![CDATA[Power output for No permit LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatics_mcu1031_operator_panel.bErrorLight</Name>
+					<Comment><![CDATA[Power output for Error LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bEndSwitchFwdOn</Name>
 					<Comment><![CDATA[End Switch Fwd power output]]></Comment>
 					<Type>BOOL</Type>
@@ -95,19 +120,19 @@
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureExtendOn</Name>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureExtendPowerON</Name>
 					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureRetractOn</Name>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureRetracPowerON</Name>
 					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.fAirPressureOn</Name>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bAirPressurePowerON</Name>
 					<Comment><![CDATA[Power output for analog pressure sensor]]></Comment>
-					<Type>REAL</Type>
+					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Contexts>
@@ -126,4 +151,35 @@
 			</TaskPouOids>
 		</Instance>
 	</Project>
+	<Mappings>
+		<OwnerA Name="tc_project_app Instance">
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 2 (EL1808)">
+				<Link VarA="PlcTask Inputs^GVL.astPneumaticAxes[1].stPneumaticAxisInputs.bCloseManual" VarB="Channel 4^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL.astPneumaticAxes[1].stPneumaticAxisInputs.bEndSwitchBwd" VarB="Channel 1^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL.astPneumaticAxes[1].stPneumaticAxisInputs.bEndSwitchFwd" VarB="Channel 2^Input" Size="1"/>
+				<Link VarA="PlcTask Inputs^GVL.astPneumaticAxes[1].stPneumaticAxisInputs.bOpenManual" VarB="Channel 3^Input" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 4 (EL2819)">
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bAirPressureOn" VarB="DIG Outputs^Channel 14^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPowerOutputs" VarB="DIG Outputs^Channel 1^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPowerOutputs" VarB="DIG Outputs^Channel 2^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPowerOutputs" VarB="DIG Outputs^Channel 5^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPowerOutputs" VarB="DIG Outputs^Channel 6^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPressureExtendOn" VarB="DIG Outputs^Channel 9^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPressureExtendOn1" VarB="DIG Outputs^Channel 13^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_Template.bPressureRetractOn" VarB="DIG Outputs^Channel 10^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_mcu1031_operator_panel.bErrorLight" VarB="DIG Outputs^Channel 11^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_mcu1031_operator_panel.bExtendedLight" VarB="DIG Outputs^Channel 3^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_mcu1031_operator_panel.bMovingLight" VarB="DIG Outputs^Channel 7^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_mcu1031_operator_panel.bNoPermitLight" VarB="DIG Outputs^Channel 8^Output" Size="1"/>
+				<Link VarA="PlcTask Outputs^Pneumatics_mcu1031_operator_panel.bRetractedLight" VarB="DIG Outputs^Channel 4^Output" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 5 (EL2044)">
+				<Link VarA="PlcTask Outputs^GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bValveOn" VarB="DIG Outputs^Channel 2^Output" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 3 (EtherCAT)^Term 1 (EK1100)^Term 6 (EL3174-0002)">
+				<Link VarA="PlcTask Inputs^GVL.astPneumaticAxes[1].stPneumaticAxisInputs.nAirPressureValueRaw" VarB="AI Standard Channel 1^Value"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmItem>

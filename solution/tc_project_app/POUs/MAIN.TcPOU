@@ -118,6 +118,7 @@ Pneumatics_Template();
 
 //Application program calls
 Application_Template();
+Pneumatics_mcu1031_operator_panel();
 
 ]]></ST>
       </Implementation>

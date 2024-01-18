@@ -104,10 +104,10 @@
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticMode.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisControl.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisConfig.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisControl.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\ST_PneumaticAxisInputs.TcDUT">
