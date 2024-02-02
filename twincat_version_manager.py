@@ -4,8 +4,6 @@ import xml.etree.ElementTree as ET
 VERSION_TAGS     = {"**/*.Tc*": "ProductVersion", "**/*.tsproj": "TcVersion"}
 CORRECT_VERSIONS = {"**/*.Tc*": "3.1.4024.11",    "**/*.tsproj": "3.1.4024.32",    "**/*.xti": "3.1.4024.32"}
 
-
-
 def check_versions():
     """
     Checks the Twincat version used to create a file.
