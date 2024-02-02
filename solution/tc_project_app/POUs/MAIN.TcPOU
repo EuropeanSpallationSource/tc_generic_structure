@@ -19,7 +19,7 @@ VAR
     bRestoreExecute: BOOL := FALSE;
     bExecuteReadEncRefSys: BOOL := FALSE;
     nRetry: INT;
-    iAxes : UINT; //index for for loops in Position recovery actions
+    iAxes: UINT; //index for for loops in Position recovery actions
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbSetPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
@@ -113,7 +113,7 @@ GVL.fbGetCurTaskIndex();
 
 //Axes program calls
 Axis_Template();
-Pneumatics_Template();
+//Pneumatics_Template();
 
 //Application program calls
 Application_Template();

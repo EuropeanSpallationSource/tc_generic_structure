@@ -1,7 +1,7 @@
 # remove LineIds
 /<LineId/d
 /<\/LineId/d
-# enforce empty last line
+# Add a line after ]]
 /.\]\]>/s/]]>/\r\n]]>/g
 # convert tab to space
 /\t/s/\t/    /g
