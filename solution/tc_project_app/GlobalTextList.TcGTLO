@@ -226,6 +226,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"302"</v>
+              <v n="TextDefault">"eHomeToBlock_Bwd"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1049"</v>
+              <v n="TextDefault">"eHomeToBlock_Fwd"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"198"</v>
               <v n="TextDefault">"eHomeToEncPulse_Bwd"</v>
               <l n="LanguageTexts" t="ArrayList" />
