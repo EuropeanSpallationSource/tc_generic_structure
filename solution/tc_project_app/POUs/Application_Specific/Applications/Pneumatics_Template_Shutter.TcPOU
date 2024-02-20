@@ -26,7 +26,8 @@ IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bR
         bMovingLight := TRUE;
     ELSE
         bMovingLight := FALSE;
-    END_IF  ]]></ST>
+    END_IF  
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

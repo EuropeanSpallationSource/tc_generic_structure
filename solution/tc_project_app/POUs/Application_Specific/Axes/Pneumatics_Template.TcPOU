@@ -4,21 +4,21 @@
     <Declaration><![CDATA[PROGRAM Pneumatics_Template
 VAR
     //Application specific variables for this pneumatic axis
-	
-	x: INT;
+
+    x: INT;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Test the program to control pneumatic acutator through PneumaticsVisu.
 //Currently implemented control of single solenoid through PLC and and manually, with two momentary push buttons.
 (*IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bPneumaticAxisShutter := TRUE;
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 2;
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 2;
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 30;
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := 3.5;
-	GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := 6.0;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bPneumaticAxisShutter := TRUE;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 2;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 2;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 30;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := 3.5;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := 6.0;
 END_IF
 *)
 
