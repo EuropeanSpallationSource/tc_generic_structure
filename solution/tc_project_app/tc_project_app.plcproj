@@ -32,7 +32,7 @@
     <Compile Include="POUs\Application_Specific\Applications\Application_Template.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Application_Specific\Applications\Pneumatics_mcu1031_operator_panel.TcPOU">
+    <Compile Include="POUs\Application_Specific\Applications\Pneumatics_Template_Shutter.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Application_Specific\Axes\Axis_Template.TcPOU">
@@ -72,6 +72,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_GearAxis.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_HomingConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisEngUnit.TcDUT">
