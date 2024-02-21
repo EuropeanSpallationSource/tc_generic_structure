@@ -1,7 +1,7 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.32" ClassName="CNestedPlcProjDef">
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{F222417D-2656-D4C3-28FB-44A7DDB7E29B}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{19B2167C-7D86-3551-297A-9E8AE02D4DE3}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -45,31 +45,6 @@
 			<Vars VarGrpType="2" AreaNo="1">
 				<Name>PlcTask Outputs</Name>
 				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bEndSwitchPowerON</Name>
-					<Comment><![CDATA[Power output for pneumatic axis end switches]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bValveOn</Name>
-					<Comment><![CDATA[Output of the solenoid valve (for single solenoid)]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bAirPressurePowerON</Name>
-					<Comment><![CDATA[Power output for analog pressure sensor]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureExtendPowerON</Name>
-					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureRetracPowerON</Name>
-					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>Pneumatics_Template_Shutter.bExtendedLight</Name>
 					<Comment><![CDATA[Power output for Open position + LED]]></Comment>
 					<Type>BOOL</Type>
@@ -92,6 +67,31 @@
 				<Var>
 					<Name>Pneumatics_Template_Shutter.bErrorLight</Name>
 					<Comment><![CDATA[Power output for Error LED]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bEndSwitchPowerON</Name>
+					<Comment><![CDATA[Power output for pneumatic axis end switches]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bValveOn</Name>
+					<Comment><![CDATA[Output of the solenoid valve (for single solenoid)]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bAirPressurePowerON</Name>
+					<Comment><![CDATA[Power output for analog pressure sensor]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureExtendPowerON</Name>
+					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>GVL.astPneumaticAxes[1].stPneumaticAxisOutputs.bPressureRetracPowerON</Name>
+					<Comment><![CDATA[Power output for air pressure switch]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>

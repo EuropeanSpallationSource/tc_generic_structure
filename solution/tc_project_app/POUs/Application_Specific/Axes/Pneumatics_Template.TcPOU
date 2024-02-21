@@ -9,7 +9,7 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Test the program to control pneumatic acutator through PneumaticsVisu.
+      <ST><![CDATA[//Test the program to control pneumatic actuator through PneumaticsVisu.
 //Currently implemented control of single solenoid through PLC and and manually, with two momentary push buttons.
 (*IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
