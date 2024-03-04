@@ -1,16 +1,13 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.5">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GVL Name="GVL_PILS" Id="{ace53d5e-03a7-4e79-9a33-72de579eb8fd}">
     <Declaration><![CDATA[  VAR_GLOBAL
-    sPLCName: STRING[34] := 'Crate_000';
+  sPLCName: STRING[34] := 'Crate_000';
     sPLCVersion: STRING[34] := '0.9.4';
     sPLCAuthor1: STRING[59] := 'https://gitlab.esss.lu.se/mcag/sources/';
     sPLCAuthor2: STRING[59] := 'tc_generic_structure.git';
 
 //PILS Devices
-//First available memory area for PILS devices is 104. 64-99 is used by the indexer
-//Run the python script "check_fix_gvl_pils.py" to check that the PILS devices have a correct memory allocation
-
 //Example code to define an Axis and other devices:
     stVariable1 AT %MB128: ST_1201;
     stVariable2 AT %MB132: ST_1202;
@@ -23,20 +20,21 @@
     stMotor1Temp AT %MB172: ST_1302;
 
     //Pneumatics
-    stCylinderC1 AT %MB176: ST_1e04;
-    fbCylinderC1: FB_1e04_Pneumatic;
+    stPneumaticP1 AT %MB176: ST_1e04;
+    fbPneumaticP1: FB_1e04_Pneumatic := (nPILSDeviceNumber := 6);
 
 // Array of Devices
 // Modify the array to fit the number of devices you have
-// nUnit codes: mm = 16xfd04, degrees = 16x000C, Celsius =16x0009, Kelvin 16x0008
+// nUnit codes: mm = 16#fd04, degrees = 16#000C, Celsius =16#0009, Kelvin 16#0008
 
     astDevices: ARRAY [1..6] OF ST_DeviceInfo :=[
         (nTypCode := 16#1201, sName := 'Variable1', nOffset := 128),
         (nTypCode := 16#1202, sName := 'Variable2', nOffset := 132),
-        (nTypCode := 16#5010, sName := 'M1-Example', nOffset := 136, nUnit := 16#FD04, asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('InterlockFwd'),('InterlockBwd'),('localMode'),('inTargetPos'),('homeSensor'),('notHomed'),('enabled')], nFlags := 1),
+        (nTypCode := 16#5010, sName := '' (*GVL.astAxes[x].stDescription.sAxisName*), nOffset := 136, nUnit := 16#fd04(*GVL.astAxes[x].stDescription.eUnit*), asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('InterlockFwd'),('InterlockBwd'),('localMode'),('inTargetPos'),('homeSensor'),('notHomed'),('enabled')], nFlags := 1),
         (nTypCode := 16#1202, sName := 'RawEncStep#1', nOffset := 168),
         (nTypCode := 16#1302, sName := 'Temp#1', nOffset := 172, nUnit := 16#0009),
-        (nTypCode := 16#1E04, sName := 'CylinderC1', nOffset := 176, asAUX := [(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),(''),('SolenoidActive'),('Retracted'),('Extracted'),('Retracting'),('Extending')], nFlags := 1)];
+        (nTypCode := 16#1E04, sName := '' (*GVL.astPneumaticAxes[1].stPneumaticAxisConfig.sPneumaticAxisName*), nOffset := 176, asAux := [('Closed'),('Closing'),('Opening'),('Opened'),('InTheMiddle'),(''),(''),(''),(''),(''),(''),(''),(''),(''),('Interlocked'),('PSSPermitDenied'),('SolenoidActive'),('Retracted'),('Extended'),('Retracting'),('Extending'),(''),(''),('')])];
+
 END_VAR
 ]]></Declaration>
   </GVL>
