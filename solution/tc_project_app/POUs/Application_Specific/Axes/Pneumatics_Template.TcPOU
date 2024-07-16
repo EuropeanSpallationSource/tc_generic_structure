@@ -1,13 +1,24 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
   <POU Name="Pneumatics_Template" Id="{7bf401fb-a600-4741-a67b-36f20e194cfc}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Pneumatics_Template
 VAR
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[//Test the program to control pneumatic acutator through PneumaticsVisu.
-//Currently implemented control of single solenoid through PLC and and manually, with two momentary push buttons.
+      <ST><![CDATA[//Initial parameters of an Pneumatic Axis
+//Uncomment the next IF statement to configure and activate the intial parameters of the axis
+(*IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bPneumaticAxisShutter := TRUE;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 10;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 10;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := 3.5;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := 6.0;
+END_IF
+*)
 
 
 
