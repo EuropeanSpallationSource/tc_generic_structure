@@ -10,7 +10,8 @@ VAR
     hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
     hmiPneumaticAxisSelection: INT := 1;
 //Startup, Shutdown and UPS
-    fbUPS: FB_S_UPS_CX51x0;
+    fbCX5130UPS: FB_S_UPS_CX51x0;
+    fbC6017UPS: FB_S_UPS_BAPI;
     eUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown;
     eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eFinishRestore);
     bPositionRestoreDone: BOOL := FALSE;
@@ -64,7 +65,13 @@ END_FOR
     </Action>
     <Action Name="CHECK_UPS" Id="{f0f28f50-53b8-4f73-b0f5-6d7ce4c1636f}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[fbUPS(eUpsMode := eUpsMode);
+        <ST><![CDATA[CASE GVL_APP.eCPUType OF
+    E_CPUType.CX5130:
+        fbCX5130UPS(eUpsMode := eUpsMode);
+
+    E_CPUType.C6017_0020:
+        fbC6017UPS(eUPSMode := eUPSMode);
+END_CASE
 
 FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
     //Read encoder position BIAS
