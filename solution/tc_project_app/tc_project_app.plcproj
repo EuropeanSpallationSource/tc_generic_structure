@@ -14,9 +14,11 @@
     <Implicit_Jitter_Distribution>{26d08e27-a705-49a9-95de-a3a0b6ea049c}</Implicit_Jitter_Distribution>
     <LibraryReferences>{577f21c4-8eb2-4f2c-a24e-4c3f62ca96d2}</LibraryReferences>
     <Released>false</Released>
-    <CompilerVersion>3.1.4024.0</CompilerVersion>
+    <CompilerVersion>
+    </CompilerVersion>
     <WriteProductVersion>true</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
     <Compile Include="DUTs\E_CPUType.TcDUT">
@@ -413,10 +415,10 @@
       <Resolution>Tc2_Math, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_MC2">
-      <Resolution>Tc2_MC2, 3.3.48.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc2_MC2, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_MC2_Drive">
-      <Resolution>Tc2_MC2_Drive, 3.3.26.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_Standard">
       <Resolution>Tc2_Standard, * (Beckhoff Automation GmbH)</Resolution>
@@ -431,7 +433,7 @@
       <Resolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc3_MC2_AdvancedHoming">
-      <Resolution>Tc3_MC2_AdvancedHoming, 3.0.15.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc3_MC2_AdvancedHoming, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc3_Module">
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
@@ -446,8 +448,8 @@
   <ProjectExtensions>
     <PlcProjectOptions>
       <XmlArchive>
-        <Data>
-          <o xml:space="preserve" t="OptionKey">
+  <Data>
+    <o xml:space="preserve" t="OptionKey">
       <v n="Name">"&lt;ProjectRoot&gt;"</v>
       <d n="SubKeys" t="Hashtable" ckt="String" cvt="OptionKey">
         <v>{192FAD59-8248-4824-A8DE-9177C94C195A}</v>
@@ -494,9 +496,7 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String">
             <v>VersionConstraint</v>
-            <o t="ExactVersionConstraintToSave">
-              <v n="TheVersion">"3.1.4024.0"</v>
-            </o>
+            <o t="NewestVersionConstraintToSave" />
             <v>EnableBreakpointLogging</v>
             <v>false</v>
           </d>
@@ -519,16 +519,16 @@
       </d>
       <d n="Values" t="Hashtable" />
     </o>
-        </Data>
-        <TypeList>
-          <Type n="Boolean">System.Boolean</Type>
-          <Type n="ExactVersionConstraintToSave">{f9079115-a4ba-4f30-bf7c-9e76613146fc}</Type>
-          <Type n="Hashtable">System.Collections.Hashtable</Type>
-          <Type n="Int32">System.Int32</Type>
-          <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
-          <Type n="String">System.String</Type>
-        </TypeList>
-      </XmlArchive>
+  </Data>
+  <TypeList>
+    <Type n="Boolean">System.Boolean</Type>
+    <Type n="Hashtable">System.Collections.Hashtable</Type>
+    <Type n="Int32">System.Int32</Type>
+    <Type n="NewestVersionConstraintToSave">{af9bafe2-ba31-4b15-a2b9-48a0f2cd09fb}</Type>
+    <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
+    <Type n="String">System.String</Type>
+  </TypeList>
+</XmlArchive>
     </PlcProjectOptions>
   </ProjectExtensions>
 </Project>
