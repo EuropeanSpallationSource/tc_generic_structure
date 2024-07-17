@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.12">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="Shutter_Operator_panel_Template" Id="{09741edf-58a0-0d9d-0563-de91fec8904d}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Shutter_Operator_panel_Template
 VAR

@@ -16,7 +16,7 @@
     <Released>false</Released>
     <CompilerVersion>
     </CompilerVersion>
-    <WriteProductVersion>true</WriteProductVersion>
+    <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
     <CombineIds>true</CombineIds>
   </PropertyGroup>
