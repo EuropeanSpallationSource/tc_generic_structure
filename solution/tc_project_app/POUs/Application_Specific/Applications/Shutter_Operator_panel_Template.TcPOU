@@ -16,26 +16,19 @@ END_VAR
       <ST><![CDATA[//Uncomment code that is needed to control the LEDs of the Safety Shutter Operator panel
 
 //Assign LED to the permit status
-(*IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisConfig.bPSSPneumaticAxisShutter THEN
-        bNoPermitLight := NOT gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisInputs.bPSSPermit;
-    ELSE
-        bNoPermitLight := FALSE;
-    END_IF
+//bNoPermitLight := NOT gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisInputs.bPSSPermit;
+
 
 //Assign LED to the error status
-bErrorLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bError;
+//bErrorLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bError;
 
 //Assign LEDs to the end switches statuses
-bExtendedLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtended;
-bRetractedLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracted;
+//bExtendedLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtended;
+//bRetractedLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracted;
 
 //Checking the condition for the Moving LED
-IF gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracting OR gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtending THEN
-        bMovingLight := TRUE;
-    ELSE
-        bMovingLight := FALSE;
-    END_IF
-*)
+//bMovingLight := gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bRetracting OR gvl.astPneumaticAxes[main.hmiPneumaticAxisSelection].stPneumaticAxisStatus.bExtending;
+
 ]]></ST>
     </Implementation>
   </POU>
