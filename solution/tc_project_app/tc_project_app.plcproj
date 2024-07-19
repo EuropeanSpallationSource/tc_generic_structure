@@ -14,11 +14,16 @@
     <Implicit_Jitter_Distribution>{b39e7cd9-877d-4b8b-8ad7-a23b7f728cf9}</Implicit_Jitter_Distribution>
     <LibraryReferences>{940cc5d5-1e48-41fd-b53d-784d5f2e6387}</LibraryReferences>
     <Released>false</Released>
-    <CompilerVersion>3.1.4024.0</CompilerVersion>
-    <WriteProductVersion>true</WriteProductVersion>
+    <CompilerVersion>
+    </CompilerVersion>
+    <WriteProductVersion>false</WriteProductVersion>
     <GenerateTpy>false</GenerateTpy>
+    <CombineIds>true</CombineIds>
   </PropertyGroup>
   <ItemGroup>
+    <Compile Include="DUTs\E_CPUType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
       <SubType>Code</SubType>
     </Compile>
@@ -30,6 +35,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Application_Template.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Shutter_Operator_panel_Template.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Application_Specific\Axes\Axis_Template.TcPOU">
@@ -69,6 +77,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_GearAxis.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_HomingConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisEngUnit.TcDUT">
@@ -132,9 +143,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\GVLs\GVL.TcGVL">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_AxisTemperature.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoring.TcPOU">
@@ -506,10 +514,10 @@
       <Resolution>Tc2_Math, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_MC2">
-      <Resolution>Tc2_MC2, 3.3.48.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc2_MC2, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_MC2_Drive">
-      <Resolution>Tc2_MC2_Drive, 3.3.26.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc2_Standard">
       <Resolution>Tc2_Standard, * (Beckhoff Automation GmbH)</Resolution>
@@ -524,7 +532,7 @@
       <Resolution>Tc2_Utilities, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc3_MC2_AdvancedHoming">
-      <Resolution>Tc3_MC2_AdvancedHoming, 3.0.15.0 (Beckhoff Automation GmbH)</Resolution>
+      <Resolution>Tc3_MC2_AdvancedHoming, * (Beckhoff Automation GmbH)</Resolution>
     </PlaceholderResolution>
     <PlaceholderResolution Include="Tc3_Module">
       <Resolution>Tc3_Module, * (Beckhoff Automation GmbH)</Resolution>
@@ -587,9 +595,7 @@
           <d n="SubKeys" t="Hashtable" />
           <d n="Values" t="Hashtable" ckt="String">
             <v>VersionConstraint</v>
-            <o t="ExactVersionConstraintToSave">
-              <v n="TheVersion">"3.1.4024.0"</v>
-            </o>
+            <o t="NewestVersionConstraintToSave" />
             <v>EnableBreakpointLogging</v>
             <v>false</v>
           </d>
@@ -615,9 +621,9 @@
         </Data>
         <TypeList>
           <Type n="Boolean">System.Boolean</Type>
-          <Type n="ExactVersionConstraintToSave">{f9079115-a4ba-4f30-bf7c-9e76613146fc}</Type>
           <Type n="Hashtable">System.Collections.Hashtable</Type>
           <Type n="Int32">System.Int32</Type>
+          <Type n="NewestVersionConstraintToSave">{af9bafe2-ba31-4b15-a2b9-48a0f2cd09fb}</Type>
           <Type n="OptionKey">{54dd0eac-a6d8-46f2-8c27-2f43c7e49861}</Type>
           <Type n="String">System.String</Type>
         </TypeList>

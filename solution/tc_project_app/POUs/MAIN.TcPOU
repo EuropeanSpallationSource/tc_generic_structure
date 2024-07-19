@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="MAIN" Id="{33eb6f49-7781-4211-a70b-87ada6d80cb7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
@@ -12,7 +12,8 @@ VAR
     nTestNum: UINT := 0; //variable use for fat-sat scripts
 
 //Startup, Shutdown and UPS
-    fbUPS: FB_S_UPS_CX51x0;
+    fbCX5130UPS: FB_S_UPS_CX51x0;
+    fbC6017UPS: FB_S_UPS_BAPI;
     eUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown;
     eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eFinishRestore);
     bPositionRestoreDone: BOOL := FALSE;
@@ -68,7 +69,13 @@ END_FOR
     </Action>
     <Action Name="CHECK_UPS" Id="{f0f28f50-53b8-4f73-b0f5-6d7ce4c1636f}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[fbUPS(eUpsMode := eUpsMode);
+        <ST><![CDATA[CASE GVL_APP.eCPUType OF
+    E_CPUType.CX5130:
+        fbCX5130UPS(eUpsMode := eUpsMode);
+
+    E_CPUType.C6017_0020:
+        fbC6017UPS(eUPSMode := eUPSMode);
+END_CASE
 
 FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
     //Read encoder position BIAS
@@ -112,9 +119,9 @@ GVL.fbGetCurTaskIndex();
 //Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
-//Axes program calls
+//Axes initial parameters and program
 Axis_Template();
-Pneumatics_Template();
+//Pneumatics_Template();
 
 //Application program calls
 Application_Template();
