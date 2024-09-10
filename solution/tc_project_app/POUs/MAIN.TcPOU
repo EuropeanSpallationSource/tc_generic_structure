@@ -45,6 +45,10 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
         afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
         aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
     END_FOR
+
+    FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
+        afbPneumaticAxes[GVL.iPneumaticAxis].stPneumaticAxis REF= astPneumaticAxes[GVL.iPneumaticAxis];
+    END_FOR
     //Custom axis types defined and linked to aiAxes here
       //FB_CustomAxis extends FB_axis
         //fbCustomAxis.stAxis REF= astAxes[x];
@@ -58,7 +62,7 @@ END_FOR
 
 //Execute Pneumatic Axis logic
 FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-    afbPneumaticAxes[GVL.iPneumaticAxis](stPneumaticAxisStruct := GVL.astPneumaticAxes[GVL.iPneumaticAxis]);
+    afbPneumaticAxes[GVL.iPneumaticAxis]();
 END_FOR
 ]]></ST>
       </Implementation>
