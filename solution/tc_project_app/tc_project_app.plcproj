@@ -88,6 +88,9 @@
     <Compile Include="tc_mca_std_lib\DUTs\E_CoEParameters.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_CoEParamState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_HomingRoutines.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
