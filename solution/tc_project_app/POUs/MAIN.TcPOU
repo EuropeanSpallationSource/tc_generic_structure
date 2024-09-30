@@ -37,7 +37,6 @@ END_VAR
 PROG();
 AXES();
 PILSv2();
-
 ]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
@@ -119,7 +118,7 @@ GVL.fbGetCurTaskIndex();
 //Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
-//Axes initial parameters and program
+//Axes program calls
 Axis_Template();
 //Pneumatics_Template();
 
