@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Shutter_Operator_panel_Template" Id="{09741edf-58a0-0d9d-0563-de91fec8904d}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Shutter_Operator_panel_Template
+VAR
+    //Variables used to control the LEDs of the Safety Shutter Operator panel
+    (*bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
+    bRetractedLight AT %Q*: BOOL; //Power output for Close position + LED
+    bMovingLight AT %Q*: BOOL; //Power output for cylinder Moving LED
+    bNoPermitLight AT %Q*: BOOL; //Power output for No permit LED
+    bErrorLight AT %Q*: BOOL; //Power output for Error LED
+    *)
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Uncomment the code, it is needed to control the LEDs of the Safety Shutter Operator panel
+(*
+//Assign LED to the permit status
+bNoPermitLight := NOT GVL.astPneumaticAxes[x].stPneumaticAxisInputs.bPSSPermit;
+
+//Assign LED to the error status
+bErrorLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bError;
+
+//Assign LEDs to the end switches statuses
+bExtendedLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bExtended;
+bRetractedLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bRetracted;
+
+//Checking the condition for the Moving LED
+bMovingLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bRetracting OR gvl.astPneumaticAxes[x].stPneumaticAxisStatus.bExtending;
+*)
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

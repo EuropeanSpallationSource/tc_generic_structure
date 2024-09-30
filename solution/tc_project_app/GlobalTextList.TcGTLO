@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1">
   <GlobalTextList Name="GlobalTextList" Id="{c3494959-baa5-4f73-b0cd-9c11912145dd}">
     <XmlArchive>
       <Data>
@@ -23,6 +23,11 @@
             <o>
               <v n="TextID">"951"</v>
               <v n="TextDefault">"%2.2f"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"17"</v>
+              <v n="TextDefault">"%2.3f"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -63,6 +68,11 @@
             <o>
               <v n="TextID">"953"</v>
               <v n="TextDefault">"actVel"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"414"</v>
+              <v n="TextDefault">"Allowed pressure out of range time(s)"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -213,6 +223,11 @@
             <o>
               <v n="TextID">"786"</v>
               <v n="TextDefault">"Bwd Enable"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"974"</v>
+              <v n="TextDefault">"Current pressure value (bar)"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -436,6 +451,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"347"</v>
+              <v n="TextDefault">"High pressure limit (bar)"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"123"</v>
               <v n="TextDefault">"HOME"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -481,6 +501,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1195"</v>
+              <v n="TextDefault">"Label"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"19"</v>
               <v n="TextDefault">"Limit switches simulation"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -493,6 +518,11 @@
             <o>
               <v n="TextID">"459"</v>
               <v n="TextDefault">"LimitFwd"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"961"</v>
+              <v n="TextDefault">"Low pressure limit (bar)"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
