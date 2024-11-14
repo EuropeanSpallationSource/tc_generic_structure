@@ -73,6 +73,9 @@
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisStruct.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_BacklashConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_GearAxis.TcDUT">
       <SubType>Code</SubType>
     </Compile>
