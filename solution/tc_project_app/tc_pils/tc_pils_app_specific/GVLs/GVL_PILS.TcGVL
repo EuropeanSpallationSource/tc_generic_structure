@@ -2,10 +2,10 @@
 <TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
   <GVL Name="GVL_PILS" Id="{ace53d5e-03a7-4e79-9a33-72de579eb8fd}">
     <Declaration><![CDATA[  VAR_GLOBAL
-  sPLCName: STRING[34] := 'Crate_000';
-    sPLCVersion: STRING[34] := '0.9.4';
-    sPLCAuthor1: STRING[59] := 'https://gitlab.esss.lu.se/mcag/sources/';
-    sPLCAuthor2: STRING[59] := 'tc_generic_structure.git';
+    sPLCName: STRING[SIZEOF(U_IndexerData.sStr)]    := 'crate_000';
+    sPLCVersion: STRING[SIZEOF(U_IndexerData.sStr)] := '0.9.5';
+    sPLCAuthor1: STRING[SIZEOF(U_IndexerData.sStr)] := 'https://gitlab.esss.lu.se/mcag/sources/';
+    sPLCAuthor2: STRING[SIZEOF(U_IndexerData.sStr)] := 'tc_generic_structure.git';
 
 //PILS Devices
 //Example code to define an Axis and other devices:
