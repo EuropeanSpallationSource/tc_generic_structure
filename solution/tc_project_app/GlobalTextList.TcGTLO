@@ -116,6 +116,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"394"</v>
+              <v n="TextDefault">"bEnableStopWithAnyLS"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"941"</v>
               <v n="TextDefault">"bError"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -663,6 +668,11 @@
             <o>
               <v n="TextID">"115"</v>
               <v n="TextDefault">"stop"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"978"</v>
+              <v n="TextDefault">"Stop at any Limit Swtich"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
