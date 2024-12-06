@@ -9,8 +9,6 @@ VAR
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis;
     hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
     hmiPneumaticAxisSelection: INT := 1;
-    nTestNum: UINT := 0; //variable use for fat-sat scripts
-
 //Startup, Shutdown and UPS
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
@@ -36,7 +34,6 @@ END_VAR
       <ST><![CDATA[POSITION_RECOVERY();
 PROG();
 AXES();
-PILSv2();
 ]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
@@ -47,10 +44,6 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
         afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
         aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
-    END_FOR
-
-    FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-        afbPneumaticAxes[GVL.iPneumaticAxis].stPneumaticAxis REF= astPneumaticAxes[GVL.iPneumaticAxis];
     END_FOR
     //Custom axis types defined and linked to aiAxes here
       //FB_CustomAxis extends FB_axis
@@ -65,7 +58,7 @@ END_FOR
 
 //Execute Pneumatic Axis logic
 FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-    afbPneumaticAxes[GVL.iPneumaticAxis]();
+    afbPneumaticAxes[GVL.iPneumaticAxis](stPneumaticAxisStruct := GVL.astPneumaticAxes[GVL.iPneumaticAxis]);
 END_FOR
 ]]></ST>
       </Implementation>
@@ -122,13 +115,12 @@ GVL.fbGetCurTaskIndex();
 //Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
-//Axes program calls
+//Axes initial parameters and program
 Axis_Template();
 //Pneumatics_Template();
 
 //Application program calls
 Application_Template();
-
 ]]></ST>
       </Implementation>
     </Action>
