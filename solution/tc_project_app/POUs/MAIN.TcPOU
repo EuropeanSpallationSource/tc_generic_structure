@@ -47,7 +47,7 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
         afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
         aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
     END_FOR
-
+    //Initialize pneumatic axes and link them to their corresponding instances
     FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
         afbPneumaticAxes[GVL.iPneumaticAxis].stPneumaticAxis REF= astPneumaticAxes[GVL.iPneumaticAxis];
     END_FOR
@@ -73,14 +73,16 @@ END_FOR
       <Implementation>
         <ST><![CDATA[CASE GVL_APP.eCPUType OF
     E_CPUType.CX5130:
+      //Handle UPS configuration for CX5130 CPU type
         fbCX5130UPS(eUpsMode := eUpsMode);
 
     E_CPUType.C6017_0020:
+     //Handle UPS configuration for C6017-0020 CPU type
         fbC6017UPS(eUPSMode := eUPSMode);
 END_CASE
 
 FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-    //Read encoder position BIAS
+    //Read the encoder position bias for initialized axes
     IF astAxes[iAxes].stStatus.bAxisInitialized THEN
         afbReadPositionBias[iAxes](Axis := GVL.astAxes[iAxes].Axis,
                         Enable := TRUE,
@@ -90,14 +92,14 @@ FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
 END_FOR
 
 IF eGlobalSUpsState = eSUPS_PowerFailure THEN
-    //first cycle of powerfailure
-    //execute code that should only be done once with each powerfailure, i.e. increase powerfailure counter
+    //First cycle of powerfailure
+    //Execute code that should only be done once with each powerfailure, i.e. increase powerfailure counter
     bRestoreOnStartup := TRUE;
     STORE_PERSISTENT();
     RETURN;
 ELSIF eGlobalSUpsState <> eSUPS_PowerOK THEN
-    //next cycles of powerfailure
-    //skip regular code execution for the remaining cycles of the powerfailure/writing of persistent data/quick shutdown...
+    //Next cycles of powerfailure
+    //Skip regular code execution for the remaining cycles of the powerfailure/writing of persistent data/quick shutdown...
     RETURN;
 END_IF
 ]]></ST>
