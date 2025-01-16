@@ -4,11 +4,11 @@
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
     sVersion: STRING := '1.0.0';
-    aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis;
-    afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis;
-    afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis;
-    hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
-    hmiPneumaticAxisSelection: INT := 1;
+    aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis; //Array of axis interfaces, size determined by the total number of axes in the system
+    afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis; //Array of axis function blocks, one for each axis
+    afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis; //Array of pneumatic axis function blocks, size determined by the number of pneumatic axes
+    hmiAxisSelection: INT := 1; //Specifies the currently selected axis for HMI operations, allowing the user to control a specific axis
+    hmiPneumaticAxisSelection: INT := 1; //Specifies the currently selected pneumatic axis for HMI operation, allowing the user to control the specific axis
 //Startup, Shutdown and UPS
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
@@ -17,7 +17,7 @@ VAR
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
     bExecuteReadEncRefSys: BOOL := FALSE;
-    nRetry: INT;
+    nRetry: INT; //A counter for startup actions
     iAxes: UINT; //index for for loops in Position recovery actions
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbSetPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
@@ -29,7 +29,7 @@ VAR
 END_VAR
 
 VAR PERSISTENT
-    bRestoreOnStartup: BOOL;
+    bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
 END_VAR
 ]]></Declaration>
     <Implementation>
