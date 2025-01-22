@@ -52,6 +52,7 @@
     </Compile>
     <Compile Include="POUs\PILSv2.TcPOU">
       <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisCoE.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -207,6 +208,9 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\E_Permission.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS32_State.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS_ParamControl.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -214,6 +218,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\E_PILS_State.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\E_Statusword32AlarmState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1201.TcDUT">
@@ -238,6 +245,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1a04.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1a08.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1b04.TcDUT">
