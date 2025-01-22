@@ -341,6 +341,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"720"</v>
+              <v n="TextDefault">"eReadCoEParameter"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"1004"</v>
               <v n="TextDefault">"eReadParameter"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -348,6 +353,11 @@
             <o>
               <v n="TextID">"939"</v>
               <v n="TextDefault">"errID"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"432"</v>
+              <v n="TextDefault">"eWriteCoEParameter"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -421,6 +431,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"457"</v>
+              <v n="TextDefault">"fReadCoEParam"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"954"</v>
               <v n="TextDefault">"fVelocity"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -433,6 +448,11 @@
             <o>
               <v n="TextID">"688"</v>
               <v n="TextDefault">"fWriteAxisParameter"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1221"</v>
+              <v n="TextDefault">"fWriteCoEParam"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

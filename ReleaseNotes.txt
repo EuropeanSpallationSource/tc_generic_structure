@@ -1,0 +1,78 @@
+Release notes
+
+In general: update them just before setting a tag:
+git tag -a vx.y.z
+
+Describe the changes (the motivation) which motiviated this tag.
+The same information should be added into this file, so that
+the tag has the "diff" of ReleaseNotes.txt, kind of.
+
+It is probably a good idea to set a new tag with every new feature.
+The first digit should be increased, when there are non compatible changes:
+  Things had been removed, code that had been moved inside the code tree,
+  so that a project will not compile without further changes.
+The second digit will be inccreased when a new feature had been added,
+which will reset the third digit to 0.
+(The word digit is wrong. We can have 2.11.13 or so)
+
+The 3rd digit will be increased, when there is a pure bugfix.
+See v2.0.0 vs 2.0.1
+
+v2.6.0
+- Compatible with tc_mca_std_lib v2.7.0
+- New features:
+  - Update MAIN.sVersion to 2.6.0 to match tag version.
+  - Add Release notes file for tc_generic_structure changes.
+  - Includes DUTs for:
+      Backlash compensation (MBP-167).
+	  Read/Write CoE Parameters from motor Drive (MBP-271).
+  - Add variable nTestNum in MAIN. The variable is used in the ESS's FAT_SAT_tools python scripts (MBP-295).
+  
+- Improvements:
+  - Solved WARNINGS related to the VAR_IN_OUT in the FB_PneumaticAxis (MBP-292).
+  - Add missing comments and improved comments for the variables in MAIN and GVL_APP and Application Specific POUs (MBP-257).
+
+v2.5.0
+- Compatible with tc_mca_std_lib v2.6.0
+- Improvements:
+  - Clean and simplify Shutter Operator Panel Template.
+  - Clean and improve Axis_template:
+	  Delete the variabels related to PILS.
+	  Add the variables and comments related to advanced homing configuration.
+	  Add the new variable bEnableStopWithAnyLimitSwitch.
+  - Update GlobalTextList to support the new button bEnableStopWithAnyLimitSwitch in MAINVISU
+
+v2.4.0
+- Compatible with tc_mca_std_lib v2.5.0
+- Improvements:
+  - Add commented variables to the Pneumatics_Template(PRG), as a template for pneumatic axis setup.
+  - Remove Product version line from the files.
+- New features:
+  - Add support for c6017 ups in Restore Position code (MBP-273).
+  - Add Shutter Operator panel Template, inlcudes the behavior of the LEDs on the panel code.
+
+v2.3.0
+- Compatible with tc_mca_std_lib v2.4.0
+- Improvements:
+  - Set PLC options:
+	  Update the project version to 4024.56.
+	  Change compiler version to "latest version".
+	  Select the option "Minimize the Id changes in TwinCAT files" to get rid of the changes in the id hash.
+	  Add ST_HomingConfig to the solution file structure.
+	  Update all libraries placeholders to latest version.
+	  The option "Clear invlaid persistent data" is set to true.
+
+v2.2.0
+- Compatible with tc_mca_std_lib v2.2.0
+- Improvements:
+  - Implement Axis description for EPICS PV in Axis_template (MBP-208).
+
+v2.1.0
+- Compatible with tc_mca_std_lib v2.1.0
+
+v2.0.0
+- Compatible with tc_mca_std_lib v2.0.2
+- New feature:
+  - Add Position Bias to the variables to restore when losing power (MBP-221).
+  - Remove unused OPC tags (MBP-245).
+  - Add git filter explanation to the file .gitattributes (MBP-246).

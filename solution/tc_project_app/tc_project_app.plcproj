@@ -52,6 +52,8 @@
     </Compile>
     <Compile Include="POUs\PILSv2.TcPOU">
       <SubType>Code</SubType>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisCoE.TcDUT">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisConfig.TcDUT">
       <SubType>Code</SubType>
@@ -90,6 +92,12 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisParameters.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_CoEParameters.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_CoEParamState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_HomingRoutines.TcTLEO">
@@ -165,6 +173,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Pneumatics\FB_PneumaticAxis.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\VISUs\CoEParamTextList.TcTLO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\VISUs\languageSupport.TcTLO">
@@ -316,49 +327,49 @@
   </ItemGroup>
   <ItemGroup>
     <PlaceholderReference Include="System_VisuElemEventTable">
-      <DefaultResolution>VisuElemEventTable, 1.0.3.0 (System)</DefaultResolution>
+      <DefaultResolution>VisuElemEventTable, * (System)</DefaultResolution>
       <Namespace>VisuElemEventTable</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemMeter">
-      <DefaultResolution>VisuElemMeter, 3.5.13.0 (System)</DefaultResolution>
+      <DefaultResolution>VisuElemMeter, * (System)</DefaultResolution>
       <Namespace>VisuElemMeter</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElems">
-      <DefaultResolution>VisuElems, 3.5.13.40 (System)</DefaultResolution>
+      <DefaultResolution>VisuElems, * (System)</DefaultResolution>
       <Namespace>VisuElems</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemsSpecialControls">
-      <DefaultResolution>VisuElemsSpecialControls, 3.5.13.0 (System)</DefaultResolution>
+      <DefaultResolution>VisuElemsSpecialControls, * (System)</DefaultResolution>
       <Namespace>VisuElemsSpecialControls</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemsWinControls">
-      <DefaultResolution>VisuElemsWinControls, 3.5.13.20 (System)</DefaultResolution>
+      <DefaultResolution>VisuElemsWinControls, * (System)</DefaultResolution>
       <Namespace>VisuElemsWinControls</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuElemTextEditor">
-      <DefaultResolution>VisuElemTextEditor, 3.5.13.0 (System)</DefaultResolution>
+      <DefaultResolution>VisuElemTextEditor, * (System)</DefaultResolution>
       <Namespace>VisuElemTextEditor</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="system_visuinputs">
-      <DefaultResolution>visuinputs, 3.5.13.0 (system)</DefaultResolution>
+      <DefaultResolution>visuinputs, * (system)</DefaultResolution>
       <Namespace>visuinputs</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
     </PlaceholderReference>
     <PlaceholderReference Include="System_VisuNativeControl">
-      <DefaultResolution>VisuNativeControl, 3.5.13.0 (System)</DefaultResolution>
+      <DefaultResolution>VisuNativeControl, * (System)</DefaultResolution>
       <Namespace>VisuNativeControl</Namespace>
       <SystemLibrary>true</SystemLibrary>
       <ResolverGuid>2717eb6a-dd07-4c66-8d8d-cacebd7b18ae</ResolverGuid>
