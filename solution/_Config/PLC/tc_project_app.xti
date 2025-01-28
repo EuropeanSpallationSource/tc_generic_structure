@@ -983,7 +983,7 @@ External Setpoint Generation:
 		</DataType>
 	</DataTypes>
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" ClearInvalidPersist="true" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{83792354-8B16-F471-93AE-C957C3918E0A}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{B3E3C2CE-C54E-85E5-DACD-0B019B984012}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -995,24 +995,27 @@ External Setpoint Generation:
 				</Var>
 				<Var>
 					<Name>GVL_PILS.fbMotorM1.fb_5010_NC_Coe_Param.stAxisStruct.stStatus.nStepperDriveCounter</Name>
-					<Comment><![CDATA[Raw internal counter from stepper drive]]></Comment>
+					<Comment><![CDATA[Raw internal counter value from the stepper drive]]></Comment>
 					<Type>UDINT</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PILS.fbMotorM1.fb_5010_NC_Coe_Param.stAxisStruct.stInputs.bLimitFwd</Name>
+					<Comment><![CDATA[Forward limit switch input (indicates forward movement limit reached)]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PILS.fbMotorM1.fb_5010_NC_Coe_Param.stAxisStruct.stInputs.bLimitBwd</Name>
+					<Comment><![CDATA[Backward limit switch input (indicates backward movement limit reached)]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PILS.fbMotorM1.fb_5010_NC_Coe_Param.stAxisStruct.stInputs.bHomeSensor</Name>
-					<Comment><![CDATA[Reference siganl for homing]]></Comment>
+					<Comment><![CDATA[Home sensor input (reference signal for homing operation)]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>GVL_PILS.fbMotorM1.fb_5010_NC_Coe_Param.stAxisStruct.stInputs.nTempPT100</Name>
+					<Comment><![CDATA[Temperature sensor input]]></Comment>
 					<Type>INT</Type>
 				</Var>
 				<Var>
