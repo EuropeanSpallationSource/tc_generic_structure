@@ -3,12 +3,13 @@
   <POU Name="MAIN" Id="{33eb6f49-7781-4211-a70b-87ada6d80cb7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-    sVersion: STRING := '1.0.0';
-    aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis;
-    afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis;
-    afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis;
-    hmiAxisSelection: INT := 1; //Not possible to use local hmi variables for array indexes
-    hmiPneumaticAxisSelection: INT := 1;
+    sVersion: STRING := '2.6.0'; //Version for tc_generic_structure
+    aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis; //Array of axis interfaces, size determined by the total number of axes in the system
+    afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis; //Array of axis function blocks, one for each axis
+    afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis; //Array of pneumatic axis function blocks, size determined by the number of pneumatic axes
+    hmiAxisSelection: INT := 1; //Specifies the currently selected axis for HMI operations, allowing the user to control a specific axis
+    hmiPneumaticAxisSelection: INT := 1; //Specifies the currently selected pneumatic axis for HMI operation, allowing the user to control the specific axis
+
 //Startup, Shutdown and UPS
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
@@ -17,24 +18,26 @@ VAR
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
     bExecuteReadEncRefSys: BOOL := FALSE;
-    nRetry: INT;
+    nRetry: INT; //A counter for startup actions
     iAxes: UINT; //index for for loops in Position recovery actions
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbSetPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
+
+    nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
 
 VAR PERSISTENT
-    bRestoreOnStartup: BOOL;
+    bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[POSITION_RECOVERY();
 PROG();
 AXES();
-]]></ST>
+PILSv2();]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
     <Action Name="AXES" Id="{7eb32732-9b53-4934-8cd9-20ba971dd8ff}">
@@ -45,6 +48,12 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
         afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
         aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
     END_FOR
+
+    //Initialize pneumatic axes and link them to their corresponding instances
+    FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
+        afbPneumaticAxes[GVL.iPneumaticAxis].stPneumaticAxis REF= astPneumaticAxes[GVL.iPneumaticAxis];
+    END_FOR
+
     //Custom axis types defined and linked to aiAxes here
       //FB_CustomAxis extends FB_axis
         //fbCustomAxis.stAxis REF= astAxes[x];
@@ -55,11 +64,6 @@ END_IF
 FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
     aIAxes[GVL.iAxis].Run();
 END_FOR
-
-//Execute Pneumatic Axis logic
-FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-    afbPneumaticAxes[GVL.iPneumaticAxis](stPneumaticAxisStruct := GVL.astPneumaticAxes[GVL.iPneumaticAxis]);
-END_FOR
 ]]></ST>
       </Implementation>
     </Action>
@@ -67,14 +71,16 @@ END_FOR
       <Implementation>
         <ST><![CDATA[CASE GVL_APP.eCPUType OF
     E_CPUType.CX5130:
+      //Handle UPS configuration for CX5130 CPU type
         fbCX5130UPS(eUpsMode := eUpsMode);
 
     E_CPUType.C6017_0020:
+     //Handle UPS configuration for C6017-0020 CPU type
         fbC6017UPS(eUPSMode := eUPSMode);
 END_CASE
 
 FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-    //Read encoder position BIAS
+    //Read the encoder position bias for initialized axes
     IF astAxes[iAxes].stStatus.bAxisInitialized THEN
         afbReadPositionBias[iAxes](Axis := GVL.astAxes[iAxes].Axis,
                         Enable := TRUE,
@@ -84,14 +90,14 @@ FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
 END_FOR
 
 IF eGlobalSUpsState = eSUPS_PowerFailure THEN
-    //first cycle of powerfailure
-    //execute code that should only be done once with each powerfailure, i.e. increase powerfailure counter
+    //First cycle of powerfailure
+    //Execute code that should only be done once with each powerfailure, i.e. increase powerfailure counter
     bRestoreOnStartup := TRUE;
     STORE_PERSISTENT();
     RETURN;
 ELSIF eGlobalSUpsState <> eSUPS_PowerOK THEN
-    //next cycles of powerfailure
-    //skip regular code execution for the remaining cycles of the powerfailure/writing of persistent data/quick shutdown...
+    //Next cycles of powerfailure
+    //Skip regular code execution for the remaining cycles of the powerfailure/writing of persistent data/quick shutdown...
     RETURN;
 END_IF
 ]]></ST>
