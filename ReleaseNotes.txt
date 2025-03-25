@@ -27,7 +27,7 @@ v2.6.0
       Backlash compensation (MBP-167).
 	  Read/Write CoE Parameters from motor Drive (MBP-271).
   - Add variable nTestNum in MAIN. The variable is used in the ESS's FAT_SAT_tools python scripts (MBP-295).
-  
+
 - Improvements:
   - Solved WARNINGS related to the VAR_IN_OUT in the FB_PneumaticAxis (MBP-292).
   - Add missing comments and improved comments for the variables in MAIN and GVL_APP and Application Specific POUs (MBP-257).
