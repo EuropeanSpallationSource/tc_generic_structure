@@ -15,8 +15,6 @@ END_VAR
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := 3.5;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := 6.0;
 END_IF
 *)
 
