@@ -120,6 +120,7 @@ END_IF
       <Implementation>
         <ST><![CDATA[//Get task index for Axes parameters initialization.
 GVL.fbGetCurTaskIndex();
+Cabinet_Configuration();
 
 //Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
