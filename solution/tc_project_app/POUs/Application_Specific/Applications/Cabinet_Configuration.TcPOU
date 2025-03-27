@@ -7,7 +7,8 @@ VAR
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*fbCabinetMonitoring(
+      <ST><![CDATA[(*
+fbCabinetMonitoring(
     nEcMasterNetId:= ,
     aErrorID=> ,
     aErrorMsg=> ,
@@ -18,12 +19,12 @@ END_VAR
 *)
 
 //Define pressure limits for pneumatic pressure group 1
-GVL.fHighLimitAirPressureGroup1 := 0.0;
-GVL.fLowLimitAirPressureGroup1 := 0.0;
+//GVL.fHighLimitAirPressureGroup1 := 0.0;
+//GVL.fLowLimitAirPressureGroup1 := 0.0;
 
 //Define pressure limits for pneumatic pressure group 2
-GVL.fHighLimitAirPressureGroup2 := 0.0;
-GVL.fLowLimitAirPressureGroup2 := 0.0;
+//GVL.fHighLimitAirPressureGroup2 := 0.0;
+//GVL.fLowLimitAirPressureGroup2 := 0.0;
 ]]></ST>
     </Implementation>
   </POU>
