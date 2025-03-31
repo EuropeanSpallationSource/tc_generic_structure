@@ -37,7 +37,8 @@ END_VAR
       <ST><![CDATA[POSITION_RECOVERY();
 PROG();
 AXES();
-PILSv2();]]></ST>
+PILSv2();
+]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
     <Action Name="AXES" Id="{7eb32732-9b53-4934-8cd9-20ba971dd8ff}">
