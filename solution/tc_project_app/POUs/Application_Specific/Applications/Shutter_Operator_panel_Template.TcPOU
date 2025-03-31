@@ -5,7 +5,7 @@
 VAR
     //Variables used to control the LEDs of the Safety Shutter Operator panel
 (*
-	{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 1^Output'}
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 1^Output'}
     bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 3^Output'}
     bRetractedLight AT %Q*: BOOL; //Power output for Close position + LED
