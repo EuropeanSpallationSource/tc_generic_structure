@@ -125,7 +125,7 @@ GVL.fbGetCurTaskIndex();
 //Create as many programs in that folder as axes and applications you have or need
 
 //Cabinet monitoring and pressure limits for pneumatics
-Cabinet_Configuration();
+//Cabinet_Configuration();
 
 //Axes initial parameters and program
 Axis_Template();

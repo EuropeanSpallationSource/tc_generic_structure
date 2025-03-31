@@ -9,7 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[(*
 fbCabinetMonitoring(
-    nEcMasterNetId:= ,
+    nEcMasterNetId:=  , //AMS NetId of Device (EtherCAT) from I/Os
     aErrorID=> ,
     aErrorMsg=> ,
     nEcMasterFramesLost=> ,
