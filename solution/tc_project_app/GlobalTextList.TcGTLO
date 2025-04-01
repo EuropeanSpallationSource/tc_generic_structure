@@ -236,6 +236,16 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"1386"</v>
+              <v n="TextDefault">"disSoftLimBw"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"269"</v>
+              <v n="TextDefault">"disSoftLimFw"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"986"</v>
               <v n="TextDefault">"ehomeDirect"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -338,6 +348,16 @@
             <o>
               <v n="TextID">"109"</v>
               <v n="TextDefault">"English"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1496"</v>
+              <v n="TextDefault">"enSoftLimBw"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"850"</v>
+              <v n="TextDefault">"enSoftLimFw"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -693,6 +713,11 @@
             <o>
               <v n="TextID">"978"</v>
               <v n="TextDefault">"Stop at any Limit Swtich"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
+              <v n="TextID">"1033"</v>
+              <v n="TextDefault">"SWLimitSwitches"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>

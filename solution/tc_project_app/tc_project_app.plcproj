@@ -37,6 +37,9 @@
     <Compile Include="POUs\Application_Specific\Applications\Application_Template.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Cabinet_Configuration.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Shutter_Operator_panel_Template.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -103,7 +106,7 @@
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisParameters.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\E_MonitoringLedFunction.TcDUT">
+    <Compile Include="tc_mca_std_lib\DUTs\E_MonitorLed.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_RestorePosition.TcDUT">
@@ -116,6 +119,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticAxisErrors.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticAxisGroup.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Pneumatics\E_PneumaticMode.TcDUT">
@@ -154,7 +160,10 @@
     <Compile Include="tc_mca_std_lib\GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoring.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5001a.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU400x.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Motion\FB_Axis.TcPOU">
