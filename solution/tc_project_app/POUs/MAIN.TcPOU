@@ -132,6 +132,7 @@ Axis_Template();
 //Pneumatics_Template();
 
 //Application program calls
+Cabinet_Configuration();
 Application_Template();
 ]]></ST>
       </Implementation>
