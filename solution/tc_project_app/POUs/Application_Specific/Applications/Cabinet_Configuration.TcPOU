@@ -4,10 +4,13 @@
     <Declaration><![CDATA[PROGRAM Cabinet_Configuration
 VAR
     //fbCabinetMonitoring: FB_ESSMonitoringMCU5001a; FB_ESSMonitoringMCU5001b; FB_ESSMonitoringMCU6001a; FB_ESSMonitoringMCU6001b; FB_ESSMonitoringMCU5002; FB_ESSMonitoringMCU5003;
+    fScaledAirPressureGroup1: REAL;
+    fScaledAirPressureGroup2: REAL;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*fbCabinetMonitoring(
+      <ST><![CDATA[//Cabinet monitoring
+(*fbCabinetMonitoring(
     nEcMasterNetId:= ,
     aErrorID=> ,
     aErrorMsg=> ,
@@ -17,14 +20,34 @@ END_VAR
     nAlarmGrpBitNumber=> );
 *)
 
-//Define pressure limits for pneumatic pressure group 1
-GVL.fHighLimitAirPressureGroup1 := 0.0;
-GVL.fLowLimitAirPressureGroup1 := 0.0;
-
-//Define pressure limits for pneumatic pressure group 2
-GVL.fHighLimitAirPressureGroup2 := 0.0;
-GVL.fLowLimitAirPressureGroup2 := 0.0;
+//Scale pressure sensor group 1 and 2
+fScaledAirPressureGroup1 := mScaledPressureValue(nRawValue:=GVL.nAirPressureSensorGroup1);
+fScaledAirPressureGroup2 := mScaledPressureValue(nRawValue:=GVL.nAirPressureSensorGroup2);
 ]]></ST>
     </Implementation>
+    <Method Name="mScaledPressureValue" Id="{3a9ac7a5-453e-098d-2143-f7d60168bb86}">
+      <Declaration><![CDATA[METHOD PUBLIC mScaledPressureValue : REAL
+VAR_INPUT
+    nRawValue: INT; //Raw value from the Terminal
+END_VAR
+VAR
+    rGradient: REAL; //Internal variable to calculate gradient of the slope
+    rOffset: REAL; //Internal variable to calculate the offset value
+
+    fRawHigh: REAL := 30518.0; //Highest value for the Raw value
+    fRawLow: REAL := 0.0; //Lowest value for the Raw value
+    fScaledHigh: REAL := 10.0; //Highest value for the Scaled value 10 bar
+    fScaledLow: REAL := 0.0; //Lowest value for the Scaled value 0 bar
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rGradient:= (fScaledHigh - fScaledLow)/(fRawHigh - fRawLow);
+rOffset:= fScaledHigh - rGradient * fRawHigh;
+mScaledPressureValue:= rGradient * nRawValue + rOffset;
+
+
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
