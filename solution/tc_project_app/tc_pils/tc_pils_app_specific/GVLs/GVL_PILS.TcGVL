@@ -1,12 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1">
   <GVL Name="GVL_PILS" Id="{ace53d5e-03a7-4e79-9a33-72de579eb8fd}">
     <Declaration><![CDATA[  VAR_GLOBAL
     sPLCName: STRING[SIZEOF(U_IndexerData.sStr)]    := 'crate_000';
     sPLCVersion: STRING[SIZEOF(U_IndexerData.sStr)] := '0.9.5';
     sPLCAuthor1: STRING[SIZEOF(U_IndexerData.sStr)] := 'https://gitlab.esss.lu.se/mcag/sources/';
     sPLCAuthor2: STRING[SIZEOF(U_IndexerData.sStr)] := 'tc_generic_structure.git';
-
+(*
 //PILS Devices
 //Example code to define an Axis and other devices:
     stVariable1 AT %MB128: ST_1201;
@@ -22,7 +22,7 @@
     //Pneumatics
     stPneumaticP1 AT %MB176: ST_1e04;
     fbPneumaticP1: FB_1e04_Pneumatic := (nPILSDeviceNumber := 6);
-
+*)
 // Array of Devices
 // Modify the array to fit the number of devices you have
 // nUnit codes: mm = 16#fd04, degrees = 16#000C, Celsius =16#0009, Kelvin 16#0008
