@@ -9,14 +9,13 @@ END_VAR
     <Implementation>
       <ST><![CDATA[//Initial parameters of an Pneumatic Axis
 //Uncomment the next IF statement to configure and activate the intial parameters of the axis
-(*IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+(*
+IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bPneumaticAxisShutter := TRUE;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bSafetyShutter := TRUE;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := 3.5;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := 6.0;
 END_IF
 *)
 
