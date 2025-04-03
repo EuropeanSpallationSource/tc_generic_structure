@@ -4,7 +4,7 @@
     <Declaration><![CDATA[PROGRAM Axis_Template
 VAR
 //Outputs: Power for Limit switches, Home Sensors, etc.
-    //bPowerSwitchesAxis1 AT %Q*: BOOL:= TRUE;
+    bPowerSwitchesAxis1 AT %Q*: BOOL:= TRUE;
 
 //Hardware interlocks
     //bInterlockFwdOK AT %I*: BOOL;
