@@ -4,12 +4,18 @@
     <Declaration><![CDATA[PROGRAM Shutter_Operator_panel_Template
 VAR
     //Variables used to control the LEDs of the Safety Shutter Operator panel
-    (*bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
+(*
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 1^Output'}
+    bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 3^Output'}
     bRetractedLight AT %Q*: BOOL; //Power output for Close position + LED
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 2^Output'}
     bMovingLight AT %Q*: BOOL; //Power output for cylinder Moving LED
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF04 (EL2014)^DIG Outputs^Channel 1^Output'}
     bNoPermitLight AT %Q*: BOOL; //Power output for No permit LED
+    {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF04 (EL2014)^DIG Outputs^Channel 2^Output'}
     bErrorLight AT %Q*: BOOL; //Power output for Error LED
-    *)
+*)
 END_VAR
 ]]></Declaration>
     <Implementation>
