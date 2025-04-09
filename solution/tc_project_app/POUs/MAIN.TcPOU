@@ -65,6 +65,11 @@ END_IF
 FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
     aIAxes[GVL.iAxis].Run();
 END_FOR
+
+//Execute Pneumatic Axis logic
+FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
+    afbPneumaticAxes[GVL.iPneumaticAxis]();
+END_FOR
 ]]></ST>
       </Implementation>
     </Action>
