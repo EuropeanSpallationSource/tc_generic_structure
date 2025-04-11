@@ -22,7 +22,7 @@ END_VAR
       <ST><![CDATA[//Uncomment the code, it is needed to control the LEDs of the Safety Shutter Operator panel
 (*
 //Assign LED to the permit status
-bNoPermitLight := NOT GVL.astPneumaticAxes[x].stPneumaticAxisInputs.bPSSPermit;
+bNoPermitLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bPSSPermit;
 
 //Assign LED to the error status
 bErrorLight := GVL.astPneumaticAxes[x].stPneumaticAxisStatus.bError;
