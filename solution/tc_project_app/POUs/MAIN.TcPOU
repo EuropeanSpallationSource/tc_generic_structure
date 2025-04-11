@@ -129,11 +129,13 @@ GVL.fbGetCurTaskIndex();
 
 //Axes initial parameters and program
 Axis_Template();
+Safety_Shutter();
 //Pneumatics_Template();
 
 //Application program calls
-Cabinet_Configuration();
-Application_Template();
+Cabinet_Monitoring();
+Pneumatic_Box();
+//Application_Template();
 ]]></ST>
       </Implementation>
     </Action>

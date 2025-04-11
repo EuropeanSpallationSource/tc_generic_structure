@@ -1,9 +1,12 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <POU Name="Pneumatics_Template" Id="{7bf401fb-a600-4741-a67b-36f20e194cfc}" SpecialFunc="None">
-    <Declaration><![CDATA[PROGRAM Pneumatics_Template
+  <POU Name="Safety_Shutter" Id="{6edcef4b-0039-01e0-14cb-28763a1c98aa}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Safety_Shutter
 VAR
     //Define all necessary variables for your application
+    bPSSPermitPower AT %Q*: BOOL := TRUE;
+    bPSSPermit1 AT %I*: BOOL;
+    bPSSPermit2 at %I*: BOOL;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -11,14 +14,17 @@ END_VAR
 //Uncomment the next IF statement to configure and activate the intial parameters of the axis
 (*
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'P1PneuAxis';
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bSafetyShutter := FALSE;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'SafetyShutter';
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bSafetyShutter := TRUE;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup#;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup1;
 END_IF
 *)
+
+//PSS Permit signal
+//GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bPSSPermit := bPSSPermit1 AND bPSSPermit2
 ]]></ST>
     </Implementation>
   </POU>
