@@ -135,6 +135,7 @@ Safety_Shutter();
 //Application program calls
 Cabinet_Monitoring();
 Pneumatic_Box();
+//Shutter_Operator_Panel();
 //Application_Template();
 ]]></ST>
       </Implementation>

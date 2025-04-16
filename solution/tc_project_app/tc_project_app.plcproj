@@ -43,7 +43,7 @@
     <Compile Include="POUs\Application_Specific\Applications\Pneumatic_Box.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="POUs\Application_Specific\Applications\Shutter_Operator_panel_Template.TcPOU">
+    <Compile Include="POUs\Application_Specific\Applications\Shutter_Operator_Panel.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Application_Specific\Axes\Axis_Template.TcPOU">
