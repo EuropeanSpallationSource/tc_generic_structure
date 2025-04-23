@@ -10,21 +10,17 @@ END_VAR
       <ST><![CDATA[//Initial parameters of an Pneumatic Axis
 //Uncomment the next IF statement to configure and activate the intial parameters of the axis
 (*
-IF TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'Shutter';
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bSafetyShutter := TRUE;
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.sPneumaticAxisName := 'P1PneuAxis';
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.bSafetyShutter := FALSE;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToExtend := 10;
     GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nTimeToRetract := 10;
-    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.nAllowTimePressureOutOfRange := 5;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.tAllowTimePressureOutOfRange := GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup#;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fLowLimitPressureValue := GVL_APP.fLOW_LIMIT_AIR_PRESSURE#;
+    GVL.astPneumaticAxes[x].stPneumaticAxisConfig.fHighLimitPressureValue := GVL_APP.fHIGH_LIMIT_AIR_PRESSURE#;
 END_IF
 *)
-
-
-
-
-
-
-
 ]]></ST>
     </Implementation>
   </POU>

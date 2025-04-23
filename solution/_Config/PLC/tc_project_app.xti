@@ -1,11 +1,19 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62" ClassName="CNestedPlcProjDef">
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" ClearInvalidPersist="true" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{C4BD3855-3315-D1A6-F8E7-1C5E39A5801C}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{38EB9C89-F2EA-1F8B-A69A-A8444D140251}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
+				<Var>
+					<Name>Safety_Shutter.bPSSPermit1</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Safety_Shutter.bPSSPermit2</Name>
+					<Type>BOOL</Type>
+				</Var>
 				<Var>
 					<Name>GVL.nAirPressureSensorGroup1</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 1]]></Comment>
@@ -15,6 +23,24 @@
 					<Name>GVL.nAirPressureSensorGroup2</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 2]]></Comment>
 					<Type>INT</Type>
+				</Var>
+			</Vars>
+			<Vars VarGrpType="2" AreaNo="1">
+				<Name>PlcTask Outputs</Name>
+				<Var>
+					<Name>Safety_Shutter.bPSSPermitPower</Name>
+					<Comment><![CDATA[Define all necessary variables for your application]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatic_Box.bPowerLedAndLight</Name>
+					<Comment><![CDATA[Variable to power the green LED and the internal light]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatic_Box.bPowerPressureSensors</Name>
+					<Comment><![CDATA[Variable to power the air pressure sensors in the pneuatmic box]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Contexts>

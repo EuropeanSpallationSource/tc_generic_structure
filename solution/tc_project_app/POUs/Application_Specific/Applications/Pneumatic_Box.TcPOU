@@ -1,0 +1,105 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Pneumatic_Box" Id="{6f77a7af-7f82-065a-2434-407aca22087a}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Pneumatic_Box
+VAR
+    //Define all necessary variables for your application
+    bPowerLedAndLight AT %Q*: BOOL:= TRUE; //Variable to power the green LED and the internal light
+    bPowerPressureSensors AT %Q*: BOOL:= TRUE; //Variable to power the air pressure sensors in the pneuatmic box
+    fScaledAirPressureGroup1: REAL;
+    fScaledAirPressureGroup2: REAL;
+
+
+    //Variable for the PSS box air feeding pressure
+    //fScaledAirPressurePSS: REAL;
+    //nRawAirPressurePSS AT %I*: INT;
+
+    //Variables for air pressure status
+    bAirPressureLowGrp1: BOOL;
+    bAirPressureHighGrp1: BOOL;
+    bAirPressureLowGrp2: BOOL;
+    bAirPressureHighGrp2: BOOL;
+
+    //Timers for air pressur out of range
+    fbOutOfRangeLowTimer1: TON;
+    fbOutOfRangeHighTimer1: TON;
+    fbOutOfRangeLowTimer2: TON;
+    fbOutOfRangeHighTimer2: TON;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Scale pressure sensor group 1 and 2
+fScaledAirPressureGroup1 := mScaledPressureValue(nRawValue:=GVL.nAirPressureSensorGroup1);
+fScaledAirPressureGroup2 := mScaledPressureValue(nRawValue:=GVL.nAirPressureSensorGroup2);
+//fScaledAirPressurePSS := mScaledPressureValue(nRawValue:=nRawAirPressurePSS);
+
+mAirPressureLimits();
+]]></ST>
+    </Implementation>
+    <Method Name="mAirPressureLimits" Id="{e89d1593-a8ca-0d0d-2454-1b7741864d9f}">
+      <Declaration><![CDATA[METHOD mAirPressureLimits
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[fbOutOfRangeLowTimer1(IN := fScaledAirPressureGroup1 < GVL_APP.fLOW_LIMIT_AIR_PRESSURE1,PT:=GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE);
+fbOutOfRangeHighTimer1(IN := fScaledAirPressureGroup1 > GVL_APP.fHigh_LIMIT_AIR_PRESSURE1,PT:=GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE);
+
+fbOutOfRangeLowTimer2(IN := fScaledAirPressureGroup2 < GVL_APP.fLOW_LIMIT_AIR_PRESSURE2,PT:=GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE);
+fbOutOfRangeHighTimer2(IN := fScaledAirPressureGroup2 > GVL_APP.fHigh_LIMIT_AIR_PRESSURE2,PT:=GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE);
+
+//Check if the air pressure value is too low for longer than defined time
+IF fbOutOfRangeLowTimer1.Q THEN
+    bAirPressureLowGrp1 := TRUE;
+ELSE
+    bAirPressureLowGrp1 := FALSE;
+END_IF
+
+IF fbOutOfRangeLowTimer2.Q THEN
+    bAirPressureLowGrp2 := TRUE;
+ELSE
+    bAirPressureLowGrp2 := FALSE;
+END_IF
+
+
+//Check if the air pressure value is too high for longer than defined time
+IF fbOutOfRangeHighTimer1.Q THEN
+    bAirPressureHighGrp1 := TRUE;
+ELSE
+    bAirPressureHighGrp1 := FALSE;
+END_IF
+
+IF fbOutOfRangeHighTimer2.Q THEN
+    bAirPressureHighGrp2 := TRUE;
+ELSE
+    bAirPressureHighGrp2 := FALSE;
+END_IF
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mScaledPressureValue" Id="{0a1832fc-ef94-036a-37c0-f6a54ad9133a}">
+      <Declaration><![CDATA[METHOD PUBLIC mScaledPressureValue : REAL
+VAR_INPUT
+    nRawValue: INT; //Raw value from the Terminal
+END_VAR
+VAR
+    rGradient: REAL; //Internal variable to calculate gradient of the slope
+    rOffset: REAL; //Internal variable to calculate the offset value
+
+    fRawHigh: REAL := 30518.0; //Highest value for the Raw value
+    fRawLow: REAL := 0.0; //Lowest value for the Raw value
+    fScaledHigh: REAL := 10.0; //Highest value for the Scaled value 10 bar
+    fScaledLow: REAL := 0.0; //Lowest value for the Scaled value 0 bar
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[rGradient:= (fScaledHigh - fScaledLow)/(fRawHigh - fRawLow);
+rOffset:= fScaledHigh - rGradient * fRawHigh;
+mScaledPressureValue:= rGradient * nRawValue + rOffset;
+
+
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>
