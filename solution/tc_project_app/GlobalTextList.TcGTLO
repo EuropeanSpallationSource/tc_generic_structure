@@ -6,21 +6,6 @@
         <o xml:space="preserve" t="GlobalTextListObject">
           <l n="TextList" t="ArrayList" cet="TextListRow">
             <o>
-              <v n="TextID">"947"</v>
-              <v n="TextDefault">"   LocalMode"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"972"</v>
-              <v n="TextDefault">"  bLocalMode"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"587"</v>
-              <v n="TextDefault">"%1d"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"951"</v>
               <v n="TextDefault">"%2.2f"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -41,18 +26,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"39"</v>
-              <v n="TextDefault">"%n"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"821"</v>
               <v n="TextDefault">"%s"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"916"</v>
-              <v n="TextDefault">"%time_t"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -96,11 +71,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"633"</v>
-              <v n="TextDefault">"bCoammandAborted"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"225"</v>
               <v n="TextDefault">"bCommandAborted"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -126,11 +96,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"102"</v>
-              <v n="TextDefault">"bExecute"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"999"</v>
               <v n="TextDefault">"bExtended"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -141,11 +106,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"297"</v>
-              <v n="TextDefault">"bGeared"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"902"</v>
               <v n="TextDefault">"bHighTempAxisDisabled"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -153,11 +113,6 @@
             <o>
               <v n="TextID">"948"</v>
               <v n="TextDefault">"bHomed"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"944"</v>
-              <v n="TextDefault">"bCommandAborted"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -176,8 +131,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"541"</v>
-              <v n="TextDefault">"bInVeloit"</v>
+              <v n="TextID">"835"</v>
+              <v n="TextDefault">"bLocalMode"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -191,18 +146,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"648"</v>
-              <v n="TextDefault">"bMovingExtract"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"998"</v>
               <v n="TextDefault">"bMovingRetract"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"511"</v>
-              <v n="TextDefault">"bPermit"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -243,11 +188,6 @@
             <o>
               <v n="TextID">"269"</v>
               <v n="TextDefault">"disSoftLimFw"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"986"</v>
-              <v n="TextDefault">"ehomeDirect"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -306,11 +246,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"313"</v>
-              <v n="TextDefault">"Elapsed time"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"87"</v>
               <v n="TextDefault">"Elapsed time (ms)"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -318,16 +253,6 @@
             <o>
               <v n="TextID">"104"</v>
               <v n="TextDefault">"ENABLE"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"106"</v>
-              <v n="TextDefault">"ENABLE BW"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"105"</v>
-              <v n="TextDefault">"ENABLE FW"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -343,11 +268,6 @@
             <o>
               <v n="TextID">"1084"</v>
               <v n="TextDefault">"EndSwitchFwd"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"109"</v>
-              <v n="TextDefault">"English"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -386,11 +306,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"768"</v>
-              <v n="TextDefault">"eWriteParameter"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"937"</v>
               <v n="TextDefault">"E_PneumaticErrors"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -398,11 +313,6 @@
             <o>
               <v n="TextID">"333"</v>
               <v n="TextDefault">"E_PneumaticMode"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"463"</v>
-              <v n="TextDefault">"E_PneumaticMode Selection"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -428,11 +338,6 @@
             <o>
               <v n="TextID">"613"</v>
               <v n="TextDefault">"fHomePosition"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"157"</v>
-              <v n="TextDefault">"fHomePositions"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -476,11 +381,6 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"299"</v>
-              <v n="TextDefault">"gearIn"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"717"</v>
               <v n="TextDefault">"gearInMultiMaster"</v>
               <l n="LanguageTexts" t="ArrayList" />
@@ -501,28 +401,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"123"</v>
-              <v n="TextDefault">"HOME"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"568"</v>
               <v n="TextDefault">"Home"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"169"</v>
-              <v n="TextDefault">"homeDirect"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"566"</v>
-              <v n="TextDefault">"homeSensorNeg"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"677"</v>
-              <v n="TextDefault">"homeSensorPos"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -551,38 +431,13 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"19"</v>
-              <v n="TextDefault">"Limit switches simulation"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"919"</v>
-              <v n="TextDefault">"LimitBwd"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"459"</v>
-              <v n="TextDefault">"LimitFwd"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"961"</v>
               <v n="TextDefault">"Low pressure limit (bar)"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"298"</v>
-              <v n="TextDefault">"masterGear"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"460"</v>
               <v n="TextDefault">"Mode Selection"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"118"</v>
-              <v n="TextDefault">"Mode selection"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -611,28 +466,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"716"</v>
-              <v n="TextDefault">"nTimeToExtend"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"787"</v>
-              <v n="TextDefault">"nTimeToExtend(ms)"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"992"</v>
               <v n="TextDefault">"nTimeToExtend(s)"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"929"</v>
-              <v n="TextDefault">"nTimeToRetract"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"444"</v>
-              <v n="TextDefault">"nTimeToRetract(ms)"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -646,23 +481,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"958"</v>
-              <v n="TextDefault">"Pneumatic AxisSelection"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"694"</v>
-              <v n="TextDefault">"Pneumatics"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"942"</v>
               <v n="TextDefault">"reset"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"611"</v>
-              <v n="TextDefault">"shomeDirect"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -673,21 +493,6 @@
             <o>
               <v n="TextID">"761"</v>
               <v n="TextDefault">"Single Solenoid PLC"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"581"</v>
-              <v n="TextDefault">"Single Solenoid PLC ON"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"959"</v>
-              <v n="TextDefault">"Sngle solenoid PLC"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"466"</v>
-              <v n="TextDefault">"Sngle solenoid PLC "</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
@@ -711,33 +516,8 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
-              <v n="TextID">"978"</v>
-              <v n="TextDefault">"Stop at any Limit Swtich"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
               <v n="TextID">"1033"</v>
               <v n="TextDefault">"SWLimitSwitches"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"108"</v>
-              <v n="TextDefault">"Test Language"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"103"</v>
-              <v n="TextDefault">"toggle"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"445"</v>
-              <v n="TextDefault">"Write"</v>
-              <l n="LanguageTexts" t="ArrayList" />
-            </o>
-            <o>
-              <v n="TextID">"322"</v>
-              <v n="TextDefault">"WriteParameters"</v>
               <l n="LanguageTexts" t="ArrayList" />
             </o>
           </l>
