@@ -4,6 +4,7 @@
     <Declaration><![CDATA[PROGRAM Pneumatic_Box
 VAR
     //Define all necessary variables for your application
+    bPowerLedAndLight AT %Q*: BOOL:= TRUE; //Variable to power the green LED and the internal light
     bPowerPressureSensors AT %Q*: BOOL:= TRUE; //Variable to power the air pressure sensors in the pneuatmic box
     fScaledAirPressureGroup1: REAL;
     fScaledAirPressureGroup2: REAL;
