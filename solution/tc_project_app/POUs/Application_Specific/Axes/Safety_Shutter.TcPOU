@@ -23,10 +23,10 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fLowLimitPressureValue := GVL_APP.fLOW_LIMIT_AIR_PRESSURE1;
     GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fHighLimitPressureValue := GVL_APP.fHIGH_LIMIT_AIR_PRESSURE1;
 END_IF
-*)
 
 //PSS Permit signal
 //GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bPSSPermitOK := bPSSPermit1 AND bPSSPermit2
+*)
 ]]></ST>
     </Implementation>
   </POU>
