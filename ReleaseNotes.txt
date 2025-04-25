@@ -18,6 +18,30 @@ which will reset the third digit to 0.
 The 3rd digit will be increased, when there is a pure bugfix.
 See v2.0.0 vs 2.0.1
 
+v2.8.0
+- Compatible with tc_mca_std_lib v2.8.0
+- New features:
+  - Cabinet_Monitoring (renamed from Cabinet_Configuration) program to call the monitoring FBs.
+  - Add TcLinkTo attribute to the variables in the Shutter_Opertaor_Panel program.
+  - Includes in solution tree FB_ESSMonitoringMCU5001a.
+  - Add to GVL_APP the pressure group pressure limits variables and allow time for pressure out 
+    of range variable.
+  - Pneumatic_Box program that contains the variables for the pressure sensors and pressure limits
+    calculations and signals.
+  - Add Safety_Shutter program. It is a modified version of Pneuamtics_Template modified for PSS safety
+    related shutter. It inlcudes the variables needed for the PSS permit signals.
+- Improvements:
+  - Update Pneumatics_Template to reflect the variable changes: Pressure limits, retract and 
+    extract times, allow pressure out of range, pressure groups.
+  - Change name of configuration variable form bPneumaticsAxisShutter to bSafetyShutter.
+  - Delete the negation of the PSS Permit light in the Shutter_Operator_Panel program and set the
+    index of the GVL.astPneumaticAxes to 1.
+  - Link the tAllowTimePressureOutOfRange, stPneumaticAxisConfig.fLow/HighLimitPressureValue to the
+    corresponding variables of GVL_APP.
+
+v2.7.0
+- Version tag skipped to match the version tag in tc_mca_std_lib. After that both version tags will match.
+
 v2.6.0
 - Compatible with tc_mca_std_lib v2.7.0
 - New features:
@@ -37,7 +61,7 @@ v2.5.0
 - Improvements:
   - Clean and simplify Shutter Operator Panel Template.
   - Clean and improve Axis_template:
-	  Delete the variabels related to PILS.
+	  Delete the variables related to PILS.
 	  Add the variables and comments related to advanced homing configuration.
 	  Add the new variable bEnableStopWithAnyLimitSwitch.
   - Update GlobalTextList to support the new button bEnableStopWithAnyLimitSwitch in MAINVISU
