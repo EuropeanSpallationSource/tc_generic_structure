@@ -1,5 +1,5 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
-<TcPlcObject Version="1.1.0.1" ProductVersion="3.1.4024.11">
+<TcPlcObject Version="1.1.0.1">
   <POU Name="PILS_DEVICES" Id="{c13d0ec1-dadc-4beb-a3f1-3a752770c4f8}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM PILS_DEVICES
 VAR
@@ -13,9 +13,99 @@ fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:=
 stMotor1Temp.fValue := Axis_1.fMotTemp1;
 stMotorM1EncoderRaw.nValue := nEncoderValueAxis1;
 fbPneumaticP1(stPneumaticStruct:= astPneumaticAxes[1], stDeviceStructPILS:= stPneumaticP1);
+
+//Cabinet Monitoring
+actMonitoring();
+
+//Pressure sensors limits
+actPressureSensors();
+
+//PTP
+actPTP();
 *)
 
 ]]></ST>
     </Implementation>
+    <Action Name="actMonitoring" Id="{93519f21-7373-0d3a-1d58-f89b51f7b818}">
+      <Implementation>
+        <ST><![CDATA[(*IF (Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber AND 16#00104F) <> 0 THEN
+    stCabinetStatus.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw;
+ELSIF (Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber AND 16#000730) <> 0 THEN
+    stCabinetStatus.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningHi;
+ELSIF (Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber AND 16#000880) <> 0 THEN
+    stCabinetStatus.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningLo;
+ELSE
+    stCabinetStatus.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
+END_IF
+
+stCabinetStatus.nStatus.0 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.0; //HW alarm
+stCabinetStatus.nStatus.1 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.1; //HW alarm
+stCabinetStatus.nStatus.2 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.2; //HW alarm
+stCabinetStatus.nStatus.3 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.3; //HW alarm
+stCabinetStatus.nStatus.4 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.4; //Warning High
+stCabinetStatus.nStatus.5 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.5; //Warning High
+stCabinetStatus.nStatus.6 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.6; //HW alarm
+stCabinetStatus.nStatus.7 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.7; //Warning Low
+stCabinetStatus.nStatus.8 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.8; //Warning High
+stCabinetStatus.nStatus.9 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.9; //Warning High
+stCabinetStatus.nStatus.10 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.10; //Warning High
+stCabinetStatus.nStatus.11 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.11; //Warning Low
+stCabinetStatus.nStatus.12 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBitNumber.12; //HW alarm
+*)
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="actPressureSensors" Id="{0da25c4d-63ff-0502-1976-f9d8e0c61ba8}">
+      <Implementation>
+        <ST><![CDATA[(*//Pressure sensor group1
+stPressureSensor1.fValue := Pneumatic_Box.fScaledAirPressureGroup1;
+IF NOT Pneumatic_Box.bAirPressureLowGrp1 AND NOT Pneumatic_Box.bAirPressureHighGrp1 THEN
+    stPressureSensor1.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
+ELSIF Pneumatic_Box.bAirPressureLowGrp1 THEN
+    stPressureSensor1.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningLo;
+ELSIF Pneumatic_Box.bAirPressureHighGrp1 THEN
+    stPressureSensor1.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningHi;
+END_IF
+//Pressure sensor group 2
+stPressureSensor2.fValue := Pneumatic_Box.fScaledAirPressureGroup2;
+IF NOT Pneumatic_Box.bAirPressureLowGrp2 AND NOT Pneumatic_Box.bAirPressureHighGrp2 THEN
+    stPressureSensor2.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
+ELSIF Pneumatic_Box.bAirPressureLowGrp2 THEN
+    stPressureSensor2.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningLo;
+ELSIF Pneumatic_Box.bAirPressureHighGrp2 THEN
+    stPressureSensor2.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningHi;
+END_IF
+*)
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="actPTP" Id="{b4bb5444-1083-09ad-366e-a71a22299f4b}">
+      <Implementation>
+        <ST><![CDATA[(*IF PILSv2.bPILSV2isInitialized THEN
+    GVL_PILS.stPTPState.nValue        := SEL(EL6688_PTP.bExternalDeviceNotConnected, EL6688_PTP.nPtpState, -2);
+    GVL_PILS.stPTPState.nStatus       := SEL(EL6688_PTP.fbRdRdEL6688Diag.bError OR EL6688_PTP.bExternalDeviceNotConnected,
+                                             E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm,
+                                             E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw);
+    GVL_PILS.stPTPOffset.nValue       := EL6688_PTP.nPTPOffset;
+    IF EL6688_PTP.fbRdRdEL6688Diag.bError OR EL6688_PTP.bExternalDeviceNotConnected THEN
+        GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw;
+    ELSIF EL6688_PTP.nPTPOffset > EL6688_PTP.nSyncWindow THEN
+        GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningHi;
+    ELSIF EL6688_PTP.nPTPOffset < 0 - EL6688_PTP.nSyncWindow THEN
+        GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningLo;
+    ELSE
+        GVL_PILS.stPTPOffset.nStatus  := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
+    END_IF
+    GVL_PILS.stPTPSyncSeqNum.nValue   := UINT_TO_INT(INT_TO_UINT(EL6688_PTP.nPtpSyncSeqNum) AND 7); // Just see if it is counting
+    GVL_PILS.stPTPErrorStatus.nValue  := UDINT_TO_DINT(EL6688_PTP.nPTPErrorStatusBits  AND 16#0FFFFFFF);
+    GVL_PILS.stPTPErrorStatus.nStatus := EL6688_PTP.nPTPErrorStatusBits;
+    GVL_PILS.stPTPDcToExtTimeOffsetSystem.nValue := EL6688_PTP.nDcToExtTimeOffset;
+    GVL_PILS.stDcTime64.nValue      := EL6688_PTP.nDcTime64;
+    GVL_PILS.stSystemUTCtime.nValue := EL6688_PTP.nSystemUTCtime;
+END_IF
+*)
+]]></ST>
+      </Implementation>
+    </Action>
   </POU>
 </TcPlcObject>
