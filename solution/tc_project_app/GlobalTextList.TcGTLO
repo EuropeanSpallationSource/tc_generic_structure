@@ -181,6 +181,11 @@
               <l n="LanguageTexts" t="ArrayList" />
             </o>
             <o>
+              <v n="TextID">"835"</v>
+              <v n="TextDefault">"bLocalMode"</v>
+              <l n="LanguageTexts" t="ArrayList" />
+            </o>
+            <o>
               <v n="TextID">"386"</v>
               <v n="TextDefault">"bMoving"</v>
               <l n="LanguageTexts" t="ArrayList" />
