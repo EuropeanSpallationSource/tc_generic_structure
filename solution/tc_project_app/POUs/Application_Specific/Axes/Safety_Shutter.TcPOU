@@ -1,0 +1,33 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Safety_Shutter" Id="{6edcef4b-0039-01e0-14cb-28763a1c98aa}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Safety_Shutter
+VAR
+    //Define all necessary variables for your application
+    bPSSPermitPower AT %Q*: BOOL := TRUE;
+    bPSSPermit1 AT %I*: BOOL;
+    bPSSPermit2 at %I*: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Initial parameters of an Pneumatic Axis
+//Uncomment the next IF statement to configure and activate the intial parameters of the axis
+(*
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.sPneumaticAxisName := 'SafetyShutter';
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.bSafetyShutter := TRUE;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToExtend := 10;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToRetract := 10;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.tAllowTimePressureOutOfRange := GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup1;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fLowLimitPressureValue := GVL_APP.fLOW_LIMIT_AIR_PRESSURE1;
+    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fHighLimitPressureValue := GVL_APP.fHIGH_LIMIT_AIR_PRESSURE1;
+END_IF
+
+//PSS Permit signal
+//GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bPSSPermitOK := bPSSPermit1 AND bPSSPermit2
+*)
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

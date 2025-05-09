@@ -1,0 +1,23 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Cabinet_Monitoring" Id="{f09ddf2c-38c8-0b17-348a-c2e3aa836c88}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Cabinet_Monitoring
+VAR
+    //fbCabinetMonitoring: FB_ESSMonitoringMCU5001a; FB_ESSMonitoringMCU5001b; FB_ESSMonitoringMCU6001a; FB_ESSMonitoringMCU6001b; FB_ESSMonitoringMCU5002; FB_ESSMonitoringMCU5003;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Cabinet monitoring
+(*fbCabinetMonitoring(
+    nEcMasterNetId:=  , //AMS NetId of Device (EtherCAT) from I/Os
+    aErrorID=> ,
+    aErrorMsg=> ,
+    nEcMasterFramesLost=> ,
+    nCPULoad=> ,
+    fCycleExecTime_ms=> ,
+    nAlarmGrpBitNumber=> );
+*)
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
