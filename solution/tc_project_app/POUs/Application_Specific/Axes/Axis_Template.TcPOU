@@ -8,6 +8,8 @@ VAR
 
 //Hardware interlocks
     //bInterlockFwdOK AT %I*: BOOL;
+    //bReleaseBrake AT %Q*: BOOL := FALSE;
+    //bOpenClutch AT %Q*: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -30,7 +32,21 @@ END_IF
 
 //Define ACTIONS() or write exclusive code for an specific axis.
 (*Eg. Reduce speed if  a signal is activated, interlock to a variable etc.
-Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;*)
+Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;
+
+//Brake **Missing integration to the lates brake handling code**
+bReleaseBrake := INT_TO_BOOL(GVL_PILS.stMotorM#ReleaseBrake.nTargetValue);
+IF NOT bReleaseBrake THEN
+    GVL.astAxes[x].stControl.bInterlockBwd := TRUE;
+    GVL.astAxes[x].stControl.bInterlockFwd := TRUE;
+ELSE
+    GVL.astAxes[x].stControl.bInterlockBwd := FALSE;
+    GVL.astAxes[x].stControl.bInterlockFwd := FALSE;
+END_IF
+
+//Clutch
+bOpenClutch := INT_TO_BOOL(GVL_PILS.stMotorM#OpenClutch.nTargetValue);
+*)
 ]]></ST>
     </Implementation>
   </POU>
