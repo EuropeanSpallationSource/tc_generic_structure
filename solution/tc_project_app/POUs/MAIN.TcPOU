@@ -3,7 +3,7 @@
   <POU Name="MAIN" Id="{33eb6f49-7781-4211-a70b-87ada6d80cb7}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM MAIN
 VAR
-    sVersion: STRING := '2.6.0'; //Version for tc_generic_structure
+    sVersion: STRING := '2.8.0'; //Version for tc_generic_structure
     aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis; //Array of axis interfaces, size determined by the total number of axes in the system
     afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis; //Array of axis function blocks, one for each axis
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis; //Array of pneumatic axis function blocks, size determined by the number of pneumatic axes
