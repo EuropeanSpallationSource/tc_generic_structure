@@ -172,6 +172,21 @@
     <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU400x.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5001b.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5002.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5003.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU6001a.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU6001b.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Motion\FB_Axis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
