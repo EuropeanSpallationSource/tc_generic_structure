@@ -57,7 +57,7 @@
         (nTypCode := 16#1B04, sName := 'MotorTemp#1', nOffset := 172, nUnit := 16#0009),
         (nTypCode := 16#1602, sName := 'OpenClutch#1', nOffset := 576),
         (nTypCode := 16#1602, sName := 'ReleaseBrake#1', nOffset := 284),
-        (nTypCode := 16#1E04, sName := 'PneumaticP1', nOffset := 176, asAux := [('Closed'),('Closing'),('Opening'),('Opened'),('InTheMiddle'),(''),(''),(''),(''),(''),(''),(''),(''),(''),('Interlocked'),('PSSPermitDenied'),('SolenoidActive'),('Retracted'),('Extended'),('Retracting'),('Extending'),(''),(''),('')]),
+        (nTypCode := 16#1E04, sName := 'PneumaticP1', nOffset := 176, asAux := [('Closed'),('Closing'),('Opening'),('Opened'),('InTheMiddle'),(''),(''),(''),(''),(''),(''),(''),('PressureTooHigh'),('PressureTooLow'),('Interlocked'),('PSSPermitDenied'),('SolenoidActive'),('Retracted'),('Extended'),('Retracting'),('Extending'),(''),(''),('')]),
         (nTypCode := 16#1B04, sName := 'Temp#1', nOffset := 000, nUnit := 16#0009),
         (nTypCode := 16#1B08, sName := 'PressureSensor#1', nOffset := 000),
         (nTypCode := 16#1B08, sName := 'PressureSensor#2', nOffset := 000),
