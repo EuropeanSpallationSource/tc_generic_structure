@@ -26,7 +26,7 @@
     fbPneumaticP1: FB_1e04_Pneumatic := (nPILSDeviceNumber := 6);
 
     //Temperature sensors
-    stTemp1 AT %MB123: ST_1b04
+    stTemp1 AT %MB123: ST_1b04;
 
     //Pressure sensors
     stPressureSensor1 AT %MB###: ST_1B04;
@@ -68,7 +68,6 @@
         (nTypCode := 16#1204, sName := 'SystemUTCtime#0', nOffset := 768, nUnit := 16#F711),
         (nTypCode := 16#1802, sName := 'Potentiometer#0', nOffset := 776, asAux := [(''), (''), (''), (''), (''), (''), (''), (''), (''), (''), (''), (''),(''), (''), (''), (''), (''), (''), (''),(''), (''), (''), (''), ('')]),
         (nTypCode := 16#1802, sName := 'Cabinet#0', nOffset := 776, asAux := [('24VPSFailed'), ('48VPSFailed'), ('MCBError'), ('SPDError'), ('DoorOpen'), ('TempHigh'), ('FuseTripped'), ('EStop'), ('ECMasterError'), ('SlaveNotOP'), ('SlaveMissing'), ('CPULoadHigh'),('ExternalDriveMCBError'), (''), (''), (''), (''), (''), (''),(''), (''), (''), (''), ('')])];
-
 END_VAR
 ]]></Declaration>
   </GVL>
