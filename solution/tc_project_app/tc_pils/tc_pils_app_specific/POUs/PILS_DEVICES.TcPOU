@@ -7,22 +7,26 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Interface between PILS and TwinCAT variables
-//Example code of how to link the varaibles and PILS:
-(*
-fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
-stMotor1Temp.fValue := Axis_1.fMotTemp1;
-stMotorM1EncoderRaw.nValue := nEncoderValueAxis1;
-fbPneumaticP1(stPneumaticStruct:= astPneumaticAxes[1], stDeviceStructPILS:= stPneumaticP1);
+//Example code of how to link the varaibles and PILS in the respective actions():
 
 //Cabinet Monitoring
 actMonitoring();
 
+//Motor Axis
+actMotorAxes();
+
+//Pneumatic Axes
+actPneumaticAxes();
+
 //Pressure sensors limits
 actPressureSensors();
 
+//Temperature sensors alarms
+actTempSensorsAlarms();
+
 //PTP
 actPTP();
-*)
+
 
 ]]></ST>
     </Implementation>
@@ -55,6 +59,23 @@ stCabinetStatus.nStatus.12 := Cabinet_Monitoring.fbCabinetMonitoring.nAlarmGrpBi
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="actMotorAxes" Id="{13d28d6c-b0df-0497-0a31-07c41e221c72}">
+      <Implementation>
+        <ST><![CDATA[(*fbMotorM1(stAxisStruct:= astAxes[1], stDeviceStructPILS:= stMotorM1, stAxisPar:= stMotorM1Param);
+stMotor1Temp.fValue := GVL.astAxes[1].stStatus.fActTemperature;;
+stMotorM1EncoderRaw.nValue := nEncoderValueAxis1;
+stMotorM1OpenClutch.nCurrentValue := BOOL_TO_INT(Axis_1.bOpenClutch);
+stMotorM1ReleaseBrake.nCurrentValue := BOOL_TO_INT(Axis_1.bReleaseBrake);*)
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="actPneumaticAxes" Id="{1613f6dd-b1d7-0e47-0933-2a7ed7fd9c4e}">
+      <Implementation>
+        <ST><![CDATA[(*fbPneumaticP1(stPneumaticStruct:= astPneumaticAxes[1], stDeviceStructPILS:= stPneumaticP1);
+*)
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="actPressureSensors" Id="{0da25c4d-63ff-0502-1976-f9d8e0c61ba8}">
       <Implementation>
         <ST><![CDATA[(*//Pressure sensor group1
@@ -82,11 +103,12 @@ END_IF
     <Action Name="actPTP" Id="{b4bb5444-1083-09ad-366e-a71a22299f4b}">
       <Implementation>
         <ST><![CDATA[(*IF PILSv2.bPILSV2isInitialized THEN
-    GVL_PILS.stPTPState.nValue        := SEL(EL6688_PTP.bExternalDeviceNotConnected, EL6688_PTP.nPtpState, -2);
-    GVL_PILS.stPTPState.nStatus       := SEL(EL6688_PTP.fbRdRdEL6688Diag.bError OR EL6688_PTP.bExternalDeviceNotConnected,
-                                             E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm,
-                                             E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw);
-    GVL_PILS.stPTPOffset.nValue       := EL6688_PTP.nPTPOffset;
+    GVL_PILS.stPTPState.nValue := SEL(EL6688_PTP.bExternalDeviceNotConnected, EL6688_PTP.nPtpState, -2);
+    GVL_PILS.stPTPState.nStatus := SEL(EL6688_PTP.fbRdRdEL6688Diag.bError OR EL6688_PTP.bExternalDeviceNotConnected,
+                                       E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm,
+                                       E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw);
+    GVL_PILS.stPTPOffset.nValue := EL6688_PTP.nPTPOffset;
+
     IF EL6688_PTP.fbRdRdEL6688Diag.bError OR EL6688_PTP.bExternalDeviceNotConnected THEN
         GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw;
     ELSIF EL6688_PTP.nPTPOffset > EL6688_PTP.nSyncWindow THEN
@@ -94,14 +116,34 @@ END_IF
     ELSIF EL6688_PTP.nPTPOffset < 0 - EL6688_PTP.nSyncWindow THEN
         GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningLo;
     ELSE
-        GVL_PILS.stPTPOffset.nStatus  := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
+        GVL_PILS.stPTPOffset.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
     END_IF
-    GVL_PILS.stPTPSyncSeqNum.nValue   := UINT_TO_INT(INT_TO_UINT(EL6688_PTP.nPtpSyncSeqNum) AND 7); // Just see if it is counting
-    GVL_PILS.stPTPErrorStatus.nValue  := UDINT_TO_DINT(EL6688_PTP.nPTPErrorStatusBits  AND 16#0FFFFFFF);
+
+    GVL_PILS.stPTPSyncSeqNum.nValue := UINT_TO_INT(INT_TO_UINT(EL6688_PTP.nPtpSyncSeqNum) AND 7); // Just see if it is counting
+    GVL_PILS.stPTPErrorStatus.nValue := UDINT_TO_DINT(EL6688_PTP.nPTPErrorStatusBits  AND 16#0FFFFFFF);
     GVL_PILS.stPTPErrorStatus.nStatus := EL6688_PTP.nPTPErrorStatusBits;
     GVL_PILS.stPTPDcToExtTimeOffsetSystem.nValue := EL6688_PTP.nDcToExtTimeOffset;
-    GVL_PILS.stDcTime64.nValue      := EL6688_PTP.nDcTime64;
+    GVL_PILS.stDcTime64.nValue := EL6688_PTP.nDcTime64;
     GVL_PILS.stSystemUTCtime.nValue := EL6688_PTP.nSystemUTCtime;
+END_IF
+*)
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="actTempSensorsAlarms" Id="{bd13d3b4-68eb-0bf6-1534-0deeac1b67d2}">
+      <Implementation>
+        <ST><![CDATA[(*IF GVL.astAxes[x].stStatus.bTempSensorError THEN
+    GVL_PILS.stMotorMxTemp.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateErrorHw;
+ELSIF GVL.astAxes[x].stControl.bHWMaskActive THEN
+    IF GVL.astAxes[x].stStatus.fActTemperature >= GVL.astAxes[x].stConfig.fMaxTemperature THEN
+        GVL_PILS.stMotorMxTemp.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateHwMaskedHi;
+    ELSE
+        GVL_PILS.stMotorMxTemp.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateHwMasked;
+    END_IF
+ELSIF GVL.astAxes[x].stStatus.fActTemperature >= GVL.astAxes[x].stConfig.fMaxTemperature THEN
+    GVL_PILS.stMotorMxTemp.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateWarningHi;
+ELSE
+    GVL_PILS.stMotorMxTemp.nStatus := E_Statusword32AlarmState.eStatuswordAlarmStateNoAlarm;
 END_IF
 *)
 ]]></ST>
