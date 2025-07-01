@@ -7,6 +7,14 @@
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
 				<Var>
+					<Name>Safety_Shutter.bPSSPermit1</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Safety_Shutter.bPSSPermit2</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
 					<Name>GVL.nAirPressureSensorGroup1</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 1]]></Comment>
 					<Type>INT</Type>
@@ -15,6 +23,24 @@
 					<Name>GVL.nAirPressureSensorGroup2</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 2]]></Comment>
 					<Type>INT</Type>
+				</Var>
+			</Vars>
+			<Vars VarGrpType="2" AreaNo="1">
+				<Name>PlcTask Outputs</Name>
+				<Var>
+					<Name>Safety_Shutter.bPSSPermitPower</Name>
+					<Comment><![CDATA[Define all necessary variables for your application]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatic_Box.bPowerLedAndLight</Name>
+					<Comment><![CDATA[Variable to power the green LED and the internal light]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Pneumatic_Box.bPowerPressureSensors</Name>
+					<Comment><![CDATA[Variable to power the air pressure sensors in the pneuatmic box]]></Comment>
+					<Type>BOOL</Type>
 				</Var>
 			</Vars>
 			<Contexts>
