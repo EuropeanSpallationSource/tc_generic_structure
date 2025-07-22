@@ -18,6 +18,12 @@ which will reset the third digit to 0.
 The 3rd digit will be increased, when there is a pure bugfix.
 See v2.0.0 vs 2.0.1
 
+v2.9.0
+- Compatible with tc_mca_std_lib v2.9.0
+- New features:
+  - Include in the solution tree all the new FBs for all ESS cabinets monitoring (MBP3-12).
+  - Add TcLinkTo attribute to the I/O variables in Safety_Shutter program (Issue 8).
+
 v2.8.0
 - Compatible with tc_mca_std_lib v2.8.0
 - New features:
