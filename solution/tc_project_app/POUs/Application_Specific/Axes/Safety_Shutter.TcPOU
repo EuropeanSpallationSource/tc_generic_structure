@@ -4,8 +4,11 @@
     <Declaration><![CDATA[PROGRAM Safety_Shutter
 VAR
     //Define all necessary variables for your application
+    //{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF209 (EL2014)^DIG Outputs^Channel 3^Output'}
     bPSSPermitPower AT %Q*: BOOL := TRUE;
+    //{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF208 (EL1808)^Channel 5^Input'}
     bPSSPermit1 AT %I*: BOOL;
+    //{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF208 (EL1808)^Channel 6^Input'}
     bPSSPermit2 at %I*: BOOL;
 END_VAR
 ]]></Declaration>
