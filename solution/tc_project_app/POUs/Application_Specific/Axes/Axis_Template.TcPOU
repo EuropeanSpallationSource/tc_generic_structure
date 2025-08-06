@@ -25,6 +25,8 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astAxes[x].stConfig.bEnableTemperatureDisable := FALSE;
     GVL.astAxes[x].stConfig.fMaxTemperature := 85.0;
     GVL.astAxes[x].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
+    GVL.astAxes[x].stConfig.bAutoEnable := FALSE;
+    GVL.astAxes[x].stConfig.bAutoDisable := FALSE;
 
     //Brake and Airpads
     GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE;
