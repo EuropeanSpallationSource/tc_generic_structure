@@ -1,17 +1,19 @@
 <?xml version="1.0"?>
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62" ClassName="CNestedPlcProjDef">
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" ClearInvalidPersist="true" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{FE306CBF-BDD6-6428-7966-B8D077A4E8F5}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{D45A32E7-4EC8-2936-5161-E7B3C791F486}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
 				<Name>PlcTask Inputs</Name>
 				<Var>
 					<Name>Safety_Shutter.bPSSPermit1</Name>
+					<Comment><![CDATA[{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF208 (EL1808)^Channel 5^Input'}]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
 					<Name>Safety_Shutter.bPSSPermit2</Name>
+					<Comment><![CDATA[{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF208 (EL1808)^Channel 6^Input'}]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
@@ -29,7 +31,8 @@
 				<Name>PlcTask Outputs</Name>
 				<Var>
 					<Name>Safety_Shutter.bPSSPermitPower</Name>
-					<Comment><![CDATA[Define all necessary variables for your application]]></Comment>
+					<Comment><![CDATA[Define all necessary variables for your application
+{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF209 (EL2014)^DIG Outputs^Channel 3^Output'}]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
