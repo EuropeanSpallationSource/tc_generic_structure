@@ -23,6 +23,13 @@ v2.9.0
 - New features:
   - Include in the solution tree all the new FBs for all ESS cabinets monitoring (MBP3-12).
   - Add TcLinkTo attribute to the I/O variables in Safety_Shutter program (Issue 8).
+  - Add to Axis_template lines to configure:
+    - Auto-enable axis when move starts
+	- Auto-disable axis when move is done or stopped
+	- Brake and Airpad configuration
+	- Homing switch mode
+	- Clutch example
+	- Power for encoders
 
 v2.8.0
 - Compatible with tc_mca_std_lib v2.8.0
