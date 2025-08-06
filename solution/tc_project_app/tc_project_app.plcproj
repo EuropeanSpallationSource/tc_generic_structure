@@ -58,6 +58,9 @@
     <Compile Include="POUs\MAIN.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AirpadBrakeConfig.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AxisCoE.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -94,6 +97,9 @@
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_HomingConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_Airpad.TcTLEO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_AxisEngUnit.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -104,6 +110,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_CoEParamState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_ExternalBrake.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_HomingRoutines.TcTLEO">
