@@ -3,18 +3,19 @@
   <POU Name="Axis_Template" Id="{1a43acb4-bd2e-4637-97fb-9976d47292b6}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Axis_Template
 VAR
-//Outputs: Power for Limit switches, Home Sensors, etc.
-    //bPowerSwitchesAxis1 AT %Q*: BOOL:= TRUE;
+//Outputs: Power for Limit switches, Encoder etc.
+    //bPowerSwitchesAxisX AT %Q*: BOOL:= TRUE;
+    //bPowerEncoderAxisX AT %Q*: BOOL:= TRUE;
 
 //Hardware interlocks
     //bInterlockFwdOK AT %I*: BOOL;
-    //bReleaseBrake AT %Q*: BOOL := FALSE;
     //bOpenClutch AT %Q*: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Initial parameters of an Axis
-(* Uncomment the next IF statement to configure and activate the intial parameters of the axis
+//Uncomment the next IF statement to configure and activate the intial parameters of the axis
+(*
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     //Initial default values:
     GVL.astAxes[x].stConfig.eHomeSeq := 0;
@@ -22,27 +23,25 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astAxes[x].stConfig.fHomeFinishDistance := 0.0;
     GVL.astAxes[x].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
     GVL.astAxes[x].stConfig.bEnableTemperatureDisable := FALSE;
-    GVL.astAxes[x].stConfig.fMaxTemperature := 0.0;
+    GVL.astAxes[x].stConfig.fMaxTemperature := 85.0;
     GVL.astAxes[x].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
+
+    //Brake and Airpads
+    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE;
+    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeFeedbackConnected := FALSE;
+    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadConnected := FALSE;
+    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadFeedbackConnected := FALSE;
 
     //Add the variables of Advanced homing parameters if you need to chage them
     GVL.astAxes[x].stConfig.stHomingConfig.bDisableDriveAccess := TRUE;
+    GVL.astAxes[x].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge;
+    GVL.astAxes[x].stConfig.stHomingConfig.eRefSwitchMode := MC_Switch_Mode.mcRisingEdge;
 END_IF
 *)
 
 //Define ACTIONS() or write exclusive code for an specific axis.
 (*Eg. Reduce speed if  a signal is activated, interlock to a variable etc.
 Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;
-
-//Brake **Missing integration to the lates brake handling code**
-bReleaseBrake := INT_TO_BOOL(GVL_PILS.stMotorM#ReleaseBrake.nTargetValue);
-IF NOT bReleaseBrake THEN
-    GVL.astAxes[x].stControl.bInterlockBwd := TRUE;
-    GVL.astAxes[x].stControl.bInterlockFwd := TRUE;
-ELSE
-    GVL.astAxes[x].stControl.bInterlockBwd := FALSE;
-    GVL.astAxes[x].stControl.bInterlockFwd := FALSE;
-END_IF
 
 //Clutch
 bOpenClutch := INT_TO_BOOL(GVL_PILS.stMotorM#OpenClutch.nTargetValue);
