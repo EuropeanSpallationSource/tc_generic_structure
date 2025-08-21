@@ -4,7 +4,7 @@
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
     //Defines the CPU type: 0 for CX5130 and 1 for c6017-0020
-    eCPUType: E_CPUType; //:= 1;
+    eCPUType: E_CPUType; //:= E_CPUType.C6017_0020;
 END_VAR
 
 VAR_GLOBAL CONSTANT

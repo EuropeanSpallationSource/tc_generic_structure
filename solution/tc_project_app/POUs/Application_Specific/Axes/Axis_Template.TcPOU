@@ -18,7 +18,7 @@ END_VAR
 (*
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     //Initial default values:
-    GVL.astAxes[x].stConfig.eHomeSeq := 0;
+    GVL.astAxes[x].stConfig.eHomeSeq := E_HomingRoutines.eNoHoming;
     GVL.astAxes[x].stConfig.fHomePosition := 0.0;
     GVL.astAxes[x].stConfig.fHomeFinishDistance := 0.0;
     GVL.astAxes[x].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
@@ -29,14 +29,14 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astAxes[x].stConfig.bAutoDisable := FALSE;
 
     //Brake and Airpads
-    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE;
-    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeFeedbackConnected := FALSE;
+    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE; //External brake meaning we need to control the brake with an ouput and is not controlled through the driver.
+    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the brake status.
     GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadConnected := FALSE;
-    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadFeedbackConnected := FALSE;
+    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the airpad status.
 
     //Add the variables of Advanced homing parameters if you need to chage them
     GVL.astAxes[x].stConfig.stHomingConfig.bDisableDriveAccess := TRUE;
-    GVL.astAxes[x].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge;
+    GVL.astAxes[x].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge; //Rising edge: stays on limit switch/Falling edge: bounces off limit switch.
     GVL.astAxes[x].stConfig.stHomingConfig.eRefSwitchMode := MC_Switch_Mode.mcRisingEdge;
 END_IF
 *)
