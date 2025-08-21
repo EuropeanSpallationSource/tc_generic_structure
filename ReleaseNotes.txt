@@ -18,6 +18,12 @@ which will reset the third digit to 0.
 The 3rd digit will be increased, when there is a pure bugfix.
 See v2.0.0 vs 2.0.1
 
+v2.9.1
+- Compatible with tc_mca_std_lib v2.9.0
+- Improvements:
+  - Change the ENUMs in the GVL_APP and in the Axis_template from just the simple integer
+    value, to the explicit variable name to make the code easier to understand.
+
 v2.9.0
 - Compatible with tc_mca_std_lib v2.9.0
 - New features:
