@@ -13,4 +13,5 @@ run pre-commit:
   script:
     - ./check_no_lineids.sh
     - ./check_fix_white_space.py
+    - ./check_code_before_sq_brackets.sh
 
