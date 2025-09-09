@@ -60,7 +60,7 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\PILSv2.TcPOU">
-	  <SubType>Code</SubType>
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_AirpadBrakeConfig.TcDUT">
       <SubType>Code</SubType>
@@ -298,6 +298,9 @@
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1e04.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_1e0c.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_pils\tc_pils_generic\DUTs\ST_5010.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -329,6 +332,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\FB_1e04_Pneumatic.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\FB_1e0c_Pneumatic.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_pils\tc_pils_generic\POUs\PILS_device_types\FB_5010_Axis.TcPOU">
