@@ -3,23 +3,31 @@ Release notes
 In general: update them just before setting a tag:
 git tag -a vx.y.z
 
-Describe the changes (the motivation) which motiviated this tag.
+Describe the changes (the motivation) that motivated this tag.
 The same information should be added into this file, so that
 the tag has the "diff" of ReleaseNotes.txt, kind of.
 
 It is probably a good idea to set a new tag with every new feature.
-The first digit should be increased, when there are non compatible changes:
-  Things had been removed, code that had been moved inside the code tree,
+The first digit should be increased, when there are non-compatible changes:
+  Things have been removed, code that has been moved inside the code tree,
   so that a project will not compile without further changes.
-The second digit will be inccreased when a new feature had been added,
+The second digit will be increased when a new feature had been added,
 which will reset the third digit to 0.
 (The word digit is wrong. We can have 2.11.13 or so)
 
-The 3rd digit will be increased, when there is a pure bugfix.
+The 3rd digit will be increased, when there is a pure bug fix.
 See v2.0.0 vs 2.0.1
 
+v2.10.0
+- Compatible with tc_mca_std_lib v2.10.0
+- New features:
+  - Add Library TC2_MC2_Drive to have the ST_DriveInfo DUT available.
+- Improvements:
+  - Refactor Cabinet monitoring. All FBs are an extension of a based FB and now
+    all the FBs are in a folder structure (MBP-326).
+
 v2.9.1
-- Compatible with tc_mca_std_lib v2.9.0
+- Compatible with tc_mca_std_lib v2.9.0 and v2.9.1
 - Improvements:
   - Change the ENUMs in the GVL_APP and in the Axis_template from just the simple integer
     value, to the explicit variable name to make the code easier to understand.
@@ -41,18 +49,18 @@ v2.8.0
 - Compatible with tc_mca_std_lib v2.8.0
 - New features:
   - Cabinet_Monitoring (renamed from Cabinet_Configuration) program to call the monitoring FBs.
-  - Add TcLinkTo attribute to the variables in the Shutter_Opertaor_Panel program.
-  - Includes in solution tree FB_ESSMonitoringMCU5001a.
+  - Add TcLinkTo attribute to the variables in the Shutter_Operator_Panel program.
+  - Include in solution tree FB_ESSMonitoringMCU5001a.
   - Add to GVL_APP the pressure group pressure limits variables and allow time for pressure out 
     of range variable.
   - Pneumatic_Box program that contains the variables for the pressure sensors and pressure limits
     calculations and signals.
-  - Add Safety_Shutter program. It is a modified version of Pneuamtics_Template modified for PSS safety
-    related shutter. It inlcudes the variables needed for the PSS permit signals.
+  - Add Safety_Shutter program. It is a modified version of Pneumatics_Template modified for PSS safety
+    related shutter. It includes the variables needed for the PSS permit signals.
 - Improvements:
   - Update Pneumatics_Template to reflect the variable changes: Pressure limits, retract and 
     extract times, allow pressure out of range, pressure groups.
-  - Change name of configuration variable form bPneumaticsAxisShutter to bSafetyShutter.
+  - Change name of configuration variable from bPneumaticsAxisShutter to bSafetyShutter.
   - Delete the negation of the PSS Permit light in the Shutter_Operator_Panel program and set the
     index of the GVL.astPneumaticAxes to 1.
   - Link the tAllowTimePressureOutOfRange, stPneumaticAxisConfig.fLow/HighLimitPressureValue to the
@@ -66,7 +74,7 @@ v2.6.0
 - New features:
   - Update MAIN.sVersion to 2.6.0 to match tag version.
   - Add Release notes file for tc_generic_structure changes.
-  - Includes DUTs for:
+  - Include DUTs for:
       Backlash compensation (MBP-167).
 	  Read/Write CoE Parameters from motor Drive (MBP-271).
   - Add variable nTestNum in MAIN. The variable is used in the ESS's FAT_SAT_tools python scripts (MBP-295).
@@ -83,7 +91,7 @@ v2.5.0
 	  Delete the variables related to PILS.
 	  Add the variables and comments related to advanced homing configuration.
 	  Add the new variable bEnableStopWithAnyLimitSwitch.
-  - Update GlobalTextList to support the new button bEnableStopWithAnyLimitSwitch in MAINVISU
+  - Update GlobalTextList to support the new button bEnableStopWithAnyLimitSwitch in MainVisu.
 
 v2.4.0
 - Compatible with tc_mca_std_lib v2.5.0
@@ -92,7 +100,7 @@ v2.4.0
   - Remove Product version line from the files.
 - New features:
   - Add support for c6017 ups in Restore Position code (MBP-273).
-  - Add Shutter Operator panel Template, inlcudes the behavior of the LEDs on the panel code.
+  - Add Shutter Operator panel Template, include the behavior of the LEDs on the panel code.
 
 v2.3.0
 - Compatible with tc_mca_std_lib v2.4.0
@@ -103,7 +111,7 @@ v2.3.0
 	  Select the option "Minimize the Id changes in TwinCAT files" to get rid of the changes in the id hash.
 	  Add ST_HomingConfig to the solution file structure.
 	  Update all libraries placeholders to latest version.
-	  The option "Clear invlaid persistent data" is set to true.
+	  The option "Clear invalid persistent data" is set to true.
 
 v2.2.0
 - Compatible with tc_mca_std_lib v2.2.0
@@ -115,7 +123,7 @@ v2.1.0
 
 v2.0.0
 - Compatible with tc_mca_std_lib v2.0.2
-- New feature:
+- New features:
   - Add Position Bias to the variables to restore when losing power (MBP-221).
   - Remove unused OPC tags (MBP-245).
   - Add git filter explanation to the file .gitattributes (MBP-246).

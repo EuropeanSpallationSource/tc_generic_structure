@@ -101,6 +101,9 @@
     <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_HomingConfig.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Axis_Structures\ST_SwitchInfo.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_Airpad.TcTLEO">
       <SubType>Code</SubType>
     </Compile>
@@ -179,25 +182,28 @@
     <Compile Include="tc_mca_std_lib\GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5001a.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU400x.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU400x.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5001b.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU5001a.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5002.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU5001b.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU5003.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU5002.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU6001a.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU5003.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_ESSMonitoringMCU6001b.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU6001a.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringMCU6001b.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Motion\FB_Axis.TcPOU">
@@ -362,6 +368,7 @@
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Axes" />
     <Folder Include="tc_mca_std_lib\POUs\Motion\Homing" />
+    <Folder Include="tc_mca_std_lib\POUs\Monitoring" />
     <Folder Include="tc_mca_std_lib\POUs\Pneumatics" />
     <Folder Include="tc_mca_std_lib\VISUs" />
     <Folder Include="tc_pils\tc_pils_generic\POUs\PILS_device_types" />
@@ -436,6 +443,9 @@
     <PlaceholderReference Include="Tc2_MC2">
       <DefaultResolution>Tc2_MC2, * (Beckhoff Automation GmbH)</DefaultResolution>
       <Namespace>Tc2_MC2</Namespace>
+    </PlaceholderReference>
+    <PlaceholderReference Include="Tc2_MC2_Drive">
+      <DefaultResolution>Tc2_MC2_Drive, * (Beckhoff Automation GmbH)</DefaultResolution>
     </PlaceholderReference>
     <PlaceholderReference Include="Tc2_Standard">
       <DefaultResolution>Tc2_Standard, * (Beckhoff Automation GmbH)</DefaultResolution>
