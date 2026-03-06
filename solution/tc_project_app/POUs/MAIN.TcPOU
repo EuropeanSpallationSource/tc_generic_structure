@@ -25,10 +25,10 @@ VAR
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
-	fbSystemTime : GETSYSTEMTIME;
+    fbSystemTime : GETSYSTEMTIME;
     timeAsFileTime : T_FILETIME;
     timeAsDT : DT;
-	timeAsDTAtStartup : DT;
+    timeAsDTAtStartup : DT;
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
 
@@ -99,7 +99,7 @@ IF eGlobalSUpsState = eSUPS_PowerFailure THEN
     //First cycle of powerfailure
     //Execute code that should only be done once with each powerfailure, i.e. increase powerfailure counter
     bRestoreOnStartup := TRUE;
-	SYSTEM_TIME();
+    SYSTEM_TIME();
     STORE_PERSISTENT();
     RETURN;
 ELSIF eGlobalSUpsState <> eSUPS_PowerOK THEN
@@ -167,17 +167,17 @@ Pneumatic_Box();
 
 
 IF bRestoreOnStartup AND eGlobalSUpsState = eSUPS_PowerOK THEN
-	bRestoreOnStartup := FALSE;
-	bRestoreExecute := TRUE;
-	SYSTEM_TIME();
-	timeAsDTAtStartup := timeAsDT;
+    bRestoreOnStartup := FALSE;
+    bRestoreExecute := TRUE;
+    SYSTEM_TIME();
+    timeAsDTAtStartup := timeAsDT;
 
-	FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-		IF NOT astAxes[iAxes].stStatus.bAxisInitialized THEN
-			//Do nothing if axis has not been initialized
-			RETURN;
-		END_IF
-	END_FOR
+    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+        IF NOT astAxes[iAxes].stStatus.bAxisInitialized THEN
+            //Do nothing if axis has not been initialized
+            RETURN;
+        END_IF
+    END_FOR
 END_IF
 
 //Upon startup bPositionRestoreDone will be set to FALSE, after successfully completing the following code it will be set TRUE
@@ -244,8 +244,8 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
         eExecuteRestore:
             //Execute position and encoder BIAS restore by setting Execute = TRUE
            FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome OR 
-					GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
+                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome OR
+                    GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
                     //Restore position value for incremental encoders
                     IF NOT astAxesPersistent[iAxes].bMovingAtShutdown AND
                     (afbReadEncRefSys[iAxes].Value = 0 OR
@@ -270,21 +270,21 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
             //bPositionRestoreDone will never get set to TRUE and will take up cycle time
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome OR  
-					GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
+                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome OR
+                    GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
                     IF NOT astAxesPersistent[iAxes].bMovingAtShutdown AND
                     (afbReadEncRefSys[iAxes].Value = 0 OR
                      afbReadEncRefSys[iAxes].Value = 2 OR
                      afbReadEncRefSys[iAxes].Value = 4) THEN
-						 IF afbSetPosition[iAxes].Busy THEN
-							 //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
-							 RETURN;
-						 END_IF
-							IF NOT afbSetPosition[iAxes].Done THEN
-								afbSetPosition[iAxes].Execute := FALSE;
-								eStartUp := eExecuteRestore;
-								RETURN;
-							END_IF
+                         IF afbSetPosition[iAxes].Busy THEN
+                             //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
+                             RETURN;
+                         END_IF
+                            IF NOT afbSetPosition[iAxes].Done THEN
+                                afbSetPosition[iAxes].Execute := FALSE;
+                                eStartUp := eExecuteRestore;
+                                RETURN;
+                            END_IF
                      ELSIF afbReadEncRefSys[iAxes].Value = 1 OR
                      afbReadEncRefSys[iAxes].Value = 3 OR
                      afbReadEncRefSys[iAxes].Value = 5 THEN
@@ -307,11 +307,11 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                 afbWritePositionBias[iAxes].Execute := FALSE;
                 bPositionRestoreDone := TRUE;
                 bRestoreExecute := FALSE;
-				IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
-					GVL.astAxes[iAxes].stControl.bEnable := TRUE;
-					GVL.astAxes[iAxes].stControl.eCommand := E_MotionFunctions.eHome;
-					GVL.astAxes[iAxes].stControl.bExecute := TRUE;
-				END_IF
+                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
+                    GVL.astAxes[iAxes].stControl.bEnable := TRUE;
+                    GVL.astAxes[iAxes].stControl.eCommand := E_MotionFunctions.eHome;
+                    GVL.astAxes[iAxes].stControl.bExecute := TRUE;
+                END_IF
             END_FOR
     END_CASE
 END_IF
@@ -343,7 +343,7 @@ GVL.timeAtShutdownPersistent := timeAsDT;
     <Action Name="SYSTEM_TIME" Id="{ed24f670-0ba1-0f6e-340a-0db7ff2026cb}">
       <Implementation>
         <ST><![CDATA[fbSystemTime(timeLoDW => timeAsFileTime.dwLowDateTime, timeHiDW => timeAsFileTime.dwHighDateTime);
-timeAsDT := FILETIME_TO_DT(timeAsFileTime); 
+timeAsDT := FILETIME_TO_DT(timeAsFileTime);
 
 ]]></ST>
       </Implementation>
