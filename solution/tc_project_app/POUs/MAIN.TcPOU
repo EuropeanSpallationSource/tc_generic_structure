@@ -13,7 +13,7 @@ VAR
 //Startup, Shutdown and UPS
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
-    eUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown;
+    eSelUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown; //Selected UPS mode
     eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eFinishRestore);
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
