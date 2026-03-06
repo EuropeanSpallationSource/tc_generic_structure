@@ -146,7 +146,7 @@ Pneumatic_Box();
     </Action>
     <Action Name="RESTORE_POSITIONS" Id="{0c7ee537-7bd9-4833-b428-c17cbb57e893}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[//This ACT will restore the position of an incremental axis on startup with the act position it read before losing power.
+        <ST><![CDATA[//This ACT will restore the position of an incremental axis on startup with the act position being read before losing power.
 //It checks the type of axis, 0=incremental, and that the axis was stationary at shut down.
 //Because 0 equates to incremental we also need to check that the data is valid, otherwise by default it would restore all axes.
 //By default an axis will not restore the position unless it is set to opt-in, i.e. GVL.aAxes[iAxes].stConfig.eRestorePosition is non-zero.
@@ -154,7 +154,8 @@ Pneumatic_Box();
 //A restore will only be performed on a loss of power, this code shouldn't make any changes on a reset cold, a rest origin or a download.
 //There is a enum to allow for different types of restore modes, currently only one is implemented.
 //0 'DontRestore'
-//1 'RestoreWithoutHome' -restores the position using a set position fb and does not set the home bit in the axis struct.
+//1 'RestoreWithoutHome' - Restores the position using a set position fb and does not set the home bit in the axis struct.
+//2 ''RestoreWithHome' - Restores the position using a set position fb and does set the home bit in the axis struct.
 //Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved over the entire service life."
 //Encoder Reference system types: https://infosys.beckhoff.com/english.php?content=../content/1033/tf50x0_tc3_nc_ptp/3439907723.html&id=
 //INCREMENTAL=0;
