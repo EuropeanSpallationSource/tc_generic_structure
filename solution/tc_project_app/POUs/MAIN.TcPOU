@@ -167,8 +167,17 @@ Pneumatic_Box();
 
 
 IF bRestoreOnStartup AND eGlobalSUpsState = eSUPS_PowerOK THEN
-    bRestoreOnStartup := FALSE;
-    bRestoreExecute := TRUE;
+	bRestoreOnStartup := FALSE;
+	bRestoreExecute := TRUE;
+	SYSTEM_TIME();
+	timeAsDTAtStartup := timeAsDT;
+
+	FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+		IF NOT astAxes[iAxes].stStatus.bAxisInitialized THEN
+			//Do nothing if axis has not been initialized
+			RETURN;
+		END_IF
+	END_FOR
 END_IF
 
 //Upon startup bPositionRestoreDone will be set to FALSE, after successfully completing the following code it will be set TRUE
