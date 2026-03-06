@@ -321,7 +321,7 @@ END_IF
     <Action Name="STORE_PERSISTENT" Id="{cb5c9254-2e5f-47b1-9baa-10e728a961b0}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
         <ST><![CDATA[FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-    //Store Position beofre shutdown
+    //Store Position at shutdown
     astAxesPersistent[iAxes].fPositionAtShutdown := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
 
     //Store encoder position BIAS at shutdown
@@ -334,6 +334,17 @@ END_IF
         astAxesPersistent[iAxes].bMovingAtShutdown := TRUE;
     END_IF
 END_FOR
+
+//Store date and time at shutdown
+GVL.timeAtShutdownPersistent := timeAsDT;
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="SYSTEM_TIME" Id="{ed24f670-0ba1-0f6e-340a-0db7ff2026cb}">
+      <Implementation>
+        <ST><![CDATA[fbSystemTime(timeLoDW => timeAsFileTime.dwLowDateTime, timeHiDW => timeAsFileTime.dwHighDateTime);
+timeAsDT := FILETIME_TO_DT(timeAsFileTime); 
+
 ]]></ST>
       </Implementation>
     </Action>
