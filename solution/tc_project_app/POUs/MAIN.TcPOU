@@ -276,11 +276,15 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                     (afbReadEncRefSys[iAxes].Value = 0 OR
                      afbReadEncRefSys[iAxes].Value = 2 OR
                      afbReadEncRefSys[iAxes].Value = 4) THEN
-                        IF NOT afbSetPosition[iAxes].Done THEN
-                            afbSetPosition[iAxes].Execute := FALSE;
-                            eStartUp := eExecuteRestore;
-                            RETURN;
-                        END_IF
+						 IF afbSetPosition[iAxes].Busy THEN
+							 //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
+							 RETURN;
+						 END_IF
+							IF NOT afbSetPosition[iAxes].Done THEN
+								afbSetPosition[iAxes].Execute := FALSE;
+								eStartUp := eExecuteRestore;
+								RETURN;
+							END_IF
                      ELSIF afbReadEncRefSys[iAxes].Value = 1 OR
                      afbReadEncRefSys[iAxes].Value = 3 OR
                      afbReadEncRefSys[iAxes].Value = 5 THEN
