@@ -21,14 +21,14 @@ VAR
     nRetry: INT; //A counter for startup actions
     iAxes: UINT; //index for for loops in Position recovery actions
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
-    afbSetPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
+    afbSetHomePosition: ARRAY[1..GVL_APP.nAXIS_NUM] OF MC_Home;
+    stHomingParameter: MC_HomingParameter;
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     timeAsDTAtStartup: DT;
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
-
 VAR PERSISTENT
     bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
 END_VAR
@@ -188,14 +188,15 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
     //Cycle through set position and MC_WritePArameter function blocks for each axis
     FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        afbSetPosition[iAxes](
+        afbSetHomePosition[iAxes](
             Axis := GVL.astAxes[iAxes].Axis,
-            Position := astAxesPersistent[iAxes].fPositionAtShutdown);
+            Position := astAxesPersistent[iAxes].fPositionAtShutdown,
+            HomingMode := MC_HomingMode.MC_Direct);
 
         afbWritePositionBias[iAxes](
-            Axis:= GVL.astAxes[iAxes].Axis,
-            ParameterNumber:= E_AxisParameters.AxisEncoderOffset,
-            Value:= astAxesPersistent[iAxes].fEncoderBiasAtShutdown);
+            Axis := GVL.astAxes[iAxes].Axis,
+            ParameterNumber := E_AxisParameters.AxisEncoderOffset,
+            Value := astAxesPersistent[iAxes].fEncoderBiasAtShutdown);
     END_FOR
 
     CASE eStartUp OF
@@ -246,7 +247,7 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                     (afbReadEncRefSys[iAxes].Value = 0 OR
                      afbReadEncRefSys[iAxes].Value = 2 OR
                      afbReadEncRefSys[iAxes].Value = 4) THEN
-                       afbSetPosition[iAxes].Execute := TRUE;
+                       afbSetHomePosition[iAxes].Execute := TRUE;
                     //Restore encoder position BIAS for absolute encoders
                     ELSIF afbReadEncRefSys[iAxes].Value = 1 OR
                     afbReadEncRefSys[iAxes].Value = 3 OR
@@ -259,7 +260,6 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             END_FOR
             eStartUp := eCheckRestore;
 
-
         eCheckRestore:
             //Check the set position and write enocder BIAS fbs are finished
             //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
@@ -271,16 +271,15 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                     (afbReadEncRefSys[iAxes].Value = 0 OR
                      afbReadEncRefSys[iAxes].Value = 2 OR
                      afbReadEncRefSys[iAxes].Value = 4) THEN
-                         IF afbSetPosition[iAxes].Busy THEN
+                        IF afbSetHomePosition[iAxes].Busy THEN
                              //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
                              RETURN;
-                         END_IF
-                            IF NOT afbSetPosition[iAxes].Done THEN
-                                afbSetPosition[iAxes].Execute := FALSE;
+                        ELSIF NOT afbSetHomePosition[iAxes].Done THEN
+                                afbSetHomePosition[iAxes].Execute := FALSE;
                                 eStartUp := eExecuteRestore;
                                 RETURN;
-                            END_IF
-                     ELSIF afbReadEncRefSys[iAxes].Value = 1 OR
+                        END_IF
+                    ELSIF afbReadEncRefSys[iAxes].Value = 1 OR
                      afbReadEncRefSys[iAxes].Value = 3 OR
                      afbReadEncRefSys[iAxes].Value = 5 THEN
                         IF NOT afbWritePositionBias[iAxes].Done THEN
@@ -298,15 +297,10 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
         eFinishRestore:
             //Remove execute = TRUE for afbRestorePosition and fbWritePositionBias
             FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                afbSetPosition[iAxes].Execute := FALSE;
+                afbSetHomePosition[iAxes].Execute := FALSE;
                 afbWritePositionBias[iAxes].Execute := FALSE;
                 bPositionRestoreDone := TRUE;
                 bRestoreExecute := FALSE;
-                IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
-                    GVL.astAxes[iAxes].stControl.bEnable := TRUE;
-                    GVL.astAxes[iAxes].stControl.eCommand := E_MotionFunctions.eHome;
-                    GVL.astAxes[iAxes].stControl.bExecute := TRUE;
-                END_IF
             END_FOR
     END_CASE
 END_IF
