@@ -155,7 +155,7 @@ Pneumatic_Box();
 //There is a enum to allow for different types of restore modes, currently only one is implemented.
 //0 'DontRestore'
 //1 'RestoreWithoutHome' - Restores the position using a set position fb and does not set the home bit in the axis struct.
-//2 ''RestoreWithHome' - Restores the position using a set position fb and does set the home bit in the axis struct.
+//2 'RestoreWithHome' - Restores the position using a set position fb and does set the home bit in the axis struct.
 //Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved over the entire service life."
 //Encoder Reference system types: https://infosys.beckhoff.com/english.php?content=../content/1033/tf50x0_tc3_nc_ptp/3439907723.html&id=
 //INCREMENTAL=0;
