@@ -23,12 +23,20 @@ VAR
 	iCurrentAxis: UINT := 1; //Index for position recovery actions (not in for loops)
     afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbSetHomePosition: ARRAY[1..GVL_APP.nAXIS_NUM] OF MC_Home;
-    stHomingParameter: MC_HomingParameter;
+	afbSetPosition: ARRAY[1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     timeAsDTAtStartup: DT;
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
+END_VAR
+VAR CONSTANT
+	INCREMENTAL: UINT := 0;
+	ABSOLUTE: UINT := 1;
+	ABSOLUTE_MODULO: UINT := 2;
+	ABSOLUTE_MULTITURN_RANGE: UINT := 3; //(with single overflow)
+	INCREMENTAL_SINGLETURN_ABSOLUTE: UINT := 4;
+	ABSOLUTE_SINGLETURN_RANGE: UINT :=5; //(with single overflow)
 END_VAR
 VAR PERSISTENT
     bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
