@@ -10,11 +10,11 @@ VAR
     hmiAxisSelection: INT := 1; //Specifies the currently selected axis for HMI operations, allowing the user to control a specific axis
     hmiPneumaticAxisSelection: INT := 1; //Specifies the currently selected pneumatic axis for HMI operation, allowing the user to control the specific axis
 
-//Startup, Shutdown and UPS
+	//Startup, Shutdown and UPS
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
     eSelUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown; //Selected UPS mode
-    eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eFinishRestore);
+    eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eNextAxis, eRestoreFinished);
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
     bExecuteReadEncRefSys: BOOL := FALSE;
@@ -291,17 +291,26 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                 ELSE
                     RETURN;
                 END_IF
-            END_FOR
-            eStartUp :=  eFinishRestore;
-
-        eFinishRestore:
-            //Remove execute = TRUE for afbRestorePosition and fbWritePositionBias
-            FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-                afbSetHomePosition[iAxes].Execute := FALSE;
-                afbWritePositionBias[iAxes].Execute := FALSE;
-                bPositionRestoreDone := TRUE;
-                bRestoreExecute := FALSE;
-            END_FOR
+			//ELSE
+				//RETURN;
+			END_IF
+          
+			afbSetHomePosition[iCurrentAxis].Execute := FALSE;
+            afbWritePositionBias[iCurrentAxis].Execute := FALSE;
+            eStartUp := eNextAxis;
+		
+		eNextAxis:
+			iCurrentAxis := iCurrentAxis + 1;
+			IF iCurrentAxis > GVL_APP.nAXIS_NUM THEN
+				eStartUp := eRestoreFinished;
+				bPositionRestoreDone := TRUE;
+				bRestoreExecute := FALSE;
+			ELSE 
+				eStartUp := eReadAxisFeedbackType;
+			END_IF
+			
+        eRestoreFinished:
+			//Do nothing
     END_CASE
 END_IF
 ]]></ST>
