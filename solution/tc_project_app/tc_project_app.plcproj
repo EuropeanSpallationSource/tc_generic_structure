@@ -40,6 +40,9 @@
     <Compile Include="POUs\Application_Specific\Applications\Cabinet_Monitoring.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Slit_Template.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Pneumatic_Box.TcPOU">
       <SubType>Code</SubType>
     </Compile>
