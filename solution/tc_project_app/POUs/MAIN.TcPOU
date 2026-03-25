@@ -136,6 +136,7 @@ Safety_Shutter();
 Cabinet_Monitoring();
 Pneumatic_Box();
 //Shutter_Operator_Panel();
+//Slit_Template();
 //Application_Template();
 ]]></ST>
       </Implementation>
