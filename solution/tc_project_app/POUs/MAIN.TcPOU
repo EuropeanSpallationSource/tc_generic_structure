@@ -188,33 +188,35 @@ END_IF
 //and should stay TRUE for the rest of the time the PLC is operational, thus this routine should only be completed once.
 IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
-    IF NOT astAxes[iCurrentAxis].stStatus.bAxisInitialized OR NOT astAxesPersistent[iCurrentAxis].bHomedAtShutdown THEN
-        //If current axis has not been initialized or was not homed before power failure, perform position recovery for next axis
-        eStartUp := eNextAxis;
-    ELSE
+//  //If current axis has not been initialized properly or was not homed before power failure, perform position recovery for next axis
+//    IF NOT astAxes[iCurrentAxis].stStatus.bAxisInitialized OR NOT astAxesPersistent[iCurrentAxis].bHomedAtShutdown THEN
+//        eStartUp := eNextAxis;
+//    ELSE
         //Cycle through function blocks that read the encoder reference system i.e. whether axis is incremental or absolute
         //Cycle through set position and MC_WritePArameter function blocks for each axis
-        afbReadEncRefSys[iCurrentAxis](
-            Axis := GVL.astAxes[iCurrentAxis].Axis,
-            ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
-            ReadMode := E_READMODE.READMODE_ONCE);
+        FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+            afbReadEncRefSys[iAxes](
+                Axis := GVL.astAxes[iAxes].Axis,
+                ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
+                ReadMode := E_READMODE.READMODE_ONCE);
 
-        IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
-            afbSetPosition[iCurrentAxis](
-                Axis := GVL.astAxes[iCurrentAxis].Axis,
-                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown);
-        ELSIF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
-            afbSetHomePosition[iCurrentAxis](
-                Axis := GVL.astAxes[iCurrentAxis].Axis,
-                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown,
-                HomingMode := MC_HomingMode.MC_Direct);
-        END_IF
+            IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithoutHome THEN
+                afbSetPosition[iAxes](
+                    Axis := GVL.astAxes[iAxes].Axis,
+                    Position := astAxesPersistent[iAxes].fPositionAtShutdown);
+            ELSIF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestoreWithHome THEN
+                afbSetHomePosition[iAxes](
+                    Axis := GVL.astAxes[iAxes].Axis,
+                    Position := astAxesPersistent[iAxes].fPositionAtShutdown,
+                    HomingMode := MC_HomingMode.MC_Direct);
+            END_IF
 
-        afbWritePositionBias[iCurrentAxis](
-            Axis := GVL.astAxes[iCurrentAxis].Axis,
-            ParameterNumber := E_AxisParameters.AxisEncoderOffset,
-            Value := astAxesPersistent[iCurrentAxis].fEncoderBiasAtShutdown);
-    END_IF
+            afbWritePositionBias[iAxes](
+                Axis := GVL.astAxes[iAxes].Axis,
+                ParameterNumber := E_AxisParameters.AxisEncoderOffset,
+                Value := astAxesPersistent[iAxes].fEncoderBiasAtShutdown);
+        END_FOR
+//    END_IF
 
     CASE eStartUp OF
         eColdStart:
