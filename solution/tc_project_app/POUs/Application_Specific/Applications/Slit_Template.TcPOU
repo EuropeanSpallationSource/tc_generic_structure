@@ -1,0 +1,40 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Slit_Template" Id="{a65ca917-ba94-010b-1294-a8b8b5e174dd}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Slit_Template
+VAR
+    fbSlit : FB_SlitPair;
+END_VAR
+VAR CONSTANT
+    //Change AxisIds based on your current setup
+    //AxisIDs of physical axes
+    cBladeNegative : USINT := 1;
+    cBladePositive : USINT := 2;
+    //AxisIDs of virtual axes
+    cGapSize : USINT := 3;
+    cGapCentre : USINT := 4;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Slit
+fbSlit(
+    //Required inputs
+    stBladeNegative := GVL.astAxes[cBladeNegative],
+    stBladePositive := GVL.astAxes[cBladePositive],
+    stGapSize := GVL.astAxes[cGapSize],
+    stGapCentre := GVL.astAxes[cGapCentre],
+    iGapSize := cGapSize,
+    iGapCentre := cGapCentre,
+    //Optional inputs
+    fEncoderScaling := ,
+    bAutoHome := ,
+    bAnticollisionEnable := ,
+    fAnticollisionMargin := ,
+    //Outputs
+    bEnabled => ,
+    bError => ,
+    bHoming => );
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
