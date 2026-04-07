@@ -365,8 +365,20 @@ END_IF
     //Store encoder position BIAS at shutdown
     astAxesPersistent[iAxes].fEncoderBiasAtShutdown := afbReadPositionBias[iAxes].Value;
 
-    //Store homing status at shutdown
+    //Store axis status at shutdown
+    astAxesPersistent[iAxes].bInitialized := GVL.astAxes[iAxes].stStatus.bAxisInitialized;
     astAxesPersistent[iAxes].bHomedAtShutdown := GVL.astAxes[iAxes].stStatus.bHomed;
+    astAxesPersistent[iAxes].stMotionState := GVL.astAxes[iAxes].Axis.Status.MotionState;
+    astAxesPersistent[iAxes].bError := GVL.astAxes[iAxes].Axis.Status.Error;
+    astAxesPersistent[iAxes].nErrorID := GVL.astAxes[iAxes].Axis.Status.ErrorID;
+    astAxesPersistent[iAxes].bErrorStop := GVL.astAxes[iAxes].Axis.Status.ErrorStop;
+    astAxesPersistent[iAxes].bStandStill := GVL.astAxes[iAxes].Axis.Status.StandStill;
+    astAxesPersistent[iAxes].bHasBeenStopped := GVL.astAxes[iAxes].Axis.Status.HasBeenStopped;
+    astAxesPersistent[iAxes].bDisabled := GVL.astAxes[iAxes].Axis.Status.Disabled;
+    astAxesPersistent[iAxes].bMoving := GVL.astAxes[iAxes].Axis.Status.Moving;
+
+    astAxesPersistent[iAxes].nCycles := astAxesPersistent[iAxes].nCycles + 1;
+    astAxesPersistent[iAxes].fPositionDifference := ABS(afCurrentPosition[iAxes] - astAxesPersistent[iAxes].fPositionAtShutdown);
 
     //Store value of moving at shutdown
     IF GVL.astAxes[iAxes].Axis.Status.Disabled OR astAxesPersistent[iAxes].fPositionDifference < fPositionDifferenceLimit THEN
