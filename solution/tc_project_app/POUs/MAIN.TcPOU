@@ -33,9 +33,9 @@ VAR
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 
     //Read position at a specific time interval
-    tonReadPosition: TON;
+    fbReadPositionTimer: TON;
     bReadPosition: BOOL:= TRUE;
-    timeReadPosition: TIME := T#5S; //Interval time
+    tReadPosition: TIME := T#5S; //Interval time
     fPositionDifferenceLimit: LREAL := 0.001; //The acceptable difference between the sampled position and position at shutdown
 END_VAR
 VAR CONSTANT
@@ -127,16 +127,16 @@ END_IF
     </Action>
     <Action Name="POSITION_RECOVERY" Id="{28e203b7-aea5-42d0-980d-12a6841f9d22}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[tonReadPosition(IN := bReadPosition, PT := timeReadPosition);
+        <ST><![CDATA[fbReadPositionTimer(IN := bReadPosition, PT := tReadPosition);
 
-IF tonReadPosition.Q THEN
+IF fbReadPositionTimer.Q THEN
     FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
         afCurrentPosition[iAxes] := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
     END_FOR
     bReadPosition := FALSE;
 END_IF
 
-IF NOT bReadPosition AND NOT tonReadPosition.Q THEN
+IF NOT bReadPosition AND NOT fbReadPositionTimer.Q THEN
     // After timer has reset, turn it on again
     bReadPosition := TRUE;
 END_IF
