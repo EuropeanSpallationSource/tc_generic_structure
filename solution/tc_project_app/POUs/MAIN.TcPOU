@@ -7,6 +7,7 @@ VAR
     aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis; //Array of axis interfaces, size determined by the total number of axes in the system
     afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis; //Array of axis function blocks, one for each axis
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis; //Array of pneumatic axis function blocks, size determined by the number of pneumatic axes
+    afCurrentPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF LREAL; //Stores the current position of each axis at defined time intervals, see timeReadPosition
     hmiAxisSelection: INT := 1; //Specifies the currently selected axis for HMI operations, allowing the user to control a specific axis
     hmiPneumaticAxisSelection: INT := 1; //Specifies the currently selected pneumatic axis for HMI operation, allowing the user to control the specific axis
 
@@ -29,6 +30,12 @@ VAR
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     timeAsDTAtStartup: DT;
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
+
+    //Read position at a specific time interval
+    tonReadPosition: TON;
+    bReadPosition: BOOL:= TRUE;
+    timeReadPosition: TIME := T#5S; //Interval time
+    fPositionDifferenceLimit: LREAL := 0.001; //The acceptable difference between the sampled position and position at shutdown
 END_VAR
 VAR CONSTANT
     INCREMENTAL: UINT := 0;
@@ -119,7 +126,22 @@ END_IF
     </Action>
     <Action Name="POSITION_RECOVERY" Id="{28e203b7-aea5-42d0-980d-12a6841f9d22}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[fbGetDeviceIdentification(bExecute := TRUE);
+        <ST><![CDATA[tonReadPosition(IN := bReadPosition, PT := timeReadPosition);
+
+IF tonReadPosition.Q THEN
+    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+        afCurrentPosition[iAxes] := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
+    END_FOR
+    bReadPosition := FALSE;
+END_IF
+
+IF NOT bReadPosition AND NOT tonReadPosition.Q THEN
+    // After timer has reset, turn it on again
+    bReadPosition := TRUE;
+END_IF
+
+
+fbGetDeviceIdentification(bExecute := TRUE);
 IF (fbGetDeviceIdentification.stDevIdent.strHardwareSerialNo <> '') THEN
     CHECK_UPS();
     RESTORE_POSITIONS();
@@ -356,7 +378,7 @@ END_IF
     astAxesPersistent[iAxes].bHomedAtShutdown := GVL.astAxes[iAxes].stStatus.bHomed;
 
     //Store value of moving at shutdown
-    IF GVL.astAxes[iAxes].Axis.Status.StandStill OR GVL.astAxes[iAxes].Axis.Status.Disabled THEN
+    IF GVL.astAxes[iAxes].Axis.Status.Disabled OR astAxesPersistent[iAxes].fPositionDifference < fPositionDifferenceLimit THEN
         astAxesPersistent[iAxes].bMovingAtShutdown := FALSE;
     ELSE
         astAxesPersistent[iAxes].bMovingAtShutdown := TRUE;
