@@ -4,8 +4,8 @@
     <Declaration><![CDATA[PROGRAM Axis_Template
 VAR
 //Outputs: Power for Limit switches, Encoder etc.
-    //bPowerSwitchesAxisX AT %Q*: BOOL:= TRUE;
-    //bPowerEncoderAxisX AT %Q*: BOOL:= TRUE;
+    //bPowerSwitches AT %Q*: BOOL:= TRUE;
+    //bPowerEncoder AT %Q*: BOOL:= TRUE;
 
 //Hardware interlocks
     //bInterlockFwdOK AT %I*: BOOL;
