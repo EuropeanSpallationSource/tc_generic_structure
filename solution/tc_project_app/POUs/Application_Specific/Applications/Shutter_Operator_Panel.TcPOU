@@ -17,22 +17,25 @@ VAR
     bErrorLight AT %Q*: BOOL; //Power output for Error LED
 *)
 END_VAR
+VAR CONSTANT
+	cAXIS_ID: USINT := 1;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Uncomment the code, it is needed to control the LEDs of the Safety Shutter Operator panel
 (*
 //Assign LED to the permit status
-bPermitLight := GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bPSSPermitOK;
+bPermitLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bPSSPermitOK;
 
 //Assign LED to the error status
-bErrorLight := GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bError;
+bErrorLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bError;
 
 //Assign LEDs to the end switches statuses
-bExtendedLight := GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bExtended;
-bRetractedLight := GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bRetracted;
+bExtendedLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bExtended;
+bRetractedLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bRetracted;
 
 //Checking the condition for the Moving LED
-bMovingLight := GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bRetracting OR gvl.astPneumaticAxes[1].stPneumaticAxisStatus.bExtending;
+bMovingLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bRetracting OR GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bExtending;
 *)
 ]]></ST>
     </Implementation>
