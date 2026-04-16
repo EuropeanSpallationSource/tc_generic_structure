@@ -11,6 +11,9 @@ VAR
     //bInterlockFwdOK AT %I*: BOOL;
     //bOpenClutch AT %Q*: BOOL := FALSE;
 END_VAR
+VAR CONSTANT
+	cAXIS_ID: USINT := 1;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Initial parameters of an Axis
@@ -18,32 +21,32 @@ END_VAR
 (*
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     //Initial default values:
-    GVL.astAxes[x].stConfig.eHomeSeq := E_HomingRoutines.eNoHoming;
-    GVL.astAxes[x].stConfig.fHomePosition := 0.0;
-    GVL.astAxes[x].stConfig.fHomeFinishDistance := 0.0;
-    GVL.astAxes[x].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
-    GVL.astAxes[x].stConfig.bEnableTemperatureDisable := FALSE;
-    GVL.astAxes[x].stConfig.fMaxTemperature := 85.0;
-    GVL.astAxes[x].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
-    GVL.astAxes[x].stConfig.bAutoEnable := FALSE;
-    GVL.astAxes[x].stConfig.bAutoDisable := FALSE;
+    GVL.astAxes[cAXIS_ID].stConfig.eHomeSeq := E_HomingRoutines.eNoHoming;
+    GVL.astAxes[cAXIS_ID].stConfig.fHomePosition := 0.0;
+    GVL.astAxes[cAXIS_ID].stConfig.fHomeFinishDistance := 0.0;
+    GVL.astAxes[cAXIS_ID].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
+    GVL.astAxes[cAXIS_ID].stConfig.bEnableTemperatureDisable := FALSE;
+    GVL.astAxes[cAXIS_ID].stConfig.fMaxTemperature := 85.0;
+    GVL.astAxes[cAXIS_ID].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
+    GVL.astAxes[cAXIS_ID].stConfig.bAutoEnable := FALSE;
+    GVL.astAxes[cAXIS_ID].stConfig.bAutoDisable := FALSE;
 
     //Brake and Airpads
-    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE; //External brake meaning we need to control the brake with an ouput and is not controlled through the driver.
-    GVL.astAxes[x].stConfig.stAirpadBrake.bExternalBrakeFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the brake status.
-    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadConnected := FALSE;
-    GVL.astAxes[x].stConfig.stAirpadBrake.bAirpadFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the airpad status.
+    GVL.astAxes[cAXIS_ID].stConfig.stAirpadBrake.bExternalBrakeConnected := FALSE; //External brake meaning we need to control the brake with an ouput and is not controlled through the driver.
+    GVL.astAxes[cAXIS_ID].stConfig.stAirpadBrake.bExternalBrakeFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the brake status.
+    GVL.astAxes[cAXIS_ID].stConfig.stAirpadBrake.bAirpadConnected := FALSE;
+    GVL.astAxes[cAXIS_ID].stConfig.stAirpadBrake.bAirpadFeedbackConnected := FALSE; //TRUE if there is a dedicated external signal for the airpad status.
 
     //Add the variables of Advanced homing parameters if you need to chage them
-    GVL.astAxes[x].stConfig.stHomingConfig.bDisableDriveAccess := TRUE;
-    GVL.astAxes[x].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge; //Rising edge: stays on limit switch/Falling edge: bounces off limit switch.
-    GVL.astAxes[x].stConfig.stHomingConfig.eRefSwitchMode := MC_Switch_Mode.mcRisingEdge;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bDisableDriveAccess := TRUE;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge; //Rising edge: stays on limit switch/Falling edge: bounces off limit switch.
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.eRefSwitchMode := MC_Switch_Mode.mcRisingEdge;
 END_IF
 *)
 
 //Define ACTIONS() or write exclusive code for an specific axis.
 (*Eg. Reduce speed if  a signal is activated, interlock to a variable etc.
-Eg. GVL.astAxes[x].stControl.bInterlockFwd := NOT bInterlockFwdOK;
+Eg. GVL.astAxes[cAXIS_ID].stControl.bInterlockFwd := NOT bInterlockFwdOK;
 
 //Clutch
 bOpenClutch := INT_TO_BOOL(GVL_PILS.stMotorM#OpenClutch.nTargetValue);
