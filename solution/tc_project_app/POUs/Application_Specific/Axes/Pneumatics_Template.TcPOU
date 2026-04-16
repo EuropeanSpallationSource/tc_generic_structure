@@ -6,7 +6,7 @@ VAR
     //Define all necessary variables for your application
 END_VAR
 VAR CONSTANT
-	cAXIS_ID: USINT := 1;
+    cAXIS_ID: USINT := 1;
 END_VAR
 ]]></Declaration>
     <Implementation>

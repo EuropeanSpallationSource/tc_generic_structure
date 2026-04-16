@@ -12,7 +12,7 @@ VAR
     //bOpenClutch AT %Q*: BOOL := FALSE;
 END_VAR
 VAR CONSTANT
-	cAXIS_ID: USINT := 1;
+    cAXIS_ID: USINT := 1;
 END_VAR
 ]]></Declaration>
     <Implementation>
