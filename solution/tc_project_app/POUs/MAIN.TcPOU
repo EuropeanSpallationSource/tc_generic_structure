@@ -38,14 +38,6 @@ VAR
     tReadPosition: TIME := T#5S; //Interval time
     fPositionDifferenceLimit: LREAL := 0.001; //The acceptable difference between the sampled position and position at shutdown
 END_VAR
-VAR CONSTANT
-    INCREMENTAL: UINT := 0;
-    ABSOLUTE: UINT := 1;
-    ABSOLUTE_MODULO: UINT := 2;
-    ABSOLUTE_MULTITURN_RANGE: UINT := 3; //(with single overflow)
-    INCREMENTAL_SINGLETURN_ABSOLUTE: UINT := 4;
-    ABSOLUTE_SINGLETURN_RANGE: UINT :=5; //(with single overflow)
-END_VAR
 VAR PERSISTENT
     bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
 END_VAR
@@ -282,18 +274,20 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
         eExecuteRestore:
             //Execute position and encoder BIAS restore by setting Execute = TRUE
             IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
-                    CASE LREAL_TO_UINT(afbReadEncRefSys[iCurrentAxis].Value) OF
-                        INCREMENTAL, ABSOLUTE_MODULO, INCREMENTAL_SINGLETURN_ABSOLUTE:
-                            //Restore position value for incremental encoders
-                            IF GVL.astAxesPersistent[iAxes].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iAxes].bMovingAtShutdown THEN
-                                afbSetHomePosition[iCurrentAxis].Execute := TRUE;
-                            ELSE
-                                afbSetPosition[iCurrentAxis].Execute := TRUE;
-                            END_IF
-                        ABSOLUTE, ABSOLUTE_MULTITURN_RANGE, ABSOLUTE_SINGLETURN_RANGE:
-                            //Restore encoder position BIAS for absolute encoders
-                            afbWritePositionBias[iCurrentAxis].Execute := TRUE;
-                    END_CASE
+                CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
+
+                    E_EncoderRefSys.INCREMENTAL, E_EncoderRefSys.ABSOLUTE_MODULO, E_EncoderRefSys.INCREMENTAL_SINGLETURN_ABSOLUTE:
+                        //Restore position value for incremental encoders
+                        IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
+                            fbSetHomePosition.Execute := TRUE;
+                        ELSE
+                            fbSetPosition.Execute := TRUE;
+                        END_IF
+
+                    E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
+                        //Restore encoder position BIAS for absolute encoders
+                        fbWritePositionBias.Execute := TRUE;
+                END_CASE
             END_IF
 
             eStartUp := eCheckRestore;
@@ -303,15 +297,14 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
             //bPositionRestoreDone will never get set to TRUE and will take up cycle time
             IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
-                    CASE LREAL_TO_UINT(afbReadEncRefSys[iCurrentAxis].Value) OF
-                        INCREMENTAL, ABSOLUTE_MODULO, INCREMENTAL_SINGLETURN_ABSOLUTE:
-                            IF afbSetPosition[iCurrentAxis].Busy THEN
-                                //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
+                    CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
+
+                        E_EncoderRefSys.INCREMENTAL, E_EncoderRefSys.ABSOLUTE_MODULO, E_EncoderRefSys.INCREMENTAL_SINGLETURN_ABSOLUTE:
+                            IF fbSetPosition.Busy THEN
                                 RETURN;
                             END_IF
 
-                            IF afbSetHomePosition[iCurrentAxis].Busy THEN
-                                //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
+                            IF fbSetHomePosition.Busy THEN
                                 RETURN;
                             END_IF
 
@@ -331,9 +324,9 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                                 END_IF
                             END_IF
 
-                        ABSOLUTE, ABSOLUTE_MULTITURN_RANGE, ABSOLUTE_SINGLETURN_RANGE:
-                            IF NOT afbWritePositionBias[iCurrentAxis].Done THEN
-                                afbWritePositionBias[iCurrentAxis].Execute := FALSE;
+                        E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
+                            IF NOT fbWritePositionBias.Done THEN
+                                fbWritePositionBias.Execute := FALSE;
                                 eStartUp := eExecuteRestore;
                                 RETURN;
                             END_IF
