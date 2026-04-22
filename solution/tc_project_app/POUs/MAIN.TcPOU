@@ -16,10 +16,10 @@ VAR
     fbC6017UPS: FB_S_UPS_BAPI;
     eSelUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown; //Selected UPS mode
     eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eNextAxis, eRestoreFinished);
+
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
-    bExecuteReadEncRefSys: BOOL := FALSE;
-    nRetry: INT; //A counter for startup actions
+    nRetry: INT := 0; //Counts number of retries to read encoder reference
     iAxes: UINT; //Index for, for-loops in position recovery actions
     iCurrentAxis: UINT := 1; //Index for position recovery actions (not in for loops)
 
@@ -31,17 +31,18 @@ VAR
 
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     timeAsDTAtStartup: DT;
-    nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
+    nTestNum: UINT := 0; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 
     //Read position at a specific time interval
     fbReadPositionTimer: TON;
-    bReadPosition: BOOL:= TRUE;
+    bReadPosition: BOOL := TRUE;
     tReadPosition: TIME := T#5S; //Interval time
     fPositionDifferenceLimit: LREAL := 0.001; //The acceptable difference between the sampled position and position at shutdown
 END_VAR
 VAR PERSISTENT
     bRestoreOnStartup: BOOL; //Determines whether the axis positions should be restored automatically during system startup
 END_VAR
+
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[POSITION_RECOVERY();
@@ -97,7 +98,6 @@ END_FOR
 END_CASE
 
 FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-    //Read the encoder position bias for initialized axes
     IF astAxes[iAxes].stStatus.bAxisInitialized THEN
         afbReadPositionBias[iAxes](Axis := GVL.astAxes[iAxes].Axis,
                         Enable := TRUE,
@@ -105,6 +105,7 @@ FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
                         ParameterNumber := E_AxisParameters.AxisEncoderOffset);
     END_IF
 END_FOR
+
 
 IF eGlobalSUpsState = eSUPS_PowerFailure THEN
     //First cycle of powerfailure
@@ -169,36 +170,27 @@ Pneumatic_Box();
     </Action>
     <Action Name="RESTORE_POSITIONS" Id="{0c7ee537-7bd9-4833-b428-c17cbb57e893}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[//This ACT will restore the position of an incremental axis on startup with the act position being read before losing power.
-//It checks the type of axis, 0=incremental, and that the axis was stationary at shut down.
-//Because 0 equates to incremental we also need to check that the data is valid, otherwise by default it would restore all axes.
-//By default an axis will not restore the position unless it is set to opt-in, i.e. GVL.aAxes[iAxes].stConfig.eRestorePosition is non-zero.
-//This needs to be initialised somewhere in TwinCAT code otherwise it will not be available at start up.
-//A restore will only be performed on a loss of power, this code shouldn't make any changes on a reset cold, a rest origin or a download.
-//There is a enum to allow for different types of restore modes, currently only one is implemented.
-//0 'DontRestore'
-//1 'RestoreWithoutHome' - Restores the position using a set position fb and does not set the home bit in the axis struct.
-//2 'RestoreWithHome' - Restores the position using a set position fb and does set the home bit in the axis struct.
-//Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved over the entire service life."
-//Encoder Reference system types: https://infosys.beckhoff.com/english.php?content=../content/1033/tf50x0_tc3_nc_ptp/3439907723.html&id=
-//INCREMENTAL=0;
-//ABSOLUTE=1;
-//ABSOLUTE (modulo)=2;
-//ABSOLUTE MULTITURN RANGE (with single overflow)=3;
-//INCREMENTAL (singleturn absolute)=4;
-//ABSOLUTE SINGLETURN RANGE (with single overflow)=5;
-
+        <ST><![CDATA[(*
+This ACT will restore the position of an incremental axis and the position bias of an absolute axis on startup,
+with the actual position and position bias being read before losing power. It checks the type of axis, 0=incremental,
+and that the axis was stationary at shut down. Because 0 equates to incremental we also need to check that the data is valid,
+otherwise by default it would restore all axes. A restore will only be performed on a loss of power,
+this code shouldn't make any changes on a reset cold, a rest origin or a download.
+Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved over the entire service life."
+*)
 
 IF bRestoreOnStartup AND eGlobalSUpsState = eSUPS_PowerOK THEN
     bRestoreOnStartup := FALSE;
     bRestoreExecute := TRUE;
     timeAsDTAtStartup := FILETIME64_TO_DT(F_GetSystemTime());
     iCurrentAxis := 1;
+
 END_IF
 
 IF iCurrentAxis > GVL_APP.nAXIS_NUM THEN
     RETURN;
 END_IF
+
 
 //Upon startup bPositionRestoreDone will be set to FALSE, after successfully completing the following code it will be set TRUE
 //and should stay TRUE for the rest of the time the PLC is operational, thus this routine should only be completed once.
@@ -249,29 +241,24 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             eStartUp := eCheckReadDone;
 
         eCheckReadDone:
-            //Check the encoder reference system has been read for all axis -> if busy then continue with PLC cycle and check again next time.
-            //If afbReadEncRefSys not started then go back a step.
-            //If the current axis result in an error the code will get stuck here, this happens if GVL_APP.nAXIS_NUM is not set correctly
-            IF NOT afbReadEncRefSys[iCurrentAxis].Valid THEN
-                IF afbReadEncRefSys[iCurrentAxis].Busy THEN
-                    //Exit MAIN.RESTORE_POSITIONS Action and wait till next cycle, needs to cycle through whole program in order for data to update
+            //Check that the encoder reference system has been read for the current axis -> if busy then continue with PLC cycle and check again next time.
+            IF NOT fbReadEncRefSys.Valid THEN
+                IF fbReadEncRefSys.Busy THEN
                     RETURN;
                 ELSE
-                    //Sometimes the code gets here and the afbReadEncRefSys[iCurrentAxis] misses the rising edge. If  the code gets here it means
-                    //valid=FALSE and .busy=FALSE which indicateds the FB probably hasn't started and thus needs to see a rising edge.
-                    //Set execute to low, Exit MAIN.STARTUP and go back a step in the CASE statement.
-                    afbReadEncRefSys[iCurrentAxis].Enable := FALSE;
+                    //.Valid=FALSE and .Busy=FALSE which indicateds the FB probably hasn't started and thus needs to see a rising edge.
+                    //Set .Enable=FALSE and go back a step in the CASE statement.
+                    nRetry := nRetry + 1;
+                    fbReadEncRefSys.Enable := FALSE;
                     eStartUp := eReadAxisFeedbackType;
                     nRetry := nRetry + 1; //Counter used for troubleshooting to see how many cycles it takes before afbReadEncRefSys function blocks are read correctly
                     RETURN;
                 END_IF
             END_IF
 
-            //If the code gets here the current axis has .valid=TRUE
             eStartUp := eExecuteRestore;
 
         eExecuteRestore:
-            //Execute position and encoder BIAS restore by setting Execute = TRUE
             IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
                 CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
 
@@ -292,7 +279,7 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             eStartUp := eCheckRestore;
 
         eCheckRestore:
-            //Check the set position and write enocder BIAS fbs are finished
+            //Check that the set position and write encoder bias fbs are finished
             //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
             //bPositionRestoreDone will never get set to TRUE and will take up cycle time
             IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
@@ -363,6 +350,7 @@ END_IF
 
     //Store encoder position BIAS at shutdown
     astAxesPersistent[iAxes].fEncoderBiasAtShutdown := afbReadPositionBias[iAxes].Value;
+
 
     //Store axis status at shutdown
     astAxesPersistent[iAxes].bInitializedAtShutdown := GVL.astAxes[iAxes].stStatus.bAxisInitialized;
