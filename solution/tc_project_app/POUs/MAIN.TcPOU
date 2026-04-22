@@ -21,13 +21,14 @@ VAR
     bExecuteReadEncRefSys: BOOL := FALSE;
     nRetry: INT; //A counter for startup actions
     iAxes: UINT; //Index for, for-loops in position recovery actions
-
     iCurrentAxis: UINT := 1; //Index for position recovery actions (not in for loops)
-    afbReadEncRefSys: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
-    afbSetHomePosition: ARRAY[1..GVL_APP.nAXIS_NUM] OF MC_Home;
-    afbSetPosition: ARRAY[1..GVL_APP.nAXIS_NUM] OF MC_SetPosition;
+
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
-    afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
+    fbReadEncRefSys: MC_ReadParameter;
+    fbSetHomePosition: MC_Home;
+    fbSetPosition: MC_SetPosition;
+    fbWritePositionBias: MC_WriteParameter;
+
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     timeAsDTAtStartup: DT;
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
@@ -203,33 +204,31 @@ END_IF
 //and should stay TRUE for the rest of the time the PLC is operational, thus this routine should only be completed once.
 IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
-        FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-            afbReadEncRefSys[iAxes](
-                Axis := GVL.astAxes[iAxes].Axis,
-                ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
-                ReadMode := E_READMODE.READMODE_ONCE);
+    fbReadEncRefSys(
+        Axis := GVL.astAxes[iCurrentAxis].Axis,
+        ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
+        ReadMode := E_READMODE.READMODE_ONCE);
+    //Position recovery for incremental encoders
+    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestorePosition THEN
+        IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
+            fbSetHomePosition(
+                Axis := GVL.astAxes[iCurrentAxis].Axis,
+                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown,
+                HomingMode := MC_HomingMode.MC_Direct);
+        ELSE
+            fbSetPosition(
+                Axis := GVL.astAxes[iCurrentAxis].Axis,
+                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown);
+        END_IF
+    END_IF
 
-            //Position recovery for incremental encoders
-            IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestorePosition THEN
-                IF GVL.astAxesPersistent[iAxes].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iAxes].bMovingAtShutdown THEN
-                    afbSetHomePosition[iAxes](
-                        Axis := GVL.astAxes[iAxes].Axis,
-                        Position := astAxesPersistent[iAxes].fPositionAtShutdown,
-                        HomingMode := MC_HomingMode.MC_Direct);
-                ELSE
-                    afbSetPosition[iAxes](
-                        Axis := GVL.astAxes[iAxes].Axis,
-                        Position := astAxesPersistent[iAxes].fPositionAtShutdown);
-                END_IF
-            END_IF
-            //Position recovery for absolute encoders
-            IF GVL.astAxes[iAxes].stConfig.eRestorePosition = E_RestorePosition.eRestorePositionBias THEN
-            afbWritePositionBias[iAxes](
-                Axis := GVL.astAxes[iAxes].Axis,
-                ParameterNumber := E_AxisParameters.AxisEncoderOffset,
-                Value := astAxesPersistent[iAxes].fEncoderBiasAtShutdown);
-            END_IF
-        END_FOR
+    //Position recovery for absolute encoders
+    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestorePositionBias THEN
+        fbWritePositionBias(
+            Axis := GVL.astAxes[iCurrentAxis].Axis,
+            ParameterNumber := E_AxisParameters.AxisEncoderOffset,
+            Value := astAxesPersistent[iCurrentAxis].fEncoderBiasAtShutdown);
+    END_IF
 
 
     CASE eStartUp OF
@@ -309,16 +308,16 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                             END_IF
 
                             IF GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
-                                IF NOT afbSetPosition[iCurrentAxis].Done THEN
-                                    afbSetPosition[iCurrentAxis].Execute := FALSE;
+                                IF NOT fbSetPosition.Done THEN
+                                    fbSetPosition.Execute := FALSE;
                                     eStartUp := eExecuteRestore;
                                     RETURN;
                                 END_IF
                             END_IF
 
-                            IF GVL.astAxesPersistent[iAxes].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iAxes].bMovingAtShutdown THEN
-                                IF NOT afbSetHomePosition[iCurrentAxis].Done THEN
-                                    afbSetHomePosition[iCurrentAxis].Execute := FALSE;
+                            IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
+                                IF NOT fbSetHomePosition.Done THEN
+                                    fbSetHomePosition.Execute := FALSE;
                                     eStartUp := eExecuteRestore;
                                     RETURN;
                                 END_IF
@@ -333,8 +332,10 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                     END_CASE
             END_IF
 
-            afbSetHomePosition[iCurrentAxis].Execute := FALSE;
-            afbWritePositionBias[iCurrentAxis].Execute := FALSE;
+            fbSetHomePosition.Execute := FALSE;
+            fbSetPosition.Execute := FALSE;
+            fbWritePositionBias.Execute := FALSE;
+            fbReadEncRefSys.Enable := FALSE;
             eStartUp := eNextAxis;
 
         eNextAxis:
