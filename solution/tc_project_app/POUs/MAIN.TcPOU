@@ -228,16 +228,16 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             //First cycle of the PLC, do nothing just give one cycle for variables to initialise
             IF NOT bPositionRestoreDone THEN
                 eStartUp := eReadAxisFeedbackType;
-                nRetry := 0;
             END_IF
 
         eReadAxisFeedbackType:
-            IF NOT GVL.astAxesPersistent[iCurrentAxis].bInitializedAtShutdown THEN
+            IF NOT GVL.astAxesPersistent[iCurrentAxis].bInitializedAtShutdown OR nRetry > 5 THEN
                 eStartUp := eNextAxis;
+                GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := FALSE;
+                nRetry := 0;
                 RETURN;
             END_IF
-            //Execute the function blocks to read the encoder reference system (0=inc OR 1=ABS)
-            afbReadEncRefSys[iCurrentAxis].Enable := TRUE;
+            fbReadEncRefSys.Enable := TRUE;
             eStartUp := eCheckReadDone;
 
         eCheckReadDone:
@@ -251,7 +251,6 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                     nRetry := nRetry + 1;
                     fbReadEncRefSys.Enable := FALSE;
                     eStartUp := eReadAxisFeedbackType;
-                    nRetry := nRetry + 1; //Counter used for troubleshooting to see how many cycles it takes before afbReadEncRefSys function blocks are read correctly
                     RETURN;
                 END_IF
             END_IF
