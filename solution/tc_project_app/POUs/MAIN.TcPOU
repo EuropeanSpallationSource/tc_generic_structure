@@ -19,7 +19,8 @@ VAR
 
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
-    nRetry: INT := 0; //Counts number of retries to read encoder reference
+    nReadEncRefSysRetry: UINT := 0; //Counts number of retries to read encoder reference system
+    nCheckRestoreRetry: UINT := 0; //Counts number of retries to restore axis position or position bias
     iAxes: UINT; //Index for, for-loops in position recovery actions
     iCurrentAxis: UINT := 1; //Index for position recovery actions (not in for loops)
 
@@ -230,43 +231,50 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             END_IF
 
         eReadAxisFeedbackType:
-            IF NOT GVL.astAxesPersistent[iCurrentAxis].bInitializedAtShutdown OR nRetry > 5 THEN
-                eStartUp := eNextAxis;
+            IF NOT GVL.astAxesPersistent[iCurrentAxis].bInitializedAtShutdown OR nReadEncRefSysRetry > 5 THEN
                 GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := FALSE;
-                nRetry := 0;
+                eRestorePositions := eNextAxis;
                 RETURN;
             END_IF
             fbReadEncRefSys.Enable := TRUE;
-            eStartUp := eCheckReadDone;
+            eRestorePositions := eCheckReadDone;
 
         eCheckReadDone:
-            //Check that the encoder reference system has been read for the current axis -> if busy then continue with PLC cycle and check again next time.
-            IF NOT fbReadEncRefSys.Valid THEN
+            // Check whether the encoder reference system has been read for the current axis.
+            // If the FB is busy, continue with the PLC cycle and check again on the next cycle.
+            IF NOT fbReadEncRefSys.Valid OR fbReadEncRefSys.Error THEN
                 IF fbReadEncRefSys.Busy THEN
                     RETURN;
                 ELSE
-                    //.Valid=FALSE and .Busy=FALSE which indicateds the FB probably hasn't started and thus needs to see a rising edge.
+                    //.Valid=FALSE, .Busy=FALSE and .Error=TRUE which indicates the FB probably hasn't started or in error state and thus needs to see a rising edge.
                     //Set .Enable=FALSE and go back a step in the CASE statement.
-                    nRetry := nRetry + 1;
+                    nReadEncRefSysRetry := nReadEncRefSysRetry + 1;
                     fbReadEncRefSys.Enable := FALSE;
-                    eStartUp := eReadAxisFeedbackType;
+                    eRestorePositions := eReadAxisFeedbackType;
                     RETURN;
                 END_IF
             END_IF
 
-            eStartUp := eExecuteRestore;
+            eRestorePositions := eExecuteRestore;
 
         eExecuteRestore:
-            IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
-                CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
+            IF nCheckRestoreRetry > 5 THEN
+                GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := FALSE;
+                eRestorePositions := eNextAxis;
+                RETURN;
+            END_IF
 
-                    E_EncoderRefSys.INCREMENTAL, E_EncoderRefSys.ABSOLUTE_MODULO, E_EncoderRefSys.INCREMENTAL_SINGLETURN_ABSOLUTE:
-                        //Restore position value for incremental encoders
-                        IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
-                            fbSetHomePosition.Execute := TRUE;
-                        ELSE
-                            fbSetPosition.Execute := TRUE;
-                        END_IF
+            CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
+
+                E_EncoderRefSys.INCREMENTAL, E_EncoderRefSys.ABSOLUTE_MODULO, E_EncoderRefSys.INCREMENTAL_SINGLETURN_ABSOLUTE:
+                    //Restore position value for incremental encoders
+                    IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
+                        fbSetHomePosition.Execute := TRUE;
+                        eRestorePositions := eCheckRestoreIncrementalSetHomePos;
+                    ELSE
+                        fbSetPosition.Execute := TRUE;
+                        eRestorePositions := eCheckRestoreIncrementalSetPos;
+                    END_IF
 
 
                 E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
@@ -328,9 +336,9 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             fbSetPosition.Execute := FALSE;
             fbWritePositionBias.Execute := FALSE;
             fbReadEncRefSys.Enable := FALSE;
-            eStartUp := eNextAxis;
+            nReadEncRefSysRetry := 0;
+            nCheckRestoreRetry := 0;
 
-        eNextAxis:
             iCurrentAxis := iCurrentAxis + 1;
             IF iCurrentAxis > GVL_APP.nAXIS_NUM THEN
                 eStartUp := eRestoreFinished;
