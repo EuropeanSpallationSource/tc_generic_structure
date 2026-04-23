@@ -172,11 +172,10 @@ Pneumatic_Box();
     <Action Name="RESTORE_POSITIONS" Id="{0c7ee537-7bd9-4833-b428-c17cbb57e893}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
         <ST><![CDATA[(*
-This ACT will restore the position of an incremental axis and the position bias of an absolute axis on startup,
-with the actual position and position bias being read before losing power. It checks the type of axis, 0=incremental,
-and that the axis was stationary at shut down. Because 0 equates to incremental we also need to check that the data is valid,
-otherwise by default it would restore all axes. A restore will only be performed on a loss of power,
-this code shouldn't make any changes on a reset cold, a rest origin or a download.
+This ACT will restore the position of an incremental axis and the position bias of an absolute axis on startup after a power failure,
+with the actual position and position bias being read before losing power. It checks the type of axis
+and that the axis was stationary at shutdown. A restore will only be performed on a loss of power.
+This code shouldn't make any changes on a cold reset, a reset origin, or a download.
 Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved over the entire service life."
 *)
 
@@ -193,35 +192,35 @@ IF iCurrentAxis > GVL_APP.nAXIS_NUM THEN
 END_IF
 
 
-//Upon startup bPositionRestoreDone will be set to FALSE, after successfully completing the following code it will be set TRUE
-//and should stay TRUE for the rest of the time the PLC is operational, thus this routine should only be completed once.
+//Upon startup, bPositionRestoreDone will be set to FALSE. After successfully completing the following code, it will be set to TRUE
+//and should remain TRUE for the rest of the time the PLC is operational. Thus, this routine should only be completed once.
 IF bRestoreExecute AND NOT bPositionRestoreDone THEN
+
+    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eDontRestore THEN
+        GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := FALSE;
+        eRestorePositions := eNextAxis;
+    END_IF
 
     fbReadEncRefSys(
         Axis := GVL.astAxes[iCurrentAxis].Axis,
         ParameterNumber := MC_AxisParameter.AxisEncoderReferenceSystem,
         ReadMode := E_READMODE.READMODE_ONCE);
+
     //Position recovery for incremental encoders
-    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestorePosition THEN
-        IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
-            fbSetHomePosition(
-                Axis := GVL.astAxes[iCurrentAxis].Axis,
-                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown,
-                HomingMode := MC_HomingMode.MC_Direct);
-        ELSE
-            fbSetPosition(
-                Axis := GVL.astAxes[iCurrentAxis].Axis,
-                Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown);
-        END_IF
-    END_IF
+    fbSetHomePosition(
+        Axis := GVL.astAxes[iCurrentAxis].Axis,
+        Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown,
+        HomingMode := MC_HomingMode.MC_Direct);
+
+    fbSetPosition(
+        Axis := GVL.astAxes[iCurrentAxis].Axis,
+        Position := astAxesPersistent[iCurrentAxis].fPositionAtShutdown);
 
     //Position recovery for absolute encoders
-    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eRestorePositionBias THEN
-        fbWritePositionBias(
-            Axis := GVL.astAxes[iCurrentAxis].Axis,
-            ParameterNumber := E_AxisParameters.AxisEncoderOffset,
-            Value := astAxesPersistent[iCurrentAxis].fEncoderBiasAtShutdown);
-    END_IF
+    fbWritePositionBias(
+        Axis := GVL.astAxes[iCurrentAxis].Axis,
+        ParameterNumber := E_AxisParameters.AxisEncoderOffset,
+        Value := astAxesPersistent[iCurrentAxis].fEncoderBiasAtShutdown);
 
     CASE eRestorePositions OF
         eColdStart:
@@ -341,11 +340,11 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
             iCurrentAxis := iCurrentAxis + 1;
             IF iCurrentAxis > GVL_APP.nAXIS_NUM THEN
-                eStartUp := eRestoreFinished;
+                eRestorePositions := eRestoreFinished;
                 bPositionRestoreDone := TRUE;
                 bRestoreExecute := FALSE;
             ELSE
-                eStartUp := eReadAxisFeedbackType;
+                eRestorePositions := eReadAxisFeedbackType;
             END_IF
 
         eRestoreFinished:
