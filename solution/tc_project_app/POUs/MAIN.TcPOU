@@ -15,7 +15,7 @@ VAR
     fbCX5130UPS: FB_S_UPS_CX51x0;
     fbC6017UPS: FB_S_UPS_BAPI;
     eSelUpsMode: E_S_UPS_Mode := eSUPS_WrPersistData_Shutdown; //Selected UPS mode
-    eStartUp: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestore, eNextAxis, eRestoreFinished);
+    eRestorePositions: (eColdStart, eReadAxisFeedbackType, eCheckReadDone, eExecuteRestore, eCheckRestoreAbsolute, eCheckRestoreIncrementalSetPos, eCheckRestoreIncrementalSetHomePos, eNextAxis, eRestoreFinished);
 
     bPositionRestoreDone: BOOL := FALSE;
     bRestoreExecute: BOOL := FALSE;
@@ -222,12 +222,11 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             Value := astAxesPersistent[iCurrentAxis].fEncoderBiasAtShutdown);
     END_IF
 
-
-    CASE eStartUp OF
+    CASE eRestorePositions OF
         eColdStart:
             //First cycle of the PLC, do nothing just give one cycle for variables to initialise
             IF NOT bPositionRestoreDone THEN
-                eStartUp := eReadAxisFeedbackType;
+                eRestorePositions := eReadAxisFeedbackType;
             END_IF
 
         eReadAxisFeedbackType:
@@ -269,55 +268,62 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
                             fbSetPosition.Execute := TRUE;
                         END_IF
 
-                    E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
-                        //Restore encoder position BIAS for absolute encoders
-                        fbWritePositionBias.Execute := TRUE;
-                END_CASE
+
+                E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
+                    //Restore encoder position bias for absolute encoders
+                    fbWritePositionBias.Execute := TRUE;
+                    eRestorePositions := eCheckRestoreAbsolute;
+
+            END_CASE
+
+        eCheckRestoreAbsolute:
+
+            IF fbWritePositionBias.Busy THEN
+                RETURN;
             END_IF
 
-            eStartUp := eCheckRestore;
-
-        eCheckRestore:
-            //Check that the set position and write encoder bias fbs are finished
-            //Nothing actually happens if the restore is not done, the code just returns from here each cycle and the
-            //bPositionRestoreDone will never get set to TRUE and will take up cycle time
-            IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition <> E_RestorePosition.eDontRestore THEN
-                    CASE LREAL_TO_INT(fbReadEncRefSys.Value) OF
-
-                        E_EncoderRefSys.INCREMENTAL, E_EncoderRefSys.ABSOLUTE_MODULO, E_EncoderRefSys.INCREMENTAL_SINGLETURN_ABSOLUTE:
-                            IF fbSetPosition.Busy THEN
-                                RETURN;
-                            END_IF
-
-                            IF fbSetHomePosition.Busy THEN
-                                RETURN;
-                            END_IF
-
-                            IF GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
-                                IF NOT fbSetPosition.Done THEN
-                                    fbSetPosition.Execute := FALSE;
-                                    eStartUp := eExecuteRestore;
-                                    RETURN;
-                                END_IF
-                            END_IF
-
-                            IF GVL.astAxesPersistent[iCurrentAxis].bHomedAtShutdown AND NOT GVL.astAxesPersistent[iCurrentAxis].bMovingAtShutdown THEN
-                                IF NOT fbSetHomePosition.Done THEN
-                                    fbSetHomePosition.Execute := FALSE;
-                                    eStartUp := eExecuteRestore;
-                                    RETURN;
-                                END_IF
-                            END_IF
-
-                        E_EncoderRefSys.ABSOLUTE, E_EncoderRefSys.ABSOLUTE_MULTITURN_RANGE, E_EncoderRefSys.ABSOLUTE_SINGLETURN_RANGE:
-                            IF NOT fbWritePositionBias.Done THEN
-                                fbWritePositionBias.Execute := FALSE;
-                                eStartUp := eExecuteRestore;
-                                RETURN;
-                            END_IF
-                    END_CASE
+            IF NOT fbWritePositionBias.Done OR fbWritePositionBias.Error THEN
+                fbWritePositionBias.Execute := FALSE;
+                nCheckRestoreRetry := nCheckRestoreRetry + 1;
+                eRestorePositions := eExecuteRestore;
+                RETURN;
             END_IF
 
+            GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := TRUE;
+            eRestorePositions := eNextAxis;
+
+        eCheckRestoreIncrementalSetPos:
+            IF fbSetPosition.Busy THEN
+                RETURN;
+            END_IF
+
+            IF NOT fbSetPosition.Done OR fbSetPosition.Error THEN
+                fbSetPosition.Execute := FALSE;
+                nCheckRestoreRetry := nCheckRestoreRetry + 1;
+                eRestorePositions := eExecuteRestore;
+                RETURN;
+            END_IF
+
+            GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := TRUE;
+            eRestorePositions := eNextAxis;
+
+        eCheckRestoreIncrementalSetHomePos:
+            IF fbSetHomePosition.Busy THEN
+                RETURN;
+            END_IF
+
+            IF NOT fbSetHomePosition.Done OR fbSetHomePosition.Error THEN
+                fbSetHomePosition.Execute := FALSE;
+                nCheckRestoreRetry := nCheckRestoreRetry + 1;
+                eRestorePositions := eExecuteRestore;
+                RETURN;
+            END_IF
+
+            GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := TRUE;
+            eRestorePositions := eNextAxis;
+
+        eNextAxis:
+            //Reset FBs and retry counter before reading the next axis.
             fbSetHomePosition.Execute := FALSE;
             fbSetPosition.Execute := FALSE;
             fbWritePositionBias.Execute := FALSE;
