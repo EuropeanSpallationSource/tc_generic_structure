@@ -196,7 +196,7 @@ END_IF
 //and should remain TRUE for the rest of the time the PLC is operational. Thus, this routine should only be completed once.
 IF bRestoreExecute AND NOT bPositionRestoreDone THEN
 
-    IF GVL.astAxes[iCurrentAxis].stConfig.eRestorePosition = E_RestorePosition.eDontRestore THEN
+    IF NOT GVL.astAxes[iCurrentAxis].stConfig.bRestorePosition THEN
         GVL.astAxes[iCurrentAxis].stStatus.bAxisHasBeenRestored := FALSE;
         eRestorePositions := eNextAxis;
     END_IF
