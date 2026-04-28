@@ -7,7 +7,7 @@ VAR
     aIAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF I_Axis; //Array of axis interfaces, size determined by the total number of axes in the system
     afbAxes: ARRAY [1..GVL_APP.nAXIS_NUM] OF FB_Axis; //Array of axis function blocks, one for each axis
     afbPneumaticAxes: ARRAY [1..GVL_APP.nPNEUMATIC_AXIS_NUM] OF FB_PneumaticAxis; //Array of pneumatic axis function blocks, size determined by the number of pneumatic axes
-    afCurrentPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF LREAL; //Stores the current position of each axis at defined time intervals, see timeReadPosition
+    afSavedPosition: ARRAY [1..GVL_APP.nAXIS_NUM] OF LREAL; //Stores the current position of each axis at defined time intervals, see tReadPosition
     hmiAxisSelection: INT := 1; //Specifies the currently selected axis for HMI operations, allowing the user to control a specific axis
     hmiPneumaticAxisSelection: INT := 1; //Specifies the currently selected pneumatic axis for HMI operation, allowing the user to control the specific axis
 
@@ -126,7 +126,7 @@ END_IF
 
 IF fbReadPositionTimer.Q THEN
     FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        afCurrentPosition[iAxes] := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
+        afSavedPosition[iAxes] := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
     END_FOR
     bReadPosition := FALSE;
 END_IF
@@ -367,7 +367,7 @@ END_IF
     //Store axis status at shutdown
     astAxesPersistent[iAxes].bInitializedAtShutdown := GVL.astAxes[iAxes].stStatus.bAxisInitialized;
     astAxesPersistent[iAxes].bHomedAtShutdown := GVL.astAxes[iAxes].stStatus.bHomed;
-    astAxesPersistent[iAxes].fPositionDifferenceAtShutdown := ABS(afCurrentPosition[iAxes] - astAxesPersistent[iAxes].fPositionAtShutdown);
+    astAxesPersistent[iAxes].fPositionDifferenceAtShutdown := ABS(afSavedPosition[iAxes] - astAxesPersistent[iAxes].fPositionAtShutdown);
 
     //Store value of moving at shutdown
     IF astAxes[iAxes].Axis.Status.Disabled OR astAxesPersistent[iAxes].fPositionDifferenceAtShutdown < fPositionDifferenceLimit THEN
