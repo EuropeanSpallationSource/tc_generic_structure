@@ -31,7 +31,7 @@ VAR
     fbWritePositionBias: MC_WriteParameter;
 
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
-    timeAsDTAtStartup: DT;
+    dtAtStartup: DT;
     nTestNum: UINT := 0; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 
     //Read position at a specific time interval
@@ -182,7 +182,7 @@ Note from Beckhoff: "A maximum of 1 MB persistent data can be reliably saved ove
 IF bRestoreOnStartup AND eGlobalSUpsState = eSUPS_PowerOK THEN
     bRestoreOnStartup := FALSE;
     bRestoreExecute := TRUE;
-    timeAsDTAtStartup := FILETIME64_TO_DT(F_GetSystemTime());
+    dtAtStartup := FILETIME64_TO_DT(F_GetSystemTime());
     iCurrentAxis := 1;
 
 END_IF
@@ -378,7 +378,7 @@ END_IF
 END_FOR
 
 //Store date and time at shutdown
-GVL.timeAtShutdownPersistent := FILETIME64_TO_DT(F_GetSystemTime());
+GVL.dtAtShutdownPersistent := FILETIME64_TO_DT(F_GetSystemTime());
 ]]></ST>
       </Implementation>
     </Action>
