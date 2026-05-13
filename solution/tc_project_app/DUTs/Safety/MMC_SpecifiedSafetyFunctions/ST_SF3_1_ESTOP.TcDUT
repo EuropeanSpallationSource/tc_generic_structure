@@ -9,6 +9,7 @@ STRUCT
     bSI_ES_OPT : BOOL;
     bSI_ES_EXT : BOOL;
 END_STRUCT
-END_TYPE]]></Declaration>
+END_TYPE
+]]></Declaration>
   </DUT>
 </TcPlcObject>

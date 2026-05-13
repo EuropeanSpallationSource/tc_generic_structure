@@ -10,6 +10,7 @@ STRUCT
     stSF32PSSAccess : ST_SF3_2_PSS_ACCESS;
     stSF33RestartPreventionExp : ST_SF3_3_RESTART_PREVENTION_EXP;
 END_STRUCT
-END_TYPE]]></Declaration>
+END_TYPE
+]]></Declaration>
   </DUT>
 </TcPlcObject>
