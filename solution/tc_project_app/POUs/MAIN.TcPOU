@@ -27,6 +27,12 @@ VAR
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
 
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
+	
+	//Motion Safety
+    fbMotionSafety : FB_MotionSafety;
+    bSafetyUpdateRefs : BOOL;
+    stMCCSafetyFunctions : ST_MCCSafetyFunctions;
+
 END_VAR
 
 VAR PERSISTENT
@@ -37,6 +43,7 @@ END_VAR
       <ST><![CDATA[POSITION_RECOVERY();
 PROG();
 AXES();
+SAFETY();
 PILSv2();
 ]]></ST>
     </Implementation>
@@ -293,6 +300,24 @@ IF bRestoreExecute AND NOT bPositionRestoreDone THEN
             END_FOR
     END_CASE
 END_IF
+]]></ST>
+      </Implementation>
+    </Action>
+    <Action Name="SAFETY" Id="{8e22ca14-5d6c-08d6-2145-dd69cdd85f95}">
+      <Implementation>
+        <ST><![CDATA[// -----------------------------------------------------------------------------
+// Calls FB_MotionSafety to read the raw PNOZ EtherCAT input data, format it into
+// fbMotionSafety.stECATIn, and link each safety function into stMCCSafetyFunctions.
+//
+// Safety function byte mapping is defined in E_MCCSafetyFunction.
+// MCC-specific safety rules/effects should be added below.
+// -----------------------------------------------------------------------------
+
+
+fbMotionSafety(bEnable := TRUE, stMCCSafetyFunctions := stMCCSafetyFunctions);
+
+
+
 ]]></ST>
       </Implementation>
     </Action>
