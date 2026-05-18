@@ -34,7 +34,8 @@ VAR PERSISTENT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[POSITION_RECOVERY();
+      <ST><![CDATA[INIT();
+POSITION_RECOVERY();
 PROG();
 AXES();
 ]]></ST>
@@ -106,6 +107,13 @@ END_IF
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="INIT" Id="{211fcb7f-ce8f-0752-27ee-b9ea8bd7e7c5}">
+      <Implementation>
+        <ST><![CDATA[//Get task index for initialization.
+GVL.fbGetCurTaskIndex();
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="POSITION_RECOVERY" Id="{28e203b7-aea5-42d0-980d-12a6841f9d22}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
         <ST><![CDATA[fbGetDeviceIdentification(bExecute := TRUE);
@@ -118,10 +126,7 @@ END_IF
     </Action>
     <Action Name="PROG" Id="{5d03ebbb-2a47-4890-ad6d-e82daf72dc51}">
       <Implementation>
-        <ST><![CDATA[//Get task index for Axes parameters initialization.
-GVL.fbGetCurTaskIndex();
-
-//Call the programs that are defined in the "Application Specific" folder.
+        <ST><![CDATA[//Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
 //Cabinet monitoring and pressure limits for pneumatics
