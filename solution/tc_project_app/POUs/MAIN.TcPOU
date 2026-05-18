@@ -25,10 +25,10 @@ VAR
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
-	
-	{attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^InfoData^AmsNetId'}
-	aEtherCATMasterNetId AT%I*: AMSNETID;
-	sEtherCATMasterNetId: T_AmsNetId;
+
+    {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^InfoData^AmsNetId'}
+    aEtherCATMasterNetId AT%I*: AMSNETID;
+    sEtherCATMasterNetId: T_AmsNetId;
 
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
@@ -117,17 +117,17 @@ END_IF
 GVL.fbGetCurTaskIndex();
 
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-	FOR iCnt := 0 TO (SIZEOF(AMSNETID) - 1) DO
-		IF aEtherCATMasterNetId[iCnt] = 0 THEN
-        	ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
-			EXIT;
-		END_IF
-		
-		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));	
-		IF iCnt < (SIZEOF(AMSNETID) - 1) THEN
-			sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');			
-		END_IF
-	END_FOR
+    FOR iCnt := 0 TO (SIZEOF(AMSNETID) - 1) DO
+        IF aEtherCATMasterNetId[iCnt] = 0 THEN
+            ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
+            EXIT;
+        END_IF
+
+        sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
+        IF iCnt < (SIZEOF(AMSNETID) - 1) THEN
+            sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
+        END_IF
+    END_FOR
 END_IF
 ]]></ST>
       </Implementation>

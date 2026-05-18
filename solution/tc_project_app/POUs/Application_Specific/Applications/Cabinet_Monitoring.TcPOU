@@ -3,7 +3,7 @@
   <POU Name="Cabinet_Monitoring" Id="{f09ddf2c-38c8-0b17-348a-c2e3aa836c88}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Cabinet_Monitoring
 VAR_INPUT
-	sEtherCATMasterNetId : T_AmsNetID;
+    sEtherCATMasterNetId : T_AmsNetID;
 END_VAR
 VAR
     //fbCabinetMonitoring: FB_ESSMonitoringMCU5001a; FB_ESSMonitoringMCU5001b; FB_ESSMonitoringMCU6001a; FB_ESSMonitoringMCU6001b; FB_ESSMonitoringMCU5002; FB_ESSMonitoringMCU5003;
