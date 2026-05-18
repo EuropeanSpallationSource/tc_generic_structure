@@ -117,12 +117,17 @@ END_IF
 GVL.fbGetCurTaskIndex();
 
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-	sEtherCATMasterNetId := CONCAT(TO_STRING(aEtherCATMasterNetId[0]), '.');
-	FOR iCnt := 1 TO 4 DO
-		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
-		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
+	FOR iCnt := 0 TO (SIZEOF(AMSNETID) - 1) DO
+		IF aEtherCATMasterNetId[iCnt] = 0 THEN
+        	ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
+			EXIT;
+		END_IF
+		
+		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));	
+		IF iCnt < (SIZEOF(AMSNETID) - 1) THEN
+			sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');			
+		END_IF
 	END_FOR
-	sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
 END_IF
 ]]></ST>
       </Implementation>
