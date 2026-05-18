@@ -1,0 +1,16 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCCSafetyFunctions" Id="{a14bb73e-e071-0777-120d-26666a0ac858}">
+    <Declaration><![CDATA[TYPE ST_MCCSafetyFunctions :
+STRUCT
+    aSafetyFunction : ARRAY[1..GVL_SafetyIO.UPPER_BOUND_SF_INPUT] OF ST_SafetyFunction;
+    stLEDState : ST_LEDState;
+
+    stSF31EStop : ST_SF3_1_EStop;
+    stSF32PSSAccess : ST_SF3_2_PSS_ACCESS;
+    stSF33RestartPreventionExp : ST_SF3_3_RESTART_PREVENTION_EXP;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

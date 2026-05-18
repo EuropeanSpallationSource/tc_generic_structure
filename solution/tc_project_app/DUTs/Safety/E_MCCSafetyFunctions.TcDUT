@@ -1,0 +1,21 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_MCCSafetyFunctions" Id="{67cba4a1-d914-0ba8-3f98-b5150a554ddf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+TYPE E_MCCSafetyFunctions :
+(
+    SF3_0_NONE := 0,
+    SF3_1_EStop := 1,
+    SF3_2_PSSAccess := 2,
+    SF3_3_RestartPreventionExp := 3,
+    SF3_4_RestartPreventionOpt := 4,
+    SF3_5_StopMiddleFocus := 5,
+    SF3_6_EnableMiddleFocus := 6,
+    SF3_7_SafeTorqueOff := 7,
+    SF3_17_E_LED_STATE := 17
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
