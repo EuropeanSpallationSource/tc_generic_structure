@@ -3,7 +3,7 @@
   <DUT Name="ST_MCCSafetyFunctions" Id="{a14bb73e-e071-0777-120d-26666a0ac858}">
     <Declaration><![CDATA[TYPE ST_MCCSafetyFunctions :
 STRUCT
-    aSafetyFunction : ARRAY[1..GVL_SafetyIO.UPPER_BOUND_SF] OF ST_SafetyFunction;
+    aSafetyFunction : ARRAY[1..GVL_SafetyIO.UPPER_BOUND_SF_INPUT] OF ST_SafetyFunction;
     stLEDState : ST_LEDState;
 
     stSF31EStop : ST_SF3_1_EStop;

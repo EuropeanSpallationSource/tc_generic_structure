@@ -30,7 +30,6 @@ VAR
 
     //Motion Safety
     fbMotionSafety : FB_MotionSafety;
-    bSafetyUpdateRefs : BOOL;
     stMCCSafetyFunctions : ST_MCCSafetyFunctions;
 
 END_VAR
@@ -310,14 +309,14 @@ END_IF
 // fbMotionSafety.stECATIn, and link each safety function into stMCCSafetyFunctions.
 //
 // Safety function byte mapping is defined in E_MCCSafetyFunction.
-// MCC-specific safety rules/effects should be added below.
 // -----------------------------------------------------------------------------
 
+fbMotionSafety(bEnableSafety := TRUE, stMCCSafetyFunctions := stMCCSafetyFunctions);
 
-fbMotionSafety(bEnable := TRUE, stMCCSafetyFunctions := stMCCSafetyFunctions);
+// LOGIC SPECIFIC TO THIS CABINET, Placeholder, WIP
+// MCC-specific safety rules/effects should be added below.
 
-
-
+fbMotionSafety.mWriteECATOutput();
 ]]></ST>
       </Implementation>
     </Action>
