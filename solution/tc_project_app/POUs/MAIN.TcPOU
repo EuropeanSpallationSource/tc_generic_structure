@@ -27,8 +27,8 @@ VAR
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
 
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
-	
-	// Motion Safety
+
+    // Motion Safety
     fbMotionSafety : FB_MotionSafety;
     stMCCSafetyFunctions : ST_MCCSafetyFunctions;
 END_VAR
