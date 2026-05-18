@@ -49,9 +49,9 @@ AXES();
       <Implementation>
         <ST><![CDATA[//First cycle, assign FB_axis to interface array
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-    FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
-        afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
-        aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
+    FOR GVL.iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+        afbAxes[GVL.iCnt].stAxis REF= astAxes[GVL.iCnt];
+        aIAxes[GVL.iCnt] := afbAxes[GVL.iCnt];
     END_FOR
     //Initialize pneumatic axes and link them to their corresponding instances
     FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
@@ -64,8 +64,8 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
 END_IF
 
 //Execute FB_Axis logic
-FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
-    aIAxes[GVL.iAxis].Run();
+FOR GVL.iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+    aIAxes[GVL.iCnt].Run();
 END_FOR
 
 //Execute Pneumatic Axis logic
@@ -118,11 +118,11 @@ GVL.fbGetCurTaskIndex();
 
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
 	sEtherCATMasterNetId := CONCAT(TO_STRING(aEtherCATMasterNetId[0]), '.');
-	FOR iAxis := 1 TO 4 DO
-		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iAxis]));
+	FOR iCnt := 1 TO 4 DO
+		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
 		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
 	END_FOR
-	sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iAxis]));
+	sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
 END_IF
 ]]></ST>
       </Implementation>
