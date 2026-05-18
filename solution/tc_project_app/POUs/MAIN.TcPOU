@@ -151,7 +151,7 @@ Safety_Shutter();
 //Pneumatics_Template();
 
 //Application program calls
-Cabinet_Monitoring();
+Cabinet_Monitoring(sEtherCATMasterNetId:= sEtherCATMasterNetId);
 Pneumatic_Box();
 //Shutter_Operator_Panel();
 //Slit_Template();
