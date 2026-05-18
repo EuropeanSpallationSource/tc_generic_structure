@@ -25,6 +25,10 @@ VAR
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
+	
+	{attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^InfoData^AmsNetId'}
+	aEtherCATMasterNetId AT%I*: AMSNETID;
+	sEtherCATMasterNetId: T_AmsNetId;
 
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
@@ -111,6 +115,15 @@ END_IF
       <Implementation>
         <ST><![CDATA[//Get task index for initialization.
 GVL.fbGetCurTaskIndex();
+
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+	sEtherCATMasterNetId := CONCAT(TO_STRING(aEtherCATMasterNetId[0]), '.');
+	FOR iAxis := 1 TO 4 DO
+		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iAxis]));
+		sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
+	END_FOR
+	sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iAxis]));
+END_IF
 ]]></ST>
       </Implementation>
     </Action>
