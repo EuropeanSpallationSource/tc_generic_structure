@@ -1,0 +1,11 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_PNOZRawIn" Id="{40acf446-3183-47fb-8d3f-0dd7b158d9d4}">
+    <Declaration><![CDATA[TYPE ST_PNOZRawIn :
+STRUCT
+    abyInput: ARRAY[1..GVL_SafetyIO.cPNOZ_TXPDO_BYTES] OF BYTE; //Raw Input Byte 00..31 (0-255 bits)
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_PNOZEtherCATOut" Id="{2f65ec2d-5561-0256-2e54-58b3e165bd48}">
+    <Declaration><![CDATA[(*
+ST_Safety does not point directly to the raw EtherCAT data. Instead,
+mLinkRefs() links ST_Safety reference members to this structure.
+*)
+TYPE ST_PNOZEtherCATOut :
+STRUCT
+    aSafetyFunctionOut: ARRAY[GVL_SafetyIO.cLOWER_BOUND_SF..GVL_SafetyIO.cUPPER_BOUND_SF] OF ST_SafetyFunctionOut; //Input Byte 04..11
+
+    stTableNumberOut: ST_TableNumberOut; //Scanner Output Byte 17, Placeholder, WIP
+    stSegmentNumberOut: ST_SegmentNumberOut; //Scanner Output Byte 18, Placeholder, WIP
+
+    stSafetyFeedback: ST_SafetyFeedback; //Placeholder, WIP
+    aSubSystemOut: ARRAY[1..GVL_SafetyIO.cUPPER_NBR_OF_SS] OF ST_SubSystemOut; //Placeholder, WIP
+    stSequenceOut: ST_SequenceOut; //Placeholder, WIP
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
