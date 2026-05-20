@@ -1,0 +1,138 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_MotionSafety" Id="{42ac902b-686a-033a-1cee-f9e03524ad75}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_MotionSafety
+VAR_INPUT
+    bEnableSafety: BOOL;
+    stSafety: REFERENCE TO ST_Safety;
+END_VAR
+VAR_OUTPUT
+    stECATIn: ST_PNOZEtherCATIn;
+    stECATOut: ST_PNOZEtherCATOut;
+END_VAR
+VAR
+    stSafetyFeedback: ST_SafetyFeedback; //Placeholder, WIP
+    stSafetyDiagnostics: ST_SafetyDiagnostics; //Placeholder, WIP
+
+    stPNOZCommDiag: ST_PNOZCommDiag;
+
+    i: UINT := 1; //Index for, for loops
+    bRefsLinked: BOOL := FALSE;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[IF NOT bEnableSafety THEN
+    RETURN;
+END_IF
+
+IF NOT bRefsLinked THEN
+    bRefsLinked := mLinkRefs(); // Link references, once
+END_IF
+
+
+// EtherCAT communication diagnostics
+stPNOZCommDiag.bitWcState := GVL_SafetyIO.stPNOZEtherCATStatus.bitWcState;
+stPNOZCommDiag.bitInputToggle := GVL_SafetyIO.stPNOZEtherCATStatus.bitInputToggle;
+stPNOZCommDiag.nEtherCATState := GVL_SafetyIO.stPNOZEtherCATStatus.nState;
+
+// if WcState = 1 (TRUE), then invalid real-time communication
+IF (stPNOZCommDiag.bitWcState = 1) THEN
+    RETURN;
+END_IF
+
+mReadECATInput(); // Cyclic status update
+
+]]></ST>
+    </Implementation>
+    <Method Name="mLinkRefs" Id="{ff9fb110-8441-0e12-312f-7e3c0f40d921}">
+      <Declaration><![CDATA[METHOD mLinkRefs : BOOL
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Link safety function references to the internal formatted EtherCAT input/output structures.
+
+IF NOT __ISVALIDREF(stSafety) THEN
+    mLinkRefs := FALSE;
+    RETURN;
+END_IF
+
+FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
+    //PNOZ -> PLC
+    stSafety.aSafetyFunction[i].refIn REF=stECATIn.aSafetyFunctionIn[i];
+
+    //PLC -> PNOZ
+    stSafety.aSafetyFunction[i].refOut REF=stECATOut.aSafetyFunctionOut[i];
+END_FOR
+
+//PNOZ -> PLC
+stSafety.refLEDState REF=stECATIn.stLEDState;
+stSafety.stTableNumber.refIn REF=stECATIn.stTableNumberIn;
+stSafety.stSegmentNumber.refIn REF=stECATIn.stSegmentNumberIn;
+
+//PLC -> PNOZ
+stSafety.stTableNumber.refOut REF=stECATOut.stTableNumberOut;
+stSafety.stSegmentNumber.refOut REF=stECATOut.stSegmentNumberOut;
+
+mLinkRefs := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mReadECATInput" Id="{6ce18be3-cca8-0024-1d0e-f23b26b8f0e4}">
+      <Declaration><![CDATA[METHOD mReadECATInput : BOOL
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+Cyclically copies raw PNOZ EtherCAT input data into the internal PLC-side
+input structure.
+
+The reference link is created once in mLinkRefs(). Because refSafetyIn points
+to stECATIn.aSafetyFunctionIn[x], updating stECATIn also updates the data
+visible through stSafetyFunctions.
+
+Meaning:
+E_SafetyFunctions.eEStop --> selects the safety function.
+refSafetyIn.bEnabled --> selects the bit/state of that safety function.
+*)
+
+mReadECATInput := FALSE;
+
+//PNOZ safety function inputs
+FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
+    stECATIn.aSafetyFunctionIn[i] := F_MapRawInputToSafetyFunctionIn(stRawIn := GVL_SafetyIO.stPNOZRawIn, nSafetyFunction := i);
+END_FOR
+
+//PNOZ LED state
+stECATIn.stLEDState.nLEDState := GVL_SafetyIO.stLEDState.nLEDState;
+
+mReadECATInput := TRUE;]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mWriteECATOutput" Id="{865f3cf8-e0a7-0a8d-3327-b33af2b675e0}">
+      <Declaration><![CDATA[METHOD mWriteECATOutput : BOOL
+VAR
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+Cyclically writes the formatted PLC-side output structure stECATOut to the
+raw PNOZ EtherCAT output in GVL_SafetyIO.
+*)
+
+mWriteECATOutput:= FALSE;
+
+FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
+    F_MapSafetyFunctionOutToRawOutput(
+        stRawOut             := GVL_SafetyIO.stPNOZRawOut,
+        nSafetyFunction      := i,
+        stSafetyFunctionOut  := stECATOut.aSafetyFunctionOut[i]
+    );
+END_FOR
+
+mWriteECATOutput := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+  </POU>
+</TcPlcObject>

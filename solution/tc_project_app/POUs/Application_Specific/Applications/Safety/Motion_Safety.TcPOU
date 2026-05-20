@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Motion_Safety" Id="{2cc620d0-4324-0fec-1587-9760faae60d9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Motion_Safety
+VAR
+
+    fbMotionSafety: FB_MotionSafety;
+    stSafety: ST_Safety;
+
+    //example variable
+    bEStopEnabled: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+ Calls FB_MotionSafety to read the raw PNOZ EtherCAT input data to format it into
+ fbMotionSafety.stECATIn, and link each safety function into stSafetyFunctions.
+
+ Safety function mapping is defined in E_SafetyFunctions.
+*)
+
+fbMotionSafety(bEnableSafety := TRUE, stSafety := stSafety);
+
+//Mapping complete here is an example usage:
+bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn.bitEnabled;
+
+
+//LOGIC SPECIFIC TO THIS CABINET, Placeholder, WIP
+//MCC-specific safety rules/effects should be added below.
+
+fbMotionSafety.mWriteECATOutput();]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
