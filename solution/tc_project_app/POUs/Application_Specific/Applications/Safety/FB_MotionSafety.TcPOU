@@ -74,7 +74,8 @@ stSafety.stSegmentNumber.refIn REF=stECATIn.stSegmentNumberIn;
 stSafety.stTableNumber.refOut REF=stECATOut.stTableNumberOut;
 stSafety.stSegmentNumber.refOut REF=stECATOut.stSegmentNumberOut;
 
-mLinkRefs := TRUE;]]></ST>
+mLinkRefs := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mReadECATInput" Id="{6ce18be3-cca8-0024-1d0e-f23b26b8f0e4}">
@@ -106,7 +107,8 @@ END_FOR
 //PNOZ LED state
 stECATIn.stLEDState.nLEDState := GVL_SafetyIO.stLEDState.nLEDState;
 
-mReadECATInput := TRUE;]]></ST>
+mReadECATInput := TRUE;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mWriteECATOutput" Id="{865f3cf8-e0a7-0a8d-3327-b33af2b675e0}">

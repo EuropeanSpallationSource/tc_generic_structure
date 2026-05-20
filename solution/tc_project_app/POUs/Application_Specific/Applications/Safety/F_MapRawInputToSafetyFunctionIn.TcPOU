@@ -11,7 +11,8 @@ VAR
     nByteIndex: UINT; //Index of the raw input byte containing the safety function
     bUpperNibble: BOOL; //1 nibble = 4 bits, TRUE = use upper nibble, FALSE = use lower nibble
     byRaw: BYTE; //Raw byte read from the input array
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Default return value
 F_MapRawInputToSafetyFunctionIn.bitEnabled := FALSE;

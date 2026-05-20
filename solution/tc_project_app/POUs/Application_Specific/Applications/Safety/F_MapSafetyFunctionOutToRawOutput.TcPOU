@@ -14,7 +14,8 @@ VAR
     nByteIndex: UINT; //Index of the raw output byte containing the safety function
     bUpperNibble: BOOL; //1 nibble = 4 bits
     byValue: BYTE; //4-bit value built from the safety function output bits
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[F_MapSafetyFunctionOutToRawOutput := FALSE;
 
@@ -77,7 +78,8 @@ ELSE
         (stRawOut.abyOutput[nByteIndex] AND BYTE#16#0F) OR SHL(byValue, 4);
 END_IF
 
-F_MapSafetyFunctionOutToRawOutput := TRUE;]]></ST>
+F_MapSafetyFunctionOutToRawOutput := TRUE;
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

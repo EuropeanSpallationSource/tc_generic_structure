@@ -28,7 +28,8 @@ bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn.bitEna
 //LOGIC SPECIFIC TO THIS CABINET, Placeholder, WIP
 //MCC-specific safety rules/effects should be added below.
 
-fbMotionSafety.mWriteECATOutput();]]></ST>
+fbMotionSafety.mWriteECATOutput();
+]]></ST>
     </Implementation>
   </POU>
 </TcPlcObject>

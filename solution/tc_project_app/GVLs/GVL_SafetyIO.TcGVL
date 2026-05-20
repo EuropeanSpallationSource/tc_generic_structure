@@ -27,6 +27,7 @@ VAR_GLOBAL CONSTANT
     cLOWER_BOUND_SF: UINT := 5;  //Lower Bound = 5, Virtual Output/Input bytes 04..11, each containing 8 bits
     cUPPER_BOUND_SF: UINT := 12; //Upper Bound = 12, Virtual Output/Input bytes 04..11, each containing 8 bits
     cUPPER_NBR_OF_SS: UINT := 2;  //Number of subsystems, Placeholder, WIP
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
   </GVL>
 </TcPlcObject>
