@@ -1,0 +1,25 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_SafetyFunctions" Id="{67cba4a1-d914-0ba8-3f98-b5150a554ddf}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+(*
+Central definition of safety functions includes for a motion control cabinet.
+Add new safety functions to match the incoming safety functions from the PNOZmulti 2.
+Each safety function represents 4-bits.
+*)
+TYPE E_SafetyFunctions :
+(
+    eEStop := 5,
+    ePSSAccess := 6,
+    eRestartPreventionExp := 7,
+    eRestartPreventionOpt := 8,
+    eStopMiddleFocus := 9,
+    eEnableMiddleFocus := 10,
+    eSafeTorqueOff := 11,
+    eReserved := 12
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
