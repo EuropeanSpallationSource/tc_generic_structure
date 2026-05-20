@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_TableNumberOut" Id="{7aab0fa3-f7d4-0c76-2b88-970dc18f8837}">
+    <Declaration><![CDATA[TYPE ST_TableNumberOut :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

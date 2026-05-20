@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SegmentNumberOut" Id="{276d0801-6252-016b-3a66-9bd2be106cc5}">
+    <Declaration><![CDATA[TYPE ST_SegmentNumberOut :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

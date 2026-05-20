@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_TableNumber" Id="{4dd76721-8462-08bc-2b19-c2901eeab2b7}">
+    <Declaration><![CDATA[//Placeholder, WIP --> need to define what purpose this struct serves
+TYPE ST_TableNumber :
+STRUCT
+    refIn: REFERENCE TO ST_TableNumberIn;
+    refOut: REFERENCE TO ST_TableNumberOut;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
