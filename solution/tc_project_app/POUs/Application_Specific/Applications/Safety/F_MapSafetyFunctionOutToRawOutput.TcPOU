@@ -1,0 +1,83 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_MapSafetyFunctionOutToRawOutput" Id="{c6e95e1e-bf08-075c-1d4b-fee49c420b29}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_MapSafetyFunctionOutToRawOutput : BOOL;
+VAR_IN_OUT
+    stRawOut: ST_PNOZRawOut;
+END_VAR
+VAR_INPUT
+    nSafetyFunction: UINT; //1-based safety function index
+    stSafetyFunctionOut: ST_SafetyFunctionOut;
+END_VAR
+VAR
+    nZeroBasedIndex: UINT; //Safety function index converted to zero-based
+    nByteIndex: UINT; //Index of the raw output byte containing the safety function
+    bUpperNibble: BOOL; //1 nibble = 4 bits
+    byValue: BYTE; //4-bit value built from the safety function output bits
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[F_MapSafetyFunctionOutToRawOutput := FALSE;
+
+//Validate that index is not out of bounds
+IF (nSafetyFunction < GVL_SafetyIO.cLOWER_BOUND_SF)
+OR (nSafetyFunction > GVL_SafetyIO.cUPPER_BOUND_SF) THEN
+    RETURN;
+END_IF
+(*
+The configured safety function range can start from any index.
+Therefore, the selected safety function is converted to a zero-based index.
+
+Example:
+If GVL_SafetyIO.cLOWER_BOUND_SF = 5
+nSafetyFunction = 5 -> nZeroBasedIndex = 0
+nSafetyFunction = 6 -> nZeroBasedIndex = 1
+nSafetyFunction = 7 -> nZeroBasedIndex = 2
+*)
+nZeroBasedIndex := nSafetyFunction - GVL_SafetyIO.cLOWER_BOUND_SF;
+nByteIndex := (nZeroBasedIndex / 2) + 1; //Two safety functions are stored in each byte
+bUpperNibble := (nZeroBasedIndex MOD 2) = 1; //Odd indexes use upper nibble, even indexes use lower nibble
+
+(*
+Build one 4-bit value from the safety function output structure.
+Each BOOL is written into one bit of byValue using OR.
+If the BOOL is TRUE, the corresponding bit is set.
+If the BOOL is FALSE, the corresponding bit remains 0.
+
+Bit layout inside byValue:
+bitDiagOk  -> bit 0 -> mask BYTE#16#01 -> 0000 0001
+bitOutput  -> bit 1 -> mask BYTE#16#02 -> 0000 0010
+bitRequest -> bit 2 -> mask BYTE#16#04 -> 0000 0100
+bitDummy   -> bit 3 -> mask BYTE#16#08 -> 0000 1000
+*)
+byValue := BYTE#0;
+
+IF stSafetyFunctionOut.bitDiagOk THEN
+    byValue := byValue OR BYTE#16#01;
+END_IF
+
+IF stSafetyFunctionOut.bitOutput THEN
+    byValue := byValue OR BYTE#16#02;
+END_IF
+
+IF stSafetyFunctionOut.bitRequest THEN
+    byValue := byValue OR BYTE#16#04;
+END_IF
+
+IF stSafetyFunctionOut.bitDummy THEN
+    byValue := byValue OR BYTE#16#08;
+END_IF
+
+IF NOT bUpperNibble THEN
+    //Lower nibble: bits 0..3
+    stRawOut.abyOutput[nByteIndex] :=
+        (stRawOut.abyOutput[nByteIndex] AND BYTE#16#F0) OR byValue;
+ELSE
+    //Upper nibble: bits 4..7
+    stRawOut.abyOutput[nByteIndex] :=
+        (stRawOut.abyOutput[nByteIndex] AND BYTE#16#0F) OR SHL(byValue, 4);
+END_IF
+
+F_MapSafetyFunctionOutToRawOutput := TRUE;]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

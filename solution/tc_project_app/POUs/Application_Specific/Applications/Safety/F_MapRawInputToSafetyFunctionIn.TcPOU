@@ -1,0 +1,76 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="F_MapRawInputToSafetyFunctionIn" Id="{91d57ffa-50f0-0bef-2eb9-dc6e59f29bdd}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION F_MapRawInputToSafetyFunctionIn : ST_SafetyFunctionIn
+VAR_INPUT
+    stRawIn: ST_PNOZRawIn;
+    nSafetyFunction: UINT; //1-based safety function index
+END_VAR
+VAR
+    nZeroBasedIndex: UINT; //Safety function index converted to zero-based
+    nByteIndex: UINT; //Index of the raw input byte containing the safety function
+    bUpperNibble: BOOL; //1 nibble = 4 bits, TRUE = use upper nibble, FALSE = use lower nibble
+    byRaw: BYTE; //Raw byte read from the input array
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Default return value
+F_MapRawInputToSafetyFunctionIn.bitEnabled := FALSE;
+F_MapRawInputToSafetyFunctionIn.bitReady := FALSE;
+F_MapRawInputToSafetyFunctionIn.bitFault := FALSE;
+F_MapRawInputToSafetyFunctionIn.bitStart := FALSE;
+
+//Validate that index is not out of bounds
+IF (nSafetyFunction < GVL_SafetyIO.cLOWER_BOUND_SF)
+OR (nSafetyFunction > GVL_SafetyIO.cUPPER_BOUND_SF) THEN
+    RETURN;
+END_IF
+
+(*
+The configured safety function range can start from any index.
+Therefore, the selected safety function is converted to a zero-based index.
+
+Example:
+If GVL_SafetyIO.cLOWER_BOUND_SF = 5
+nSafetyFunction = 5 -> nZeroBasedIndex = 0
+nSafetyFunction = 6 -> nZeroBasedIndex = 1
+nSafetyFunction = 7 -> nZeroBasedIndex = 2
+*)
+nZeroBasedIndex := nSafetyFunction - GVL_SafetyIO.cLOWER_BOUND_SF;
+nByteIndex := (nZeroBasedIndex / 2) + 1; //Two safety functions are stored in each byte
+bUpperNibble := (nZeroBasedIndex MOD 2) = 1; //Odd indexes use upper nibble, even indexes use lower nibble
+
+byRaw := stRawIn.abyInput[nByteIndex];
+
+(*
+A bit mask is used to check one specific bit in the raw byte.
+The expression: (byRaw AND BYTE#16#01) <> BYTE#0
+
+Works like this:
+1. AND keeps only the bit selected by the mask.
+2. All other bits are cleared.
+3. If the result is not zero, that bit was set.
+4. The comparison returns TRUE or FALSE.
+
+Example:
+bitEnabled -> bit 0 -> mask BYTE#16#01 -> 0000 0001
+bitReady   -> bit 1 -> mask BYTE#16#02 -> 0000 0010
+bitFault   -> bit 2 -> mask BYTE#16#04 -> 0000 0100
+bitStart   -> bit 3 -> mask BYTE#16#08 -> 0000 1000
+*)
+IF NOT bUpperNibble THEN
+    //Lower nibble: bits 0..3
+    F_MapRawInputToSafetyFunctionIn.bitEnabled := (byRaw AND BYTE#16#01) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitReady := (byRaw AND BYTE#16#02) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitFault := (byRaw AND BYTE#16#04) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitStart := (byRaw AND BYTE#16#08) <> BYTE#0;
+ELSE
+    //Upper nibble: bits 4..7
+    F_MapRawInputToSafetyFunctionIn.bitEnabled := (byRaw AND BYTE#16#10) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitReady := (byRaw AND BYTE#16#20) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitFault := (byRaw AND BYTE#16#40) <> BYTE#0;
+    F_MapRawInputToSafetyFunctionIn.bitStart := (byRaw AND BYTE#16#80) <> BYTE#0;
+END_IF
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
