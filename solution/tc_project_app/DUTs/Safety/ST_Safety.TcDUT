@@ -8,8 +8,11 @@ information from the raw input data.
 *)
 TYPE ST_Safety :
 STRUCT
-    aSafetyFunction: ARRAY[GVL_SafetyIO.cLOWER_BOUND_SF..GVL_SafetyIO.cUPPER_BOUND_SF] OF ST_SafetyFunction;
+    stMCCStatus: ST_MCCStatus;
+    stMCC_CustomStatus: ST_MCC_CustomStatus;
+    aSafetyFunction: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunction;
     refLEDState: REFERENCE TO ST_LEDState;
+
     stTableNumber: ST_TableNumber; //Placeholder, WIP
     stSegmentNumber: ST_SegmentNumber; //Placeholder, WIP
 END_STRUCT

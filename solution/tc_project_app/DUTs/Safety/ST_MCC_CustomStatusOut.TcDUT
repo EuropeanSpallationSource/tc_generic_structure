@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCC_CustomStatusOut" Id="{6d8ad02a-be6f-0232-209b-380247c69933}">
+    <Declaration><![CDATA[//Status information specific to the cabinet IPC --> PNOZ, can be customized depending on cabinet
+TYPE ST_MCC_CustomStatusOut :
+STRUCT
+    bitReserved16: BIT;
+    bitReserved17: BIT;
+    bitReserved18: BIT;
+    bitReserved19: BIT;
+    bitReserved20: BIT;
+    bitReserved21: BIT;
+    bitChangerMovingPos: BIT; //Set if moving in a positive direction
+    bitChangerMovingNeg: BIT; //Set if moving in a negative direction
+    bitReserved24: BIT;
+    bitReserved25: BIT;
+    bitReserved26: BIT;
+    bitReserved27: BIT;
+    bitReserved28: BIT;
+    bitReserved29: BIT;
+    bitReserved30: BIT;
+    bitReserved31: BIT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

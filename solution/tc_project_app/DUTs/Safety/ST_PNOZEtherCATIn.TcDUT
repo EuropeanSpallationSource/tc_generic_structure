@@ -2,20 +2,20 @@
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="ST_PNOZEtherCATIn" Id="{4d26afb5-ffd0-0d85-0f77-77acb686f585}">
     <Declaration><![CDATA[(*
-ST_Safety does not point directly to the raw EtherCAT data. Instead,
-mLinkRefs() links ST_Safety reference members to this structure.
+    Formatted PNOZ -> PLC EtherCAT input data copied from the raw %I* process image.
+    ST_Safety references are linked to this internal mirror by mLinkRefs().
+    mReadECATInput() updates this structure cyclically.
 *)
 TYPE ST_PNOZEtherCATIn :
 STRUCT
-    aSafetyFunctionIn: ARRAY[GVL_SafetyIO.cLOWER_BOUND_SF..GVL_SafetyIO.cUPPER_BOUND_SF] OF ST_SafetyFunctionIn; //Input Byte 04..11
+    aMCCStatusIn: ST_MCCStatusIn; //Input Byte 00..01
+    aMCC_CustomStatusIn: ST_MCC_CustomStatusIn; //Input Byte 02..03
+    aSafetyFunctionIn: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunctionIn; //Input Byte 04..15
     stLEDState: ST_LEDState; //Input Byte 16
 
-    stTableNumberIn: ST_TableNumberIn; //Input Byte 17
-    stSegmentNumberIn: ST_SegmentNumberIn; //Input Byte 18
-
-    stSafetyStatus: ST_SafetyStatus; //Placeholder, WIP
-    aSubSystemIn: ARRAY[1..GVL_SafetyIO.cUPPER_NBR_OF_SS] OF ST_SubSystemIn; //Placeholder, WIP
-    stSequenceIn: ST_SequenceIn; //Placeholder, WIP
+    stTableNumberIn: ST_TableNumberIn; //Input Byte 17, Placeholder WIP
+    stSegmentNumberIn: ST_SegmentNumberIn; //Input Byte 18, Placeholder WIP
+    stSegmentIn: ST_SegmentIn; //Input Byte 19..31, Placeholder WIP
 END_STRUCT
 END_TYPE
 ]]></Declaration>

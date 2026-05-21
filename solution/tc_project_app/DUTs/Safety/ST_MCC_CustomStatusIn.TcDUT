@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCC_CustomStatusIn" Id="{3047c094-43cd-0281-2261-d5308c49a667}">
+    <Declaration><![CDATA[//Status information specific to the cabinet PNOZ --> IPC, can be customized depending on cabinet
+TYPE ST_MCC_CustomStatusIn :
+STRUCT
+    bitEStopExperiment: BIT;
+    bitEStopOptical: BIT;
+    bitEStopExternal: BIT;
+    bitReserved19: BIT;
+    bitFocusDoorClosed: BIT;
+    bitFocusInRemote: BIT; //Allow requests to jog focus changer from NICOS
+    bitFocusChangerPos: BIT; //Request Changer move positive
+    bitFocusChangerNeg: BIT; //Request Changer move negative
+    bitReserved24: BIT;
+    bitReserved25: BIT;
+    bitReserved26: BIT;
+    bitReserved27: BIT;
+    bitReserved28: BIT;
+    bitReserved29: BIT;
+    bitReserved30: BIT;
+    bitReserved31: BIT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
