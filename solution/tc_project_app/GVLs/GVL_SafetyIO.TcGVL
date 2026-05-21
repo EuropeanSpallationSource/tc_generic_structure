@@ -3,30 +3,25 @@
   <GVL Name="GVL_SafetyIO" Id="{a52cb188-5548-0f30-0b0b-19989305c2e3}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-    (*
-    This global variable list maps the PNOZ m ES EtherCAT TxPDO Virtual Outputs AND RxPDO Virtual Inputs
-    to TwinCAT PLC input/output variables. Also maps the WcState and InfoData of the PNOZ m ES EtherCAT.
-    *)
-    {attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO'}
-    stPNOZRawIn AT %I*: ST_PNOZRawIn; //Raw EtherCAT input
+(*
+This global variable list maps the PNOZ m ES EtherCAT TxPDO Virtual Outputs AND RxPDO Virtual Inputs
+to TwinCAT PLC input/output variables. Also maps the WcState and InfoData of the PNOZ m ES EtherCAT.
+*)
+{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO'}
+stPNOZEtherCATIn AT %I*: ST_PNOZEtherCATIn; //Raw EtherCAT input
 
-    {attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO'}
-    stPNOZRawOut AT %Q*: ST_PNOZRawOut; //Raw EtherCAT output
+{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO'}
+stPNOZEtherCATOut AT %Q*: ST_PNOZEtherCATOut; //Raw EtherCAT output
 
-    stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
+//{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^TxPDO^LED State'}
+//stLEDState AT %I*: ST_LEDState;
 
-    {attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^TxPDO^LED State'}
-    stLEDState AT %I*: ST_LEDState;
-
+stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
 END_VAR
 
 VAR_GLOBAL CONSTANT
-    cPNOZ_TXPDO_BYTES: UINT := 32; //Total PNOZ -> PLC bytes, Scanner Input Bytes 00..31
-    cPNOZ_RXPDO_BYTES: UINT := 19; //Total PLC -> PNOZ bytes, Scanner Output Bytes 00..18
-
-    cLOWER_BOUND_SF: UINT := 5;  //Lower Bound = 5, Virtual Output/Input bytes 04..11, each containing 8 bits
-    cUPPER_BOUND_SF: UINT := 12; //Upper Bound = 12, Virtual Output/Input bytes 04..11, each containing 8 bits
-    cUPPER_NBR_OF_SS: UINT := 2;  //Number of subsystems, Placeholder, WIP
+cNBR_OF_SF: UINT := 12;  //Virtual Output/Input bytes 04..15, each containing 8 bits
+cNBR_OF_SS: UINT := 2;  //Number of subsystems, Placeholder, WIP
 END_VAR
 ]]></Declaration>
   </GVL>
