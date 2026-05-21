@@ -6,18 +6,20 @@
 (*
 Central definition of safety functions includes for a motion control cabinet.
 Add new safety functions to match the incoming safety functions from the PNOZmulti 2.
-Each safety function represents 4-bits.
+Each safety function represents 4-bits of information. However the PLC still stores the incoming 4-bits
+into 1-byte.
 *)
 TYPE E_SafetyFunctions :
 (
-    eEStop := 5,
-    ePSSAccess := 6,
-    eRestartPreventionExp := 7,
-    eRestartPreventionOpt := 8,
-    eStopMiddleFocus := 9,
-    eEnableMiddleFocus := 10,
-    eSafeTorqueOff := 11,
-    eReserved := 12
+    eNone,
+    eEStop,
+    ePSSAccess,
+    eRestartPreventionExp,
+    eRestartPreventionOpt,
+    eStopMiddleFocus,
+    eEnableMiddleFocus,
+    eSafeTorqueOff,
+    eReserved
 );
 END_TYPE
 ]]></Declaration>
