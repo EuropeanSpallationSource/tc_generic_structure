@@ -13,22 +13,22 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*
- Calls FB_MotionSafety to read the raw PNOZ EtherCAT input data to format it into
- fbMotionSafety.stECATIn, and link each safety function into stSafetyFunctions.
-
- Safety function mapping is defined in E_SafetyFunctions.
+Calls FB_MotionSafety to read and format the PNOZ EtherCAT input data.
+Links ST_Safety reference members to the formatted input/output structures.
+Safety function mapping is defined in E_SafetyFunctions.
 *)
-
 fbMotionSafety(bEnableSafety := TRUE, stSafety := stSafety);
 
-//Mapping complete here is an example usage:
-bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn.bitEnabled;
+// Mapping complete, example usage:
+IF fbMotionSafety.bDone THEN
+    IF __ISVALIDREF(stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn) THEN
+        bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn.bitEnabled;
+    ELSE
+        bEStopEnabled := FALSE;
+    END_IF
+END_IF
 
 
-//LOGIC SPECIFIC TO THIS CABINET, Placeholder, WIP
-//MCC-specific safety rules/effects should be added below.
-
-fbMotionSafety.mWriteECATOutput();
 ]]></ST>
     </Implementation>
   </POU>

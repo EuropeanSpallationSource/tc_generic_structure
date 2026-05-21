@@ -7,28 +7,21 @@ VAR_INPUT
     stSafety: REFERENCE TO ST_Safety;
 END_VAR
 VAR_OUTPUT
-    stECATIn: ST_PNOZEtherCATIn;
-    stECATOut: ST_PNOZEtherCATOut;
+    bDone: BOOL;
 END_VAR
 VAR
-    stSafetyFeedback: ST_SafetyFeedback; //Placeholder, WIP
-    stSafetyDiagnostics: ST_SafetyDiagnostics; //Placeholder, WIP
-
+    stECATIn: ST_PNOZEtherCATIn;
     stPNOZCommDiag: ST_PNOZCommDiag;
-
     i: UINT := 1; //Index for, for loops
     bRefsLinked: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[IF NOT bEnableSafety THEN
+      <ST><![CDATA[bDone := FALSE;
+
+IF NOT bEnableSafety THEN
     RETURN;
 END_IF
-
-IF NOT bRefsLinked THEN
-    bRefsLinked := mLinkRefs(); // Link references, once
-END_IF
-
 
 // EtherCAT communication diagnostics
 stPNOZCommDiag.bitWcState := GVL_SafetyIO.stPNOZEtherCATStatus.bitWcState;
@@ -40,8 +33,14 @@ IF (stPNOZCommDiag.bitWcState = 1) THEN
     RETURN;
 END_IF
 
-mReadECATInput(); // Cyclic status update
-
+(*
+A reference assignment requires a variable with write access as
+the source expression, therefore the input value needs to be copied
+to a variable with write access.
+*)
+stECATIn := GVL_SafetyIO.stPNOZEtherCATIn;
+bRefsLinked := mLinkRefs(); // Link references
+bDone := TRUE;
 ]]></ST>
     </Implementation>
     <Method Name="mLinkRefs" Id="{ff9fb110-8441-0e12-312f-7e3c0f40d921}">
@@ -51,88 +50,37 @@ END_VAR
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[//Link safety function references to the internal formatted EtherCAT input/output structures.
-
 IF NOT __ISVALIDREF(stSafety) THEN
     mLinkRefs := FALSE;
     RETURN;
 END_IF
 
-FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
-    //PNOZ -> PLC
-    stSafety.aSafetyFunction[i].refIn REF=stECATIn.aSafetyFunctionIn[i];
+(*
+PNOZ -> PLC input references
+PLC  -> PNOZ output references
 
-    //PLC -> PNOZ
-    stSafety.aSafetyFunction[i].refOut REF=stECATOut.aSafetyFunctionOut[i];
+Inputs are linked to the internal copied EtherCAT input structure stECATIn.
+Outputs are linked directly to the mapped EtherCAT output process image.
+*)
+stSafety.stMCCStatus.refIn REF=stECATIn.aMCCStatusIn;
+stSafety.stMCCStatus.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aMCCStatusOut;
+
+stSafety.stMCC_CustomStatus.refIn REF=stECATIn.aMCC_CustomStatusIn;
+stSafety.stMCC_CustomStatus.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aMCC_CustomStatusOut;
+
+FOR i := 1 TO GVL_SafetyIO.cNBR_OF_SF DO
+    stSafety.aSafetyFunction[i].refIn REF=stECATIn.aSafetyFunctionIn[i];
+    stSafety.aSafetyFunction[i].refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aSafetyFunctionOut[i];
 END_FOR
 
-//PNOZ -> PLC
 stSafety.refLEDState REF=stECATIn.stLEDState;
 stSafety.stTableNumber.refIn REF=stECATIn.stTableNumberIn;
 stSafety.stSegmentNumber.refIn REF=stECATIn.stSegmentNumberIn;
 
-//PLC -> PNOZ
-stSafety.stTableNumber.refOut REF=stECATOut.stTableNumberOut;
-stSafety.stSegmentNumber.refOut REF=stECATOut.stSegmentNumberOut;
+stSafety.stTableNumber.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.stTableNumberOut;
+stSafety.stSegmentNumber.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.stSegmentNumberOut;
 
 mLinkRefs := TRUE;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="mReadECATInput" Id="{6ce18be3-cca8-0024-1d0e-f23b26b8f0e4}">
-      <Declaration><![CDATA[METHOD mReadECATInput : BOOL
-VAR
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[(*
-Cyclically copies raw PNOZ EtherCAT input data into the internal PLC-side
-input structure.
-
-The reference link is created once in mLinkRefs(). Because refSafetyIn points
-to stECATIn.aSafetyFunctionIn[x], updating stECATIn also updates the data
-visible through stSafetyFunctions.
-
-Meaning:
-E_SafetyFunctions.eEStop --> selects the safety function.
-refSafetyIn.bEnabled --> selects the bit/state of that safety function.
-*)
-
-mReadECATInput := FALSE;
-
-//PNOZ safety function inputs
-FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
-    stECATIn.aSafetyFunctionIn[i] := F_MapRawInputToSafetyFunctionIn(stRawIn := GVL_SafetyIO.stPNOZRawIn, nSafetyFunction := i);
-END_FOR
-
-//PNOZ LED state
-stECATIn.stLEDState.nLEDState := GVL_SafetyIO.stLEDState.nLEDState;
-
-mReadECATInput := TRUE;
-]]></ST>
-      </Implementation>
-    </Method>
-    <Method Name="mWriteECATOutput" Id="{865f3cf8-e0a7-0a8d-3327-b33af2b675e0}">
-      <Declaration><![CDATA[METHOD mWriteECATOutput : BOOL
-VAR
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[(*
-Cyclically writes the formatted PLC-side output structure stECATOut to the
-raw PNOZ EtherCAT output in GVL_SafetyIO.
-*)
-
-mWriteECATOutput:= FALSE;
-
-FOR i := GVL_SafetyIO.cLOWER_BOUND_SF TO GVL_SafetyIO.cUPPER_BOUND_SF DO
-    F_MapSafetyFunctionOutToRawOutput(
-        stRawOut             := GVL_SafetyIO.stPNOZRawOut,
-        nSafetyFunction      := i,
-        stSafetyFunctionOut  := stECATOut.aSafetyFunctionOut[i]
-    );
-END_FOR
-
-mWriteECATOutput := TRUE;
 ]]></ST>
       </Implementation>
     </Method>
