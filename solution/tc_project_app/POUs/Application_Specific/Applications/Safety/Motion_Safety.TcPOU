@@ -3,7 +3,8 @@
   <POU Name="Motion_Safety" Id="{2cc620d0-4324-0fec-1587-9760faae60d9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Motion_Safety
 VAR
-
+	
+	//Mapping using references
     fbMotionSafety: FB_MotionSafety;
     stSafety: ST_Safety;
 
