@@ -14,19 +14,17 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*
-Calls FB_MotionSafety to read and format the PNOZ EtherCAT input data.
-Links ST_Safety reference members to the formatted input/output structures.
+Calls FB_MotionSafety to read and format the PNOZ EtherCAT input/output data.
 Safety function mapping is defined in E_SafetyFunctions.
 *)
-fbMotionSafety(bEnableSafety := TRUE, stSafety := stSafety);
+fbMotionSafety(bEnable := TRUE, stSafety := stSafety);
+
 
 // Mapping complete, example usage:
 IF fbMotionSafety.bDone THEN
-    IF __ISVALIDREF(stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn) THEN
-        bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].refIn.bitEnabled;
+        bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].In.bitEnabled;
     ELSE
         bEStopEnabled := FALSE;
-    END_IF
 END_IF
 
 

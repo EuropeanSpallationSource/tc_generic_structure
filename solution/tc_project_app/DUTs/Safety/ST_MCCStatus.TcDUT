@@ -7,8 +7,8 @@ input/output represents bits 00-15 in safety controller.
 *)
 TYPE ST_MCCStatus :
 STRUCT
-    refIn: REFERENCE TO ST_MCCStatusIn;
-    refOut: REFERENCE TO ST_MCCStatusOut;
+    In: ST_MCCStatusIn;
+    Out: ST_MCCStatusOut;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

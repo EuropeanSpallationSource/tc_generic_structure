@@ -7,8 +7,8 @@ input/output represents bits 16-31 in safety controller.
 *)
 TYPE ST_MCC_CustomStatus :
 STRUCT
-    refIn: REFERENCE TO ST_MCC_CustomStatusIn;
-    refOut: REFERENCE TO ST_MCC_CustomStatusOut;
+    In: ST_MCC_CustomStatusIn;
+    Out: ST_MCC_CustomStatusOut;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

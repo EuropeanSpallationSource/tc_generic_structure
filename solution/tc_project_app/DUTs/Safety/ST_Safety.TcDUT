@@ -11,7 +11,7 @@ STRUCT
     stMCCStatus: ST_MCCStatus;
     stMCC_CustomStatus: ST_MCC_CustomStatus;
     aSafetyFunction: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunction;
-    refLEDState: REFERENCE TO ST_LEDState;
+    stLEDState: ST_LEDState;
 
     stTableNumber: ST_TableNumber; //Placeholder, WIP
     stSegmentNumber: ST_SegmentNumber; //Placeholder, WIP

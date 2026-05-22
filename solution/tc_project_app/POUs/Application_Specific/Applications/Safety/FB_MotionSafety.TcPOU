@@ -3,23 +3,23 @@
   <POU Name="FB_MotionSafety" Id="{42ac902b-686a-033a-1cee-f9e03524ad75}" SpecialFunc="None">
     <Declaration><![CDATA[FUNCTION_BLOCK FB_MotionSafety
 VAR_INPUT
-    bEnableSafety: BOOL;
-    stSafety: REFERENCE TO ST_Safety;
+    bEnable: BOOL;
 END_VAR
 VAR_OUTPUT
     bDone: BOOL;
 END_VAR
+VAR_IN_OUT
+    stSafety: ST_Safety;
+END_VAR
 VAR
-    stECATIn: ST_PNOZEtherCATIn;
     stPNOZCommDiag: ST_PNOZCommDiag;
     i: UINT := 1; //Index for, for loops
-    bRefsLinked: BOOL := FALSE;
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[bDone := FALSE;
 
-IF NOT bEnableSafety THEN
+IF NOT bEnable THEN
     RETURN;
 END_IF
 
@@ -33,54 +33,41 @@ IF (stPNOZCommDiag.bitWcState = 1) THEN
     RETURN;
 END_IF
 
-(*
-A reference assignment requires a variable with write access as
-the source expression, therefore the input value needs to be copied
-to a variable with write access.
-*)
-stECATIn := GVL_SafetyIO.stPNOZEtherCATIn;
-bRefsLinked := mLinkRefs(); // Link references
-bDone := TRUE;
+bDone := mMapSafetyData(stSafetyData := stSafety);
 ]]></ST>
     </Implementation>
-    <Method Name="mLinkRefs" Id="{ff9fb110-8441-0e12-312f-7e3c0f40d921}">
-      <Declaration><![CDATA[METHOD mLinkRefs : BOOL
-VAR
+    <Method Name="mMapSafetyData" Id="{ff9fb110-8441-0e12-312f-7e3c0f40d921}">
+      <Declaration><![CDATA[METHOD mMapSafetyData : BOOL
+VAR_IN_OUT
+    stSafetyData: ST_Safety;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//Link safety function references to the internal formatted EtherCAT input/output structures.
-IF NOT __ISVALIDREF(stSafety) THEN
-    mLinkRefs := FALSE;
-    RETURN;
-END_IF
+        <ST><![CDATA[//Copy data to the stSafety structure.
+mMapSafetyData := FALSE;
 
-(*
-PNOZ -> PLC input references
-PLC  -> PNOZ output references
+stSafetyData.stMCCStatus.In := GVL_SafetyIO.stPNOZEtherCATIn.aMCCStatusIn;
+stSafetyData.stMCCStatus.Out := GVL_SafetyIO.stPNOZEtherCATOut.aMCCStatusOut;
 
-Inputs are linked to the internal copied EtherCAT input structure stECATIn.
-Outputs are linked directly to the mapped EtherCAT output process image.
-*)
-stSafety.stMCCStatus.refIn REF=stECATIn.aMCCStatusIn;
-stSafety.stMCCStatus.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aMCCStatusOut;
-
-stSafety.stMCC_CustomStatus.refIn REF=stECATIn.aMCC_CustomStatusIn;
-stSafety.stMCC_CustomStatus.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aMCC_CustomStatusOut;
+stSafetyData.stMCC_CustomStatus.In := GVL_SafetyIO.stPNOZEtherCATIn.aMCC_CustomStatusIn;
+stSafetyData.stMCC_CustomStatus.Out := GVL_SafetyIO.stPNOZEtherCATOut.aMCC_CustomStatusOut;
 
 FOR i := 1 TO GVL_SafetyIO.cNBR_OF_SF DO
-    stSafety.aSafetyFunction[i].refIn REF=stECATIn.aSafetyFunctionIn[i];
-    stSafety.aSafetyFunction[i].refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.aSafetyFunctionOut[i];
+    stSafetyData.aSafetyFunction[i].In := GVL_SafetyIO.stPNOZEtherCATIn.aSafetyFunctionIn[i];
+    stSafetyData.aSafetyFunction[i].Out := GVL_SafetyIO.stPNOZEtherCATOut.aSafetyFunctionOut[i];
 END_FOR
 
-stSafety.refLEDState REF=stECATIn.stLEDState;
-stSafety.stTableNumber.refIn REF=stECATIn.stTableNumberIn;
-stSafety.stSegmentNumber.refIn REF=stECATIn.stSegmentNumberIn;
+stSafetyData.stLEDState := GVL_SafetyIO.stPNOZEtherCATIn.stLEDState;
+stSafetyData.stTableNumber.In := GVL_SafetyIO.stPNOZEtherCATIn.stTableNumberIn;
+stSafetyData.stSegmentNumber.In := GVL_SafetyIO.stPNOZEtherCATIn.stSegmentNumberIn;
 
-stSafety.stTableNumber.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.stTableNumberOut;
-stSafety.stSegmentNumber.refOut REF=GVL_SafetyIO.stPNOZEtherCATOut.stSegmentNumberOut;
+stSafetyData.stTableNumber.Out := GVL_SafetyIO.stPNOZEtherCATOut.stTableNumberOut;
+stSafetyData.stSegmentNumber.Out := GVL_SafetyIO.stPNOZEtherCATOut.stSegmentNumberOut;
 
-mLinkRefs := TRUE;
+mMapSafetyData := TRUE;
+
+
+
 ]]></ST>
       </Implementation>
     </Method>

@@ -4,8 +4,8 @@
     <Declaration><![CDATA[//Placeholder, WIP --> need to define what purpose this struct serves
 TYPE ST_SegmentNumber :
 STRUCT
-    refIn: REFERENCE TO ST_SegmentNumberIn;
-    refOut: REFERENCE TO ST_SegmentNumberOut;
+    In: ST_SegmentNumberIn;
+    Out: ST_SegmentNumberOut;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

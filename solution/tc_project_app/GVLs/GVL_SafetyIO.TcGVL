@@ -13,9 +13,6 @@ stPNOZEtherCATIn AT %I*: ST_PNOZEtherCATIn; //Raw EtherCAT input
 {attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO'}
 stPNOZEtherCATOut AT %Q*: ST_PNOZEtherCATOut; //Raw EtherCAT output
 
-//{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^TxPDO^LED State'}
-//stLEDState AT %I*: ST_LEDState;
-
 stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
 END_VAR
 
