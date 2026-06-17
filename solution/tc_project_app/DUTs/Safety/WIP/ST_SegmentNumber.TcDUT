@@ -1,0 +1,13 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SegmentNumber" Id="{12f01272-bde2-0fa6-0a62-97eed6c2e8c3}">
+    <Declaration><![CDATA[//Placeholder, WIP --> need to define what purpose this struct serves
+TYPE ST_SegmentNumber :
+STRUCT
+    In: ST_SegmentNumberIn;
+    Out: ST_SegmentNumberOut;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

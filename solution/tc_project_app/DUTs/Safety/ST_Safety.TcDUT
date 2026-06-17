@@ -1,0 +1,22 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_Safety" Id="{a14bb73e-e071-0777-120d-26666a0ac858}">
+    <Declaration><![CDATA[(*
+All relevant PNOZmulti safety data is mapped into this structure through
+references created by FB_MotionSafety.mLinkRefs(). Thus this struct is to be used to access specific
+information from the raw input data.
+*)
+TYPE ST_Safety :
+STRUCT
+    stMCCStatus: ST_MCCStatus;
+    stMCC_CustomStatus: ST_MCC_CustomStatus;
+    aSafetyFunction: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunction;
+    stLEDState: ST_LEDState;
+
+    stTableNumber: ST_TableNumber; //Placeholder, WIP
+    stSegmentNumber: ST_SegmentNumber; //Placeholder, WIP
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

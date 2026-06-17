@@ -1,0 +1,34 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Motion_Safety" Id="{2cc620d0-4324-0fec-1587-9760faae60d9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Motion_Safety
+VAR
+
+    //Mapping using references
+    fbMotionSafety: FB_MotionSafety;
+    stSafety: ST_Safety;
+
+    //example variable
+    bEStopEnabled: BOOL;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[(*
+Calls FB_MotionSafety to read and format the PNOZ EtherCAT input/output data.
+Safety function mapping is defined in E_SafetyFunctions.
+*)
+fbMotionSafety(bEnable := TRUE, stSafety := stSafety);
+
+
+// Mapping complete, example usage:
+IF fbMotionSafety.bDone THEN
+        bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].In.bitEnabled;
+    ELSE
+        bEStopEnabled := FALSE;
+END_IF
+
+
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

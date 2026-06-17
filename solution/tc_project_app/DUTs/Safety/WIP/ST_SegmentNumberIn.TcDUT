@@ -1,0 +1,10 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_SegmentNumberIn" Id="{9faf9233-4bb3-08a6-31bc-2828a927700c}">
+    <Declaration><![CDATA[TYPE ST_SegmentNumberIn :
+STRUCT
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
