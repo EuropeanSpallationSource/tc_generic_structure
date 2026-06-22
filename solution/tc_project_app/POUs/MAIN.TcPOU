@@ -26,6 +26,10 @@ VAR
     afbWritePositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_WriteParameter;
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
 
+    {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^InfoData^AmsNetId'}
+    aEtherCATMasterNetId AT%I*: AMSNETID;
+    sEtherCATMasterNetId: T_AmsNetId;
+
     nTestNum: UINT :=0 ; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 END_VAR
 
@@ -34,7 +38,8 @@ VAR PERSISTENT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[POSITION_RECOVERY();
+      <ST><![CDATA[INIT();
+POSITION_RECOVERY();
 PROG();
 AXES();
 ]]></ST>
@@ -44,9 +49,9 @@ AXES();
       <Implementation>
         <ST><![CDATA[//First cycle, assign FB_axis to interface array
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-    FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
-        afbAxes[GVL.iAxis].stAxis REF= astAxes[GVL.iAxis];
-        aIAxes[GVL.iAxis] := afbAxes[GVL.iAxis];
+    FOR GVL.iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+        afbAxes[GVL.iCnt].stAxis REF= astAxes[GVL.iCnt];
+        aIAxes[GVL.iCnt] := afbAxes[GVL.iCnt];
     END_FOR
     //Initialize pneumatic axes and link them to their corresponding instances
     FOR GVL.iPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
@@ -59,8 +64,8 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
 END_IF
 
 //Execute FB_Axis logic
-FOR GVL.iAxis := 1 TO GVL_APP.nAXIS_NUM DO
-    aIAxes[GVL.iAxis].Run();
+FOR GVL.iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+    aIAxes[GVL.iCnt].Run();
 END_FOR
 
 //Execute Pneumatic Axis logic
@@ -106,6 +111,27 @@ END_IF
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="INIT" Id="{211fcb7f-ce8f-0752-27ee-b9ea8bd7e7c5}">
+      <Implementation>
+        <ST><![CDATA[//Get task index for initialization.
+GVL.fbGetCurTaskIndex();
+
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    FOR iCnt := 0 TO (SIZEOF(AMSNETID) - 1) DO
+        IF aEtherCATMasterNetId[iCnt] = 0 THEN
+            ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
+            EXIT;
+        END_IF
+
+        sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
+        IF iCnt < (SIZEOF(AMSNETID) - 1) THEN
+            sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="POSITION_RECOVERY" Id="{28e203b7-aea5-42d0-980d-12a6841f9d22}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
         <ST><![CDATA[fbGetDeviceIdentification(bExecute := TRUE);
@@ -118,10 +144,7 @@ END_IF
     </Action>
     <Action Name="PROG" Id="{5d03ebbb-2a47-4890-ad6d-e82daf72dc51}">
       <Implementation>
-        <ST><![CDATA[//Get task index for Axes parameters initialization.
-GVL.fbGetCurTaskIndex();
-
-//Call the programs that are defined in the "Application Specific" folder.
+        <ST><![CDATA[//Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
 //Cabinet monitoring and pressure limits for pneumatics
@@ -133,7 +156,7 @@ Safety_Shutter();
 //Pneumatics_Template();
 
 //Application program calls
-Cabinet_Monitoring();
+Cabinet_Monitoring(sEtherCATMasterNetId:= sEtherCATMasterNetId);
 Pneumatic_Box();
 //Shutter_Operator_Panel();
 //Slit_Template();
