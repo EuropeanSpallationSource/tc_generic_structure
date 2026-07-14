@@ -3,22 +3,31 @@
   <GVL Name="GVL_SafetyIO" Id="{a52cb188-5548-0f30-0b0b-19989305c2e3}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
-(*
-This global variable list maps the PNOZ m ES EtherCAT TxPDO Virtual Outputs AND RxPDO Virtual Inputs
-to TwinCAT PLC input/output variables. Also maps the WcState and InfoData of the PNOZ m ES EtherCAT.
-*)
-{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO'}
-stPNOZEtherCATIn AT %I*: ST_PNOZEtherCATIn; //Raw EtherCAT input
+    {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^KF509 (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO'}
+    stPNOZEtherCATIn AT %I*: ST_PNOZEtherCATIn; //Raw EtherCAT input
 
-{attribute 'TcLinkTo' := 'TIID^PNOZ (EtherCAT)^Box (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO'}
-stPNOZEtherCATOut AT %Q*: ST_PNOZEtherCATOut; //Raw EtherCAT output
+    {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^KF509 (PNOZ m ES EtherCAT)^SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO'}
+    stPNOZEtherCATOut AT %Q*: ST_PNOZEtherCATOut; //Raw EtherCAT output
 
-stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
+    stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
+
+    //Inputs from the Technosoft drives
+    {attribute 'TcLinkTo' := '[1] := TIID^Device 2 (EtherCAT)^TA701 (iPOS8020 BX-CAT)^Transmit PDO 2 mapping parameters^Digital inputs;
+                              [2] := TIID^Device 2 (EtherCAT)^TA702 (iPOS8020 BX-CAT)^Transmit PDO 2 mapping parameters^Digital inputs'}
+    astTechnosoftIn AT %I*: ARRAY[1..cNBR_OF_TECHNOSOFT] OF ST_TechnosoftIn;
+
+    //Motion error registers from the Technosoft drives
+    {attribute 'TcLinkTo' := '[1] := TIID^Device 2 (EtherCAT)^TA701 (iPOS8020 BX-CAT)^Transmit PDO 3 mapping parameters^Motion Error Register;
+                              [2] := TIID^Device 2 (EtherCAT)^TA702 (iPOS8020 BX-CAT)^Transmit PDO 3 mapping parameters^Motion Error Register'}
+    astTechnosoftMotionError AT %I*: ARRAY[1..cNBR_OF_TECHNOSOFT] OF ST_TechnosoftMotionError;
+
+    {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF208 (EL2014)^DIG Outputs^Channel 3^Output'}
+    bSafetyAcknowlegeButtonLamp AT %Q*: BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT
-cNBR_OF_SF: UINT := 12;  //Virtual Output/Input bytes 04..15, each containing 8 bits
-cNBR_OF_SS: UINT := 2;  //Number of subsystems, Placeholder, WIP
+    cNBR_OF_SF: INT := 12;  //Virtual Output/Input bytes 04..15, each containing 8 bits
+    cNBR_OF_TECHNOSOFT: INT := 2; //Number of Technosoft axises
 END_VAR
 ]]></Declaration>
   </GVL>

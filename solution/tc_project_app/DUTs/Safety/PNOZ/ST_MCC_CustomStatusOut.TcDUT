@@ -1,0 +1,27 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCC_CustomStatusOut" Id="{6d8ad02a-be6f-0232-209b-380247c69933}">
+    <Declaration><![CDATA[//Status information specific to the cabinet IPC --> PNOZ, can be customized depending on cabinet
+TYPE ST_MCC_CustomStatusOut :
+STRUCT
+    bit16_Reserved: BIT;
+    bit17_Reserved: BIT;
+    bit18_Reserved: BIT;
+    bit19_Reserved: BIT;
+    bit20_Reserved: BIT;
+    bit21_Reserved: BIT;
+    bit22_Reserved: BIT;
+    bit23_Reserved: BIT;
+    bit24_Reserved: BIT;
+    bit25_Reserved: BIT;
+    bit26_Reserved: BIT;
+    bit27_Reserved: BIT;
+    bit28_Reserved: BIT;
+    bit29_Reserved: BIT;
+    bit30_Reserved: BIT;
+    bit31_Reserved: BIT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

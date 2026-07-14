@@ -4,14 +4,10 @@
     <Declaration><![CDATA[//Formatted PNOZ -> PLC EtherCAT input data copied from the raw %I* process image.
 TYPE ST_PNOZEtherCATIn :
 STRUCT
-    aMCCStatusIn: ST_MCCStatusIn; //Input Byte 00..01
-    aMCC_CustomStatusIn: ST_MCC_CustomStatusIn; //Input Byte 02..03
+    stMCCStatusIn: ST_MCCStatusIn; //Input Byte 00..01
+    stMCC_CustomStatusIn: ST_MCC_CustomStatusIn; //Input Byte 02..03
     aSafetyFunctionIn: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunctionIn; //Input Byte 04..15
     stLEDState: ST_LEDState; //Input Byte 16
-
-    stTableNumberIn: ST_TableNumberIn; //Input Byte 17, Placeholder WIP
-    stSegmentNumberIn: ST_SegmentNumberIn; //Input Byte 18, Placeholder WIP
-    stSegmentIn: ST_SegmentIn; //Input Byte 19..31, Placeholder WIP
 END_STRUCT
 END_TYPE
 ]]></Declaration>

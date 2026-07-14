@@ -3,32 +3,152 @@
   <POU Name="Motion_Safety" Id="{2cc620d0-4324-0fec-1587-9760faae60d9}" SpecialFunc="None">
     <Declaration><![CDATA[PROGRAM Motion_Safety
 VAR
-
-    //Mapping using references
     fbMotionSafety: FB_MotionSafety;
     stSafety: ST_Safety;
+    bAxisEnableAllowed: BOOL;
+    iAxes: UINT; //Index for Axis
 
-    //example variable
-    bEStopEnabled: BOOL;
+    //Heartbeat
+    tHeartbeatElapsed: TIME;
+    tMCCWatchdogElapsed: TIME;
+    bMCCHeartbeatInOld: BOOL;
+    bMCCHeartbeatInit: BOOL;
+    bMCCWatchdogFault: BOOL;
+    bMCC_OK: BOOL; 
+END_VAR
+VAR CONSTANT
+    tPLC_CYCLE_TIME: TIME := T#10MS; //PLC task cycle time
+    tHEARTBEAT_PERIOD: TIME := T#200MS; //MCC heartbeat output period
+    cHEARTBEAT_PW: LREAL := 50.0; //Heartbeat pulse width percentage
+    tMCC_WATCHDOG_TIME: TIME := T#1S; //MCC watchdog timeout
 END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[(*
-Calls FB_MotionSafety to read and format the PNOZ EtherCAT input/output data.
+Calls FB_MotionSafety to read and format the PNOZ EtherCAT input/output data,
+Technosoft drive (STO) or hardwired signals.
 Safety function mapping is defined in E_SafetyFunctions.
+
+***GENERAL TEMPLATE***
 *)
 fbMotionSafety(bEnable := TRUE, stSafety := stSafety);
 
+IF NOT fbMotionSafety.bDone THEN
+    bMCC_OK := FALSE;
+    bAxisEnableAllowed := FALSE;
 
-// Mapping complete, example usage:
-IF fbMotionSafety.bDone THEN
-        bEStopEnabled := stSafety.aSafetyFunction[E_SafetyFunctions.eEStop].In.bitEnabled;
-    ELSE
-        bEStopEnabled := FALSE;
+    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+        GVL.astAxes[iAxes].stControl.bEnable := FALSE;
+    END_FOR
+
+    //Reset FB:s when safety data is invalid
+    RETURN;
 END_IF
 
+//Heartbeat generation and MCC watchdog check
+bMCC_OK := mCheckMCCHeartbeat(
+    bEnable := TRUE,
+    bHeartbeatIn := stSafety.stSafetyIn.stMCCStatusIn.bit0_Heartbeat,
+    tTaskCycleTime := tPLC_CYCLE_TIME,
+    tHeartbeatPeriod := tHEARTBEAT_PERIOD,
+    fHeartbeatPW := cHEARTBEAT_PW,
+    tWatchdogTime := tMCC_WATCHDOG_TIME,
+    bHeartbeatOut => stSafety.stSafetyOut.stMCCStatusOut.bit0_Heartbeat,
+    bWatchdogFault => bMCCWatchdogFault
+);
 
+bAxisEnableAllowed :=
+    stSafety.stSafetyIn.stMCCStatusIn.bit1_EStopOK
+    AND bMCC_OK;
+
+IF NOT bAxisEnableAllowed THEN
+    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+        GVL.astAxes[iAxes].stControl.bEnable := FALSE;
+    END_FOR
+END_IF
+
+//***INSERT APPLICATION SPECIFIC CODE HERE***
+
+
+fbMotionSafety.mWriteOutputs(stSafetyData := stSafety);
 ]]></ST>
     </Implementation>
+    <Method Name="mCheckMCCHeartbeat" Id="{92bf9997-b495-087d-1b0e-cb488d1974e1}">
+      <Declaration><![CDATA[METHOD mCheckMCCHeartbeat : BOOL
+VAR_INPUT
+    bEnable: BOOL;
+    bHeartbeatIn: BOOL;
+    tTaskCycleTime: TIME;
+    tHeartbeatPeriod: TIME;
+    fHeartbeatPW: LREAL; //Percent, e.g. 50.0
+    tWatchdogTime: TIME;
+END_VAR
+VAR_OUTPUT
+    bHeartbeatOut: BOOL;
+    bWatchdogFault: BOOL;
+END_VAR
+VAR
+    tHeartbeatOnTime: TIME;
+    fPWClamped: LREAL;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[//Disabled state
+IF NOT bEnable THEN
+    tHeartbeatElapsed := T#0MS;
+    tMCCWatchdogElapsed := T#0MS;
+    bMCCHeartbeatInit := FALSE;
+
+    bHeartbeatOut := FALSE;
+    bWatchdogFault := FALSE;
+
+    mCheckMCCHeartbeat := FALSE;
+    RETURN;
+END_IF
+
+//Clamp pulse width percentage
+fPWClamped := fHeartbeatPW;
+IF fPWClamped < 0.0 THEN
+    fPWClamped := 0.0;
+ELSIF fPWClamped > 100.0 THEN
+    fPWClamped := 100.0;
+END_IF
+
+//Convert heartbeat period and pulse width into ON time
+tHeartbeatOnTime := LREAL_TO_TIME(TIME_TO_LREAL(tHeartbeatPeriod) * fPWClamped / 100.0);
+
+//Generate heartbeat output
+tHeartbeatElapsed := tHeartbeatElapsed + tTaskCycleTime;
+
+IF tHeartbeatElapsed >= tHeartbeatPeriod THEN
+    tHeartbeatElapsed := tHeartbeatElapsed - tHeartbeatPeriod;
+END_IF
+
+bHeartbeatOut := tHeartbeatElapsed < tHeartbeatOnTime;
+
+//Initialize watchdog memory on first enabled scan
+IF NOT bMCCHeartbeatInit THEN
+    bMCCHeartbeatInOld := bHeartbeatIn;
+    tMCCWatchdogElapsed := T#0MS;
+    bMCCHeartbeatInit := TRUE;
+END_IF
+
+//Watch incoming heartbeat for any change, rising or falling
+IF bHeartbeatIn <> bMCCHeartbeatInOld THEN
+    bMCCHeartbeatInOld := bHeartbeatIn;
+    tMCCWatchdogElapsed := T#0MS;
+ELSE
+    IF tMCCWatchdogElapsed < tWatchdogTime THEN
+        tMCCWatchdogElapsed := tMCCWatchdogElapsed + tTaskCycleTime;
+    END_IF
+END_IF
+
+//Watchdog result
+bWatchdogFault := tMCCWatchdogElapsed >= tWatchdogTime;
+
+mCheckMCCHeartbeat := NOT bWatchdogFault;
+]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>

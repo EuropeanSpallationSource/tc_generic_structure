@@ -4,12 +4,9 @@
     <Declaration><![CDATA[//Formatted PLC -> PNOZ EtherCAT output data mapped to the raw %Q* process image.
 TYPE ST_PNOZEtherCATOut :
 STRUCT
-    aMCCStatusOut: ST_MCCStatusOut; //Output Byte 00..01
-    aMCC_CustomStatusOut: ST_MCC_CustomStatusOut; //Output Byte 02..03
+    stMCCStatusOut: ST_MCCStatusOut; //Output Byte 00..01
+    stMCC_CustomStatusOut: ST_MCC_CustomStatusOut; //Output Byte 02..03
     aSafetyFunctionOut: ARRAY[1..GVL_SafetyIO.cNBR_OF_SF] OF ST_SafetyFunctionOut; //Output Byte 04..15
-
-    stTableNumberOut: ST_TableNumberOut; //Output Byte 17, Placeholder WIP
-    stSegmentNumberOut: ST_SegmentNumberOut; //Output Byte 18, Placeholder WIP
 END_STRUCT
 END_TYPE
 ]]></Declaration>

@@ -13,7 +13,7 @@ VAR_IN_OUT
 END_VAR
 VAR
     stPNOZCommDiag: ST_PNOZCommDiag;
-    i: UINT := 1; //Index for, for loops
+    i: INT := 1; //Index for, for loops
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -33,41 +33,61 @@ IF (stPNOZCommDiag.bitWcState = 1) THEN
     RETURN;
 END_IF
 
-bDone := mMapSafetyData(stSafetyData := stSafety);
+bDone := mReadInputs(stSafetyData := stSafety);
 ]]></ST>
     </Implementation>
-    <Method Name="mMapSafetyData" Id="{ff9fb110-8441-0e12-312f-7e3c0f40d921}">
-      <Declaration><![CDATA[METHOD mMapSafetyData : BOOL
+    <Method Name="mReadInputs" Id="{2d7dab08-59a0-06a5-31a0-15a61a148241}">
+      <Declaration><![CDATA[METHOD mReadInputs : BOOL
 VAR_IN_OUT
     stSafetyData: ST_Safety;
 END_VAR
 ]]></Declaration>
       <Implementation>
-        <ST><![CDATA[//Copy data to the stSafety structure.
-mMapSafetyData := FALSE;
+        <ST><![CDATA[mReadInputs := FALSE;
 
-stSafetyData.stMCCStatus.In := GVL_SafetyIO.stPNOZEtherCATIn.aMCCStatusIn;
-stSafetyData.stMCCStatus.Out := GVL_SafetyIO.stPNOZEtherCATOut.aMCCStatusOut;
+stSafetyData.stSafetyIn.stMCCStatusIn :=
+    GVL_SafetyIO.stPNOZEtherCATIn.stMCCStatusIn;
 
-stSafetyData.stMCC_CustomStatus.In := GVL_SafetyIO.stPNOZEtherCATIn.aMCC_CustomStatusIn;
-stSafetyData.stMCC_CustomStatus.Out := GVL_SafetyIO.stPNOZEtherCATOut.aMCC_CustomStatusOut;
+stSafetyData.stSafetyIn.stMCC_CustomStatusIn :=
+    GVL_SafetyIO.stPNOZEtherCATIn.stMCC_CustomStatusIn;
 
 FOR i := 1 TO GVL_SafetyIO.cNBR_OF_SF DO
-    stSafetyData.aSafetyFunction[i].In := GVL_SafetyIO.stPNOZEtherCATIn.aSafetyFunctionIn[i];
-    stSafetyData.aSafetyFunction[i].Out := GVL_SafetyIO.stPNOZEtherCATOut.aSafetyFunctionOut[i];
+    stSafetyData.stSafetyIn.astSafetyFunctionIn[i] :=
+        GVL_SafetyIO.stPNOZEtherCATIn.aSafetyFunctionIn[i];
 END_FOR
 
-stSafetyData.stLEDState := GVL_SafetyIO.stPNOZEtherCATIn.stLEDState;
-stSafetyData.stTableNumber.In := GVL_SafetyIO.stPNOZEtherCATIn.stTableNumberIn;
-stSafetyData.stSegmentNumber.In := GVL_SafetyIO.stPNOZEtherCATIn.stSegmentNumberIn;
+stSafetyData.stSafetyIn.stLEDState :=
+    GVL_SafetyIO.stPNOZEtherCATIn.stLEDState;
 
-stSafetyData.stTableNumber.Out := GVL_SafetyIO.stPNOZEtherCATOut.stTableNumberOut;
-stSafetyData.stSegmentNumber.Out := GVL_SafetyIO.stPNOZEtherCATOut.stSegmentNumberOut;
+FOR i := 1 TO GVL_SafetyIO.cNBR_OF_TECHNOSOFT DO
+    stSafety.stSafetyIn.astTechnosoftMotionError[i] := GVL_SafetyIO.astTechnosoftMotionError[i];
+END_FOR
 
-mMapSafetyData := TRUE;
+mReadInputs := TRUE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mWriteOutputs" Id="{92378426-5b15-00c0-2f54-cd383bd38957}">
+      <Declaration><![CDATA[METHOD mWriteOutputs : BOOL
+VAR_INPUT
+    stSafetyData: ST_Safety;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[mWriteOutputs := FALSE;
 
+GVL_SafetyIO.stPNOZEtherCATOut.stMCCStatusOut :=
+    stSafetyData.stSafetyOut.stMCCStatusOut;
 
+GVL_SafetyIO.stPNOZEtherCATOut.stMCC_CustomStatusOut :=
+    stSafetyData.stSafetyOut.stMCC_CustomStatusOut;
 
+FOR i := 1 TO GVL_SafetyIO.cNBR_OF_SF DO
+    GVL_SafetyIO.stPNOZEtherCATOut.aSafetyFunctionOut[i] :=
+        stSafetyData.stSafetyOut.astSafetyFunctionOut[i];
+END_FOR
+
+mWriteOutputs := TRUE;
 ]]></ST>
       </Implementation>
     </Method>

@@ -1,0 +1,47 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="FB_PulseGenerator" Id="{ca0da540-ce21-01b9-3656-a90c97966d19}" SpecialFunc="None">
+    <Declaration><![CDATA[FUNCTION_BLOCK FB_PulseGenerator
+VAR_INPUT
+    bEnable: BOOL; //Enables pulse generation
+    tOffTime: TIME := T#1S; //Time output stays FALSE
+    tOnTime: TIME := T#1S; //Time output stays TRUE
+END_VAR
+
+VAR_OUTPUT
+    bOut: BOOL; //Pulsing output
+END_VAR
+
+VAR
+    fbTimer: TON; //Internal timer
+    tActiveTime: TIME; //Currently active phase time
+END_VAR]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[//Disabled: reset output and timer
+IF NOT bEnable THEN
+    bOut := FALSE;
+    fbTimer(IN := FALSE, PT := T#0MS);
+    RETURN;
+END_IF
+
+//Select active timing depending on current output state
+IF bOut THEN
+    tActiveTime := tOnTime;
+ELSE
+    tActiveTime := tOffTime;
+END_IF
+
+//Run timer for current period
+fbTimer(IN := TRUE, PT := tActiveTime);
+
+
+//When current period is finished, toggle output and reset timer
+IF fbTimer.Q THEN
+    bOut := NOT bOut;
+
+    //Reset TON so the next ON/OFF phase starts cleanly
+    fbTimer(IN := FALSE, PT := tActiveTime);
+END_IF]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>
