@@ -14,7 +14,7 @@ VAR
     bMCCHeartbeatInOld: BOOL;
     bMCCHeartbeatInit: BOOL;
     bMCCWatchdogFault: BOOL;
-    bMCC_OK: BOOL; 
+    bMCC_OK: BOOL;
 END_VAR
 VAR CONSTANT
     tPLC_CYCLE_TIME: TIME := T#10MS; //PLC task cycle time
