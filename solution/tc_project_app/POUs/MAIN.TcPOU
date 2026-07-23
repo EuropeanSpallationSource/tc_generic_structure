@@ -32,7 +32,7 @@ VAR
 
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     dtAtStartup: DT;
-	
+
     {attribute 'TcLinkTo' := 'TIID^KF200-EC1 (EtherCAT Device)^InfoData^AmsNetId'}
     aEtherCATMasterNetId AT%I*: AMSNETID;
     sEtherCATMasterNetId: T_AmsNetId;
