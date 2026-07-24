@@ -24,7 +24,7 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astAxes[cAXIS_ID].stConfig.eHomeSeq := E_HomingRoutines.eNoHoming;
     GVL.astAxes[cAXIS_ID].stConfig.fHomePosition := 0.0;
     GVL.astAxes[cAXIS_ID].stConfig.fHomeFinishDistance := 0.0;
-    GVL.astAxes[cAXIS_ID].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
+    GVL.astAxes[cAXIS_ID].stConfig.bRestorePosition := FALSE;
     GVL.astAxes[cAXIS_ID].stConfig.bEnableTemperatureDisable := FALSE;
     GVL.astAxes[cAXIS_ID].stConfig.fMaxTemperature := 85.0;
     GVL.astAxes[cAXIS_ID].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
