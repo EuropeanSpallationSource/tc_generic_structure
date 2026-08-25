@@ -21,7 +21,7 @@ VAR
     bRestoreExecute: BOOL := FALSE;
     nReadEncRefSysRetry: UINT := 0; //Counts number of retries to read encoder reference system
     nCheckRestoreRetry: UINT := 0; //Counts number of retries to restore axis position or position bias
-    iAxes: UINT; //Index for, for-loops in position recovery actions
+    iCnt: UINT; //Index for various for-loops
     iCurrentAxis: UINT := 1; //Index for position recovery actions (not in for loops)
 
     afbReadPositionBias: ARRAY [1..GVL_APP.nAXIS_NUM] OF MC_ReadParameter;
@@ -32,6 +32,11 @@ VAR
 
     fbGetDeviceIdentification: FB_GetDeviceIdentificationEx;
     dtAtStartup: DT;
+
+    {attribute 'TcLinkTo' := 'TIID^KF200-EC1 (EtherCAT Device)^InfoData^AmsNetId'}
+    aEtherCATMasterNetId AT%I*: AMSNETID;
+    sEtherCATMasterNetId: T_AmsNetId;
+
     nTestNum: UINT := 0; //Variable used in ESS's FAT_SAT_tools scripts to keep track of the test number
 
     //Read position at a specific time interval
@@ -46,7 +51,8 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[POSITION_RECOVERY();
+      <ST><![CDATA[INIT();
+POSITION_RECOVERY();
 PROG();
 AXES();
 
@@ -98,9 +104,9 @@ END_FOR
         fbC6017UPS(eUPSMode := eSelUpsMode);
 END_CASE
 
-FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-    IF astAxes[iAxes].stStatus.bAxisInitialized THEN
-        afbReadPositionBias[iAxes](Axis := GVL.astAxes[iAxes].Axis,
+FOR iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+    IF astAxes[iCnt].stStatus.bAxisInitialized THEN
+        afbReadPositionBias[iCnt](Axis := GVL.astAxes[iCnt].Axis,
                         Enable := TRUE,
                         ReadMode:= READMODE_CYCLIC,
                         ParameterNumber := E_AxisParameters.AxisEncoderOffset);
@@ -120,13 +126,34 @@ END_IF
 ]]></ST>
       </Implementation>
     </Action>
+    <Action Name="INIT" Id="{211fcb7f-ce8f-0752-27ee-b9ea8bd7e7c5}">
+      <Implementation>
+        <ST><![CDATA[//Get task index for initialization.
+GVL.fbGetCurTaskIndex();
+
+IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
+    FOR iCnt := 0 TO (SIZEOF(AMSNETID) - 1) DO
+        IF aEtherCATMasterNetId[iCnt] = 0 THEN
+            ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
+            EXIT;
+        END_IF
+
+        sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCnt]));
+        IF iCnt < (SIZEOF(AMSNETID) - 1) THEN
+            sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
+        END_IF
+    END_FOR
+END_IF
+]]></ST>
+      </Implementation>
+    </Action>
     <Action Name="POSITION_RECOVERY" Id="{28e203b7-aea5-42d0-980d-12a6841f9d22}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
         <ST><![CDATA[fbReadPositionTimer(IN := bReadPosition, PT := tReadPosition);
 
 IF fbReadPositionTimer.Q THEN
-    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        afSavedPosition[iAxes] := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
+    FOR iCnt := 1 TO GVL_APP.nAXIS_NUM DO
+        afSavedPosition[iCnt] := GVL.astAxes[iCnt].Axis.NcToPlc.ActPos;
     END_FOR
     bReadPosition := FALSE;
 END_IF
@@ -147,10 +174,7 @@ END_IF
     </Action>
     <Action Name="PROG" Id="{5d03ebbb-2a47-4890-ad6d-e82daf72dc51}">
       <Implementation>
-        <ST><![CDATA[//Get task index for Axes parameters initialization.
-GVL.fbGetCurTaskIndex();
-
-//Call the programs that are defined in the "Application Specific" folder.
+        <ST><![CDATA[//Call the programs that are defined in the "Application Specific" folder.
 //Create as many programs in that folder as axes and applications you have or need
 
 //Cabinet monitoring and pressure limits for pneumatics
@@ -162,7 +186,7 @@ Safety_Shutter();
 //Pneumatics_Template();
 
 //Application program calls
-Cabinet_Monitoring();
+Cabinet_Monitoring(sEtherCATMasterNetId:= sEtherCATMasterNetId);
 Pneumatic_Box();
 //Shutter_Operator_Panel();
 //Slit_Template();
@@ -357,24 +381,24 @@ END_IF
     </Action>
     <Action Name="STORE_PERSISTENT" Id="{cb5c9254-2e5f-47b1-9baa-10e728a961b0}" FolderPath="POSITION_RECOVERY\">
       <Implementation>
-        <ST><![CDATA[FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
+        <ST><![CDATA[FOR iCnt := 1 TO GVL_APP.nAXIS_NUM DO
     //Store actual position at shutdown
-    astAxesPersistent[iAxes].fPositionAtShutdown := GVL.astAxes[iAxes].Axis.NcToPlc.ActPos;
+    astAxesPersistent[iCnt].fPositionAtShutdown := GVL.astAxes[iCnt].Axis.NcToPlc.ActPos;
 
     //Store encoder position BIAS at shutdown
-    astAxesPersistent[iAxes].fEncoderBiasAtShutdown := afbReadPositionBias[iAxes].Value;
+    astAxesPersistent[iCnt].fEncoderBiasAtShutdown := afbReadPositionBias[iCnt].Value;
 
 
     //Store axis status at shutdown
-    astAxesPersistent[iAxes].bInitializedAtShutdown := GVL.astAxes[iAxes].stStatus.bAxisInitialized;
-    astAxesPersistent[iAxes].bHomedAtShutdown := GVL.astAxes[iAxes].stStatus.bHomed;
-    astAxesPersistent[iAxes].fPositionDifferenceAtShutdown := ABS(afSavedPosition[iAxes] - astAxesPersistent[iAxes].fPositionAtShutdown);
+    astAxesPersistent[iCnt].bInitializedAtShutdown := GVL.astAxes[iCnt].stStatus.bAxisInitialized;
+    astAxesPersistent[iCnt].bHomedAtShutdown := GVL.astAxes[iCnt].stStatus.bHomed;
+    astAxesPersistent[iCnt].fPositionDifferenceAtShutdown := ABS(afSavedPosition[iCnt] - astAxesPersistent[iCnt].fPositionAtShutdown);
 
     //Store value of moving at shutdown
-    IF astAxes[iAxes].Axis.Status.Disabled OR astAxesPersistent[iAxes].fPositionDifferenceAtShutdown < fPositionDifferenceLimit THEN
-        astAxesPersistent[iAxes].bMovingAtShutdown := FALSE;
+    IF astAxes[iCnt].Axis.Status.Disabled OR astAxesPersistent[iCnt].fPositionDifferenceAtShutdown < fPositionDifferenceLimit THEN
+        astAxesPersistent[iCnt].bMovingAtShutdown := FALSE;
     ELSE
-        astAxesPersistent[iAxes].bMovingAtShutdown := TRUE;
+        astAxesPersistent[iCnt].bMovingAtShutdown := TRUE;
     END_IF
 END_FOR
 
