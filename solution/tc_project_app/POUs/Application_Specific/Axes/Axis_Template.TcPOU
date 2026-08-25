@@ -24,7 +24,7 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astAxes[cAXIS_ID].stConfig.eHomeSeq := E_HomingRoutines.eNoHoming;
     GVL.astAxes[cAXIS_ID].stConfig.fHomePosition := 0.0;
     GVL.astAxes[cAXIS_ID].stConfig.fHomeFinishDistance := 0.0;
-    GVL.astAxes[cAXIS_ID].stConfig.eRestorePosition := E_RestorePosition.eRestoreWithoutHome;
+    GVL.astAxes[cAXIS_ID].stConfig.bRestorePosition := FALSE;
     GVL.astAxes[cAXIS_ID].stConfig.bEnableTemperatureDisable := FALSE;
     GVL.astAxes[cAXIS_ID].stConfig.fMaxTemperature := 85.0;
     GVL.astAxes[cAXIS_ID].stConfig.bEnableStopWithAnyLimitSwitch := TRUE;
@@ -39,8 +39,11 @@ IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
 
     //Add the variables of Advanced homing parameters if you need to chage them
     GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bDisableDriveAccess := TRUE;
-    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.eLimitSwitchMode := MC_Switch_Mode.mcRisingEdge; //Rising edge: stays on limit switch/Falling edge: bounces off limit switch.
-    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.eRefSwitchMode := MC_Switch_Mode.mcRisingEdge;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.eDetectionMode := E_DetectionMode.eFalling; //Rising edge: stays on limit switch/Falling edge: bounces off limit switch.
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bLimitFwdNormallyClosed := TRUE;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bLimitBwdNormallyClosed := TRUE;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bHomeSensorNormallyClosed := FALSE;
+    GVL.astAxes[cAXIS_ID].stConfig.stHomingConfig.bAbsoluteMoveAtFinishHoming := TRUE;
 END_IF
 *)
 
