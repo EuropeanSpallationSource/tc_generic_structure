@@ -11,10 +11,6 @@ VAR_GLOBAL
 
     stPNOZEtherCATStatus: ST_PNOZEtherCATStatus; //Status struct for the PNOZ m ES EtherCAT, includes WcState and InfoData
 
-    //Inputs from the Technosoft drives
-    {attribute 'TcLinkTo' := '[1] := TIID^Device 2 (EtherCAT)^TA701 (iPOS8020 BX-CAT)^Transmit PDO 2 mapping parameters^Digital inputs;
-                              [2] := TIID^Device 2 (EtherCAT)^TA702 (iPOS8020 BX-CAT)^Transmit PDO 2 mapping parameters^Digital inputs'}
-    astTechnosoftIn AT %I*: ARRAY[1..cNBR_OF_TECHNOSOFT] OF ST_TechnosoftIn;
 
     //Motion error registers from the Technosoft drives
     {attribute 'TcLinkTo' := '[1] := TIID^Device 2 (EtherCAT)^TA701 (iPOS8020 BX-CAT)^Transmit PDO 3 mapping parameters^Motion Error Register;
@@ -22,7 +18,7 @@ VAR_GLOBAL
     astTechnosoftMotionError AT %I*: ARRAY[1..cNBR_OF_TECHNOSOFT] OF ST_TechnosoftMotionError;
 
     {attribute 'TcLinkTo' := 'TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF208 (EL2014)^DIG Outputs^Channel 3^Output'}
-    bSafetyAcknowlegeButtonLamp AT %Q*: BOOL;
+    bSafetyAcknowledgeLED AT %Q*: BOOL;
 END_VAR
 
 VAR_GLOBAL CONSTANT

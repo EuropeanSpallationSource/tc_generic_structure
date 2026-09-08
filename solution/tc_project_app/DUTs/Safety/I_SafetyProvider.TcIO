@@ -4,21 +4,27 @@
     <Declaration><![CDATA[INTERFACE I_SafetyProvider
 ]]></Declaration>
     <Property Name="P_EStopOK" Id="{393f352d-ddaa-041e-3f1e-09c38a700023}">
-      <Declaration><![CDATA[PROPERTY P_EStopOK : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY P_EStopOK : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{f3bb6b2f-7774-0bcf-2603-feb48c686c2b}">
-        <Declaration><![CDATA[]]></Declaration>
+        <Declaration><![CDATA[
+]]></Declaration>
       </Get>
     </Property>
     <Property Name="P_ReadFromSafetyController" Id="{37429123-dfc8-094c-14f3-b409e7f1bd57}">
-      <Declaration><![CDATA[PROPERTY P_ReadFromSafetyController : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY P_ReadFromSafetyController : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{9acdedb9-cc80-0d91-22d1-433682fabb15}">
-        <Declaration><![CDATA[]]></Declaration>
+        <Declaration><![CDATA[
+]]></Declaration>
       </Get>
     </Property>
     <Property Name="P_STO_OK" Id="{669ce2fb-649b-0caa-1072-9c3e66e1b90d}">
-      <Declaration><![CDATA[PROPERTY P_STO_OK : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY P_STO_OK : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{676a6f88-04bc-0d3e-1fd5-3e92ef4f55d0}">
-        <Declaration><![CDATA[]]></Declaration>
+        <Declaration><![CDATA[
+]]></Declaration>
       </Get>
     </Property>
   </Itf>
