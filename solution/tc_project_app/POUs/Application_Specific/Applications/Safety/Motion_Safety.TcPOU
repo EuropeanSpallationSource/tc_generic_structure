@@ -6,7 +6,7 @@ VAR
     fbMotionSafety: FB_MotionSafety;
     stSafety: ST_Safety;
     bAxisEnableAllowed: BOOL;
-    iAxes: UINT; //Index for Axis
+    ftrigAxisEnableAllowed: F_TRIG;
 
     //Heartbeat
     tHeartbeatElapsed: TIME;
@@ -15,6 +15,7 @@ VAR
     bMCCHeartbeatInit: BOOL;
     bMCCWatchdogFault: BOOL;
     bMCC_OK: BOOL;
+    fbSafetyAckLedPulse: FB_PulseGenerator;
 END_VAR
 VAR CONSTANT
     tPLC_CYCLE_TIME: TIME := T#10MS; //PLC task cycle time
@@ -24,51 +25,23 @@ VAR CONSTANT
 END_VAR
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[(*
-Calls FB_MotionSafety to read and format the PNOZ EtherCAT input/output data,
-Technosoft drive (STO) or hardwired signals.
-Safety function mapping is defined in E_SafetyFunctions.
-
-***GENERAL TEMPLATE***
-*)
-fbMotionSafety(bEnable := TRUE, stSafety := stSafety);
+      <ST><![CDATA[fbMotionSafety(bEnable := TRUE, stSafety := stSafety);
 
 IF NOT fbMotionSafety.bDone THEN
     bMCC_OK := FALSE;
     bAxisEnableAllowed := FALSE;
 
-    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        GVL.astAxes[iAxes].stControl.bEnable := FALSE;
-    END_FOR
+    mHandleMotionPermission();
 
     //Reset FB:s when safety data is invalid
+    fbSafetyAckLedPulse(bEnable := FALSE);
     RETURN;
 END_IF
 
-//Heartbeat generation and MCC watchdog check
-bMCC_OK := mCheckMCCHeartbeat(
-    bEnable := TRUE,
-    bHeartbeatIn := stSafety.stSafetyIn.stMCCStatusIn.bit0_Heartbeat,
-    tTaskCycleTime := tPLC_CYCLE_TIME,
-    tHeartbeatPeriod := tHEARTBEAT_PERIOD,
-    fHeartbeatPW := cHEARTBEAT_PW,
-    tWatchdogTime := tMCC_WATCHDOG_TIME,
-    bHeartbeatOut => stSafety.stSafetyOut.stMCCStatusOut.bit0_Heartbeat,
-    bWatchdogFault => bMCCWatchdogFault
-);
-
-bAxisEnableAllowed :=
-    stSafety.stSafetyIn.stMCCStatusIn.bit1_EStopOK
-    AND bMCC_OK;
-
-IF NOT bAxisEnableAllowed THEN
-    FOR iAxes := 1 TO GVL_APP.nAXIS_NUM DO
-        GVL.astAxes[iAxes].stControl.bEnable := FALSE;
-    END_FOR
-END_IF
-
-//***INSERT APPLICATION SPECIFIC CODE HERE***
-
+mMCCStatus(); //Heartbeat generation and MCC watchdog check
+mTechnosoftStatus();
+mUpdateFaultFeedback();
+mHandleMotionPermission();
 
 fbMotionSafety.mWriteOutputs(stSafetyData := stSafety);
 ]]></ST>
@@ -147,6 +120,98 @@ END_IF
 bWatchdogFault := tMCCWatchdogElapsed >= tWatchdogTime;
 
 mCheckMCCHeartbeat := NOT bWatchdogFault;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mHandleMotionPermission" Id="{eb3ebf73-f231-0c4c-28cd-6b5568e9d524}">
+      <Declaration><![CDATA[METHOD mHandleMotionPermission
+VAR
+    nAxis: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[ftrigAxisEnableAllowed(CLK := bAxisEnableAllowed); //Detect falling edge of motion permission
+
+IF ftrigAxisEnableAllowed.Q THEN
+    FOR nAxis := 1 TO GVL_APP.nAXIS_NUM DO
+        astAxes[nAxis].stControl.bEnable := FALSE; //Disable each axis once
+    END_FOR;
+END_IF;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mMCCStatus" Id="{b527e3f9-8cb4-05c0-111b-523e1f7c98af}">
+      <Declaration><![CDATA[METHOD mMCCStatus
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[bMCC_OK := mCheckMCCHeartbeat(
+    bEnable := TRUE,
+    bHeartbeatIn := stSafety.stSafetyIn.stMCCStatusIn.bit0_Heartbeat,
+    tTaskCycleTime := tPLC_CYCLE_TIME,
+    tHeartbeatPeriod := tHEARTBEAT_PERIOD,
+    fHeartbeatPW := cHEARTBEAT_PW,
+    tWatchdogTime := tMCC_WATCHDOG_TIME,
+    bHeartbeatOut => stSafety.stSafetyOut.stMCCStatusOut.bit0_Heartbeat,
+    bWatchdogFault => bMCCWatchdogFault
+);
+
+bAxisEnableAllowed :=
+    stSafety.stSafetyIn.stMCCStatusIn.bit1_EStopOK
+    AND bMCC_OK;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mTechnosoftErrorActive" Id="{e4a5f594-242e-09c2-08fb-1485b2fa8c17}">
+      <Declaration><![CDATA[METHOD mTechnosoftErrorActive : BOOL
+VAR_INPUT
+     stError: ST_TechnosoftMotionError;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[mTechnosoftErrorActive :=
+    stError.bit0_EtherCATCommunicationError
+    OR stError.bit1_ShortCircuit
+    OR stError.bit2_InvalidSetupData
+    OR stError.bit3_ControlError
+    OR stError.bit4_CommunicationError
+    OR stError.bit5_FeedbackError
+    OR stError.bit6_PositiveLimitSwitchActive
+    OR stError.bit7_NegativeLimitSwitchActive
+    OR stError.bit8_OverCurrent
+    OR stError.bit9_I2TProtection
+    OR stError.bit10_MotorOverTemperature
+    OR stError.bit11_DriveOverTemperature
+    OR stError.bit12_OverVoltage
+    OR stError.bit13_UnderVoltage
+    OR stError.bit14_CommandError;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mTechnosoftStatus" Id="{3ce40432-5709-0331-322c-9828a759ac7e}">
+      <Declaration><![CDATA[METHOD mTechnosoftStatus : BOOL
+VAR_INPUT
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mUpdateFaultFeedback" Id="{ab8c657f-8288-0e3c-2f14-a6b67c9c93ad}">
+      <Declaration><![CDATA[METHOD mUpdateFaultFeedback
+
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[stSafety.stSafetyOut.stMCCStatusOut.bit3_ErrAck :=
+    stSafety.stSafetyIn.stMCCStatusIn.bit3_Fault;
+
+fbSafetyAckLedPulse(
+    bEnable := stSafety.stSafetyIn.stMCCStatusIn.bit3_Fault,
+    tFlashPeriod := T#1S,
+    tOffTime := T#500MS,
+    tOnTime := T#500MS,
+    nFlashCount := 1,
+    bOut => GVL_SafetyIO.bSafetyAcknowledgeLED);
 ]]></ST>
       </Implementation>
     </Method>
