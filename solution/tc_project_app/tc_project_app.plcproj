@@ -24,6 +24,9 @@
     <Compile Include="DUTs\E_CPUType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="DUTs\Safety\I_SafetyProvider.TcIO">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="DUTs\Safety\PNOZ\E_SafetyFunctions.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -69,9 +72,6 @@
     <Compile Include="DUTs\Safety\ST_SafetyOut.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\Safety\Technosoft\ST_TechnosoftIn.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="DUTs\Safety\Technosoft\ST_TechnosoftMotionError.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -100,7 +100,16 @@
     <Compile Include="POUs\Application_Specific\Applications\Safety\FB_PulseGenerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Safety\FB_ZoneMonitoring.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Safety\Motion_Safety.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Safety\Specific\F_TechnosoftErrorActive.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="POUs\Application_Specific\Applications\Safety\Zone_Monitoring.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="POUs\Application_Specific\Applications\Slit_Template.TcPOU">
@@ -322,6 +331,7 @@
     <Folder Include="POUs\Application_Specific" />
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Applications\Safety" />
+    <Folder Include="POUs\Application_Specific\Applications\Safety\Specific" />
     <Folder Include="POUs\Application_Specific\Axes" />
     <Folder Include="tc_mca_std_lib\DUTs\Axis_Structures" />
     <Folder Include="tc_mca_std_lib\DUTs\Pneumatics" />
