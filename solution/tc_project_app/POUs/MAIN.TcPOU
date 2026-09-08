@@ -38,6 +38,8 @@ END_VAR
 //PROG();
 //AXES();
 Motion_Safety();
+Zone_Monitoring();
+
 ]]></ST>
     </Implementation>
     <Folder Name="POSITION_RECOVERY" Id="{3561f6ef-e145-4ed3-9839-f17334bd2d97}" />
