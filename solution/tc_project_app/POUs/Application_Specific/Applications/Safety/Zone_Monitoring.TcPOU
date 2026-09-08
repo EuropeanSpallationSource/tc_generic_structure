@@ -4,7 +4,8 @@
     <Declaration><![CDATA[PROGRAM Zone_Monitoring
 VAR
     fbZoneMonitoring: FB_ZoneMonitoring;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Zone monitoring is following the same structure and logic as FB_ESSMonitoringBase
 fbZoneMonitoring(

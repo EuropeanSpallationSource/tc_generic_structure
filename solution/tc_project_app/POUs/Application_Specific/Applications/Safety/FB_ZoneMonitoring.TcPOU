@@ -63,10 +63,13 @@ END_VAR
 
 ]]></Declaration>
     <Implementation>
-      <ST><![CDATA[]]></ST>
+      <ST><![CDATA[mMonitorAlarms();
+mLink();
+]]></ST>
     </Implementation>
     <Property Name="EStopReleased" Id="{052f93b2-6383-09a7-2794-e2d1b473133a}">
-      <Declaration><![CDATA[PROPERTY EStopReleased : BOOL]]></Declaration>
+      <Declaration><![CDATA[PROPERTY EStopReleased : BOOL
+]]></Declaration>
       <Get Name="Get" Id="{cf905274-0b73-0a93-2cbe-baa47c5b1e88}">
         <Declaration><![CDATA[VAR
 END_VAR
@@ -97,7 +100,8 @@ VAR_INST
     aFbErrorMessageTimer: ARRAY[1..nMAX_ALARMS] OF TON;
     aStartErrorMsgTimer: ARRAY[1..nMAX_ALARMS] OF BOOL;
     aFbErrorTrig: ARRAY[1..nMAX_ALARMS] OF R_TRIG;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[//Update timer and trigger for new log message
 aStartErrorMsgTimer[i] :=
@@ -136,7 +140,8 @@ CASE aAlarmList[i].nErrorID OF
         nAlarmBitNumber.3 := TRUE; //E-stop active
     801, 802, 803, 804, 805, 806:
         nAlarmBitNumber.4 := TRUE; //Safety-function fault
-END_CASE]]></ST>
+END_CASE
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mLink" Id="{52ac62ff-3ac3-0b2f-3a5e-8246ec288867}">
@@ -155,7 +160,8 @@ IF iSafetyProvider <> 0 AND_THEN iSafetyProvider.P_ReadFromSafetyController THEN
     bSTOReleased := iSafetyProvider.P_STO_OK;
 END_IF;
 
-EStopReleased := bEStopReleased;]]></ST>
+EStopReleased := bEStopReleased;
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mMonitorAlarms" Id="{ca3e0bf7-01eb-0bc8-2bc2-6d019b24c50c}">
@@ -172,7 +178,8 @@ VAR_INST
     fbFastBlinkOff: TON;
     fbSlowBlinkOn: TON;
     fbSlowBlinkOff: TON;
-END_VAR]]></Declaration>
+END_VAR
+]]></Declaration>
       <Implementation>
         <ST><![CDATA[fbSafetyAcknowledgeButtonTrig(CLK:=_bSafetyAcknowledgeButton);
 mSetResetAlarmsLeds();
@@ -254,7 +261,8 @@ sErrorId := CONCAT(
 ADSLOGSTR(
     msgCtrlMask := ADSLOG_MSGTYPE_ERROR,
     msgFmtStr := sErrorId,
-    strArg := sErrorMessage);]]></ST>
+    strArg := sErrorMessage);
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mSetReset" Id="{5ebb8dc0-1688-0131-08e3-38f9a47a966d}">
