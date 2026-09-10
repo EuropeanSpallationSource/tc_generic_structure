@@ -8,10 +8,10 @@ STRUCT
     bit17_Reserved: BIT;
     bit18_Reserved: BIT;
     bit19_Reserved: BIT;
-    bit20_Reserved: BIT;
+    bit20_FocusDoorLocked: BIT;
     bit21_Reserved: BIT;
-    bit22_Reserved: BIT;
-    bit23_Reserved: BIT;
+    bit22_ChangerMovingPos: BIT; //Set if moving in a positive direction
+    bit23_ChangerMovingNeg: BIT; //Set if moving in a negative direction
     bit24_Reserved: BIT;
     bit25_Reserved: BIT;
     bit26_Reserved: BIT;

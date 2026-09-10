@@ -1,18 +1,17 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
   <DUT Name="ST_MCC_CustomStatusIn" Id="{3047c094-43cd-0281-2261-d5308c49a667}">
-    <Declaration><![CDATA[//Status information specific to the cabinet PNOZ --> IPC, can be customized depending on cabinet
-TYPE ST_MCC_CustomStatusIn :
+    <Declaration><![CDATA[TYPE ST_MCC_CustomStatusIn :
 STRUCT
-    bit16_EStopExperimentOK: BIT; //The Expirement caves, bitEStopOK (MCC5)
-    bit17_EStopOpticalOK: BIT; //The Optical caves, bitEStopOK (MCC3)
+    bit16_EStopExperimentOK: BIT; //The experiment cave, bitEStopOK (MCC5)
+    bit17_EStopOpticsOK: BIT; //The Optics cave, bitEStopOK (MCC3)
     bit18_EStopExternalOK: BIT; //The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)
     bit19_Reserved: BIT;
-    bit20_Reserved: BIT;
-    bit21_Reserved: BIT;
-    bit22_Reserved: BIT;
-    bit23_Reserved: BIT;
-    bit24_Reserved: BIT;
+    bit20_FocusDoorClosed: BIT;
+    bit21_OptCaveInRemote: BIT; //Allow requests to jog focus changer from NICOS
+    bit22_FocusChangerPos: BIT; //Request Changer move positive
+    bit23_FocusChangerNeg: BIT; //Request Changer move negative
+    bit24_ChangerStandstill: BIT;
     bit25_Reserved: BIT;
     bit26_Reserved: BIT;
     bit27_Reserved: BIT;

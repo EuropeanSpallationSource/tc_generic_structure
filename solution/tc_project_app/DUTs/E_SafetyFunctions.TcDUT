@@ -9,14 +9,16 @@ Add new safety functions to match the incoming safety functions from the PNOZmul
 Each safety function represents 4-bits of information. However the PLC still stores the incoming 4-bits
 into 1-byte.
 *)
-TYPE E_SafetyFunctions:
+TYPE E_SafetyFunctions :
 (
     eNone,
     eEStop,
-    eSampleStop,
-    eSampleEnable,
-    eDetectorArmIsolate,
-    eDetectorEnable
+    ePSSAccess,
+    eStartExp,
+    eStartOpt,
+    eMFStop,
+    eMFEnable,
+    eReserved
 );
 END_TYPE
 ]]></Declaration>

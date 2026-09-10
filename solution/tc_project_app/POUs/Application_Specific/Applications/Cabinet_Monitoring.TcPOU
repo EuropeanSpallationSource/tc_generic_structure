@@ -8,15 +8,24 @@ END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Cabinet monitoring
-(*fbCabinetMonitoring(
-    nEcMasterNetId:=  , //AMS NetId of Device (EtherCAT) from I/Os
-    aErrorID=> ,
-    aErrorMsg=> ,
-    nEcMasterFramesLost=> ,
-    nCPULoad=> ,
-    fCycleExecTime_ms=> ,
-    nAlarmGrpBitNumber=> );
-*)
+fbCabinetMonitoring(
+    nEcMasterNetId := '10.102.116.36.3.1', //AMS NetId of Device (EtherCAT) from I/Os,
+    iSafetyProvider := Motion_Safety.fbMotionSafety,
+    aErrorID => ,
+    aErrorMsg => ,
+    nEcMasterFramesLost => ,
+    nCPULoad => ,
+    fCycleExecTime_ms => ,
+    nAlarmGrpBitNumber =>
+);
+
+
+
+
+
+
+
+
 ]]></ST>
     </Implementation>
   </POU>
