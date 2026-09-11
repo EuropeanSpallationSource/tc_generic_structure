@@ -9,7 +9,7 @@ END_VAR
     <Implementation>
       <ST><![CDATA[fbZoneMonitoring(
     iSafetyProvider := Motion_Safety.fbMotionSafety,
-	stSafety := Motion_Safety.stSafety,
+    stSafety := Motion_Safety.stSafety,
     aErrorID =>,
     aErrorMsg =>,
     nAlarmGrpBitNumber =>);
