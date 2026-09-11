@@ -1,0 +1,576 @@
+<?xml version="1.0"?>
+<TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62" ClassName="CDevEtherCATDef" SubType="111">
+	<ImageDatas>
+		<ImageData Id="1000">424de6000000000000007600000028000000100000000e00000001000400000000007000000000000000000000001000000000000000000000001198cb0097a199001c6574005ea5be00596374001487b2005fc9ed0037635f008bd7ed00ffffff0009433f009ebbc0007283830022b4eb003f4d4a00a8ff8aac338338caa8558aa60000004aa82d8aa1116611eaa8ff8aa611e1117aa8ff8aa74777779aa82d8aa77777479aa8c28aa47774579aa8bb8aa44444279aa8bb8aa4dddd2c9aa8bb8aa444442c9aafbb8aa41eeeee7aafbb8aa13eeeee7aaf00faa1111111eaad88daa13333334a</ImageData>
+	</ImageDatas>
+	<Device Id="4" DevType="111" DevFlags="#x0003" AmsPort="28676" AmsNetId="172.30.41.145.5.1" RemoteName="PNOZ (EtherCAT)" InfoImageId="6">
+		<Name>__FILENAME__</Name>
+		<AddressInfo>
+			<Pnp>
+				<DeviceDesc>Local Area Connection 2 (TwinCAT-Intel PCI Ethernet</DeviceDesc>
+				<DeviceName>\DEVICE\{225F8895-47D0-450D-B6DF-ACF28535D923}</DeviceName>
+				<DeviceData>000105248854</DeviceData>
+			</Pnp>
+		</AddressInfo>
+		<Image Id="5" AddrType="9" ImageType="3">
+			<Name>Image</Name>
+		</Image>
+		<Box Id="13" BoxType="9099" BoxFlags="#x00000020">
+			<Name>Box (PNOZ m ES EtherCAT)</Name>
+			<ImageId>1000</ImageId>
+			<EtherCAT SlaveType="2" PdiType="#x0005" MboxDataLinkLayer="true" StateMBoxPolling="true" CycleMBoxPollingTime="0" CoeType="47" VendorId="#x00000569" ProductCode="#x000bc828" RevisionNo="#x00020002" InfoDataAddr="true" TimeoutStateChange1="32000" TimeoutStateChange2="32000" PortPhys="17" MaxSlotCount="256" MaxSlotGroupCount="1" SlotPdoIncrement="1" SlotIndexIncrement="16" Type="PNOZ m ES EtherCAT (2.2)" Desc="PNOZ m ES EtherCAT" SmPdoVariables="true" PortABoxInfo="#x00ffffff">
+				<SyncMan>001cc000260001000100000032000001c000001c26010000</SyncMan>
+				<SyncMan>001ec000220001000200000032000001c000001e22010000</SyncMan>
+				<SyncMan>001113006400010003000000010080001300001164010000</SyncMan>
+				<SyncMan>001320002000010004000000000000012000001320010000</SyncMan>
+				<Fmmu>0000000000000000001100020100000001000000000000000000000000000000</Fmmu>
+				<Fmmu>0000000000000000001300010100000002000000000000000000000000000000</Fmmu>
+				<Fmmu>00000000000000000d0800010100000003000000000000000000000000000000</Fmmu>
+				<Pdo Name="TxPDO" Index="#x1a00" Flags="#x0000" SyncMan="3">
+					<Entry Name="Virtual Output 000...007" Index="#x2000" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 008...015" Index="#x2000" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 016...023" Index="#x2000" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 024...031" Index="#x2000" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 032...039" Index="#x2000" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 040...047" Index="#x2000" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 048...055" Index="#x2000" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 056...063" Index="#x2000" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 064...071" Index="#x2000" Sub="#x09">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 072...079" Index="#x2000" Sub="#x0a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 080...087" Index="#x2000" Sub="#x0b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 088...095" Index="#x2000" Sub="#x0c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 096...103" Index="#x2000" Sub="#x0d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 104...111" Index="#x2000" Sub="#x0e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 112...119" Index="#x2000" Sub="#x0f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 120...127" Index="#x2000" Sub="#x10">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="LED State" Index="#x2000" Sub="#x11">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Table Number" Index="#x2000" Sub="#x12">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Number" Index="#x2000" Sub="#x13">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 00" Index="#x2000" Sub="#x14">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 01" Index="#x2000" Sub="#x15">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 02" Index="#x2000" Sub="#x16">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 03" Index="#x2000" Sub="#x17">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 04" Index="#x2000" Sub="#x18">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 05" Index="#x2000" Sub="#x19">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 06" Index="#x2000" Sub="#x1a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 07" Index="#x2000" Sub="#x1b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 08" Index="#x2000" Sub="#x1c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 09" Index="#x2000" Sub="#x1d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 10" Index="#x2000" Sub="#x1e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 11" Index="#x2000" Sub="#x1f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Byte 12" Index="#x2000" Sub="#x20">
+						<Type>USINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="TxPDO" Index="#x1a01" Flags="#x0000">
+					<Entry Name="Virtual Output 000...007" Index="#x2000" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 008...015" Index="#x2000" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 016...023" Index="#x2000" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 024...031" Index="#x2000" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 032...039" Index="#x2000" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 040...047" Index="#x2000" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 048...055" Index="#x2000" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 056...063" Index="#x2000" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 064...071" Index="#x2000" Sub="#x09">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 072...079" Index="#x2000" Sub="#x0a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 080...087" Index="#x2000" Sub="#x0b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 088...095" Index="#x2000" Sub="#x0c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 096...103" Index="#x2000" Sub="#x0d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 104...111" Index="#x2000" Sub="#x0e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 112...119" Index="#x2000" Sub="#x0f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Output 120...127" Index="#x2000" Sub="#x10">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="LED State" Index="#x2000" Sub="#x11">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Input 00...07" Index="#x2001" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Input 08...15" Index="#x2001" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Input 16...23" Index="#x2001" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Input 24...31" Index="#x2001" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Output 00...07" Index="#x2001" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Output 08...15" Index="#x2001" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Output 16...23" Index="#x2001" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Base Module Output 24...31" Index="#x2001" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Input 00...07" Index="#x2001" Sub="#x49">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Input 08...15" Index="#x2001" Sub="#x4a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Input 16...23" Index="#x2001" Sub="#x4b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Input 24...31" Index="#x2001" Sub="#x4c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Output 00...07" Index="#x2001" Sub="#x4d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Output 08...15" Index="#x2001" Sub="#x4e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Output 16...23" Index="#x2001" Sub="#x4f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Right Output 24...31" Index="#x2001" Sub="#x50">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Input 00...07" Index="#x2002" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Input 08...15" Index="#x2002" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Input 16...23" Index="#x2002" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Input 24...31" Index="#x2002" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Output 00...07" Index="#x2002" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Output 08...15" Index="#x2002" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Output 16...23" Index="#x2002" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Right Output 24...31" Index="#x2002" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Input 00...07" Index="#x2002" Sub="#x25">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Input 08...15" Index="#x2002" Sub="#x26">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Input 16...23" Index="#x2002" Sub="#x27">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Input 24...31" Index="#x2002" Sub="#x28">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Output 00...07" Index="#x2002" Sub="#x29">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Output 08...15" Index="#x2002" Sub="#x2a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Output 16...23" Index="#x2002" Sub="#x2b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Right Output 24...31" Index="#x2002" Sub="#x2c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Input 00...07" Index="#x2002" Sub="#x49">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Input 08...15" Index="#x2002" Sub="#x4a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Input 16...23" Index="#x2002" Sub="#x4b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Input 24...31" Index="#x2002" Sub="#x4c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Output 00...07" Index="#x2002" Sub="#x4d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Output 08...15" Index="#x2002" Sub="#x4e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Output 16...23" Index="#x2002" Sub="#x4f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 04 Right Output 24...31" Index="#x2002" Sub="#x50">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Input 00...07" Index="#x2007" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Input 08...15" Index="#x2007" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Input 16...23" Index="#x2007" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Input 24...31" Index="#x2007" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Output 00...07" Index="#x2007" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Output 08...15" Index="#x2007" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Output 16...23" Index="#x2007" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 01 Left Output 24...31" Index="#x2007" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Input 00...07" Index="#x2007" Sub="#x25">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Input 08...15" Index="#x2007" Sub="#x26">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Input 16...23" Index="#x2007" Sub="#x27">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Input 24...31" Index="#x2007" Sub="#x28">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Output 00...07" Index="#x2007" Sub="#x29">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Output 08...15" Index="#x2007" Sub="#x2a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Output 16...23" Index="#x2007" Sub="#x2b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 02 Left Output 24...31" Index="#x2007" Sub="#x2c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Input 00...07" Index="#x2007" Sub="#x49">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Input 08...15" Index="#x2007" Sub="#x4a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Input 16...23" Index="#x2007" Sub="#x4b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Input 24...31" Index="#x2007" Sub="#x4c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Output 00...07" Index="#x2007" Sub="#x4d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Output 08...15" Index="#x2007" Sub="#x4e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Output 16...23" Index="#x2007" Sub="#x4f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Expansion Module 03 Left Output 24...31" Index="#x2007" Sub="#x50">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 001 H" Index="#x200a" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 001 L" Index="#x200a" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 002 H" Index="#x200a" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 002 L" Index="#x200a" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 003 H" Index="#x200a" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 003 L" Index="#x200a" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 004 H" Index="#x200a" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 004 L" Index="#x200a" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 005 H" Index="#x200a" Sub="#x09">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 005 L" Index="#x200a" Sub="#x0a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 006 H" Index="#x200a" Sub="#x0b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 006 L" Index="#x200a" Sub="#x0c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 007 H" Index="#x200a" Sub="#x0d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 007 L" Index="#x200a" Sub="#x0e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 008 H" Index="#x200a" Sub="#x0f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 008 L" Index="#x200a" Sub="#x10">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 009 H" Index="#x200a" Sub="#x11">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 009 L" Index="#x200a" Sub="#x12">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 010 H" Index="#x200a" Sub="#x13">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 010 L" Index="#x200a" Sub="#x14">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 011 H" Index="#x200a" Sub="#x15">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 011 L" Index="#x200a" Sub="#x16">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 012 H" Index="#x200a" Sub="#x17">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 012 L" Index="#x200a" Sub="#x18">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 013 H" Index="#x200a" Sub="#x19">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 013 L" Index="#x200a" Sub="#x1a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 014 H" Index="#x200a" Sub="#x1b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 014 L" Index="#x200a" Sub="#x1c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 015 H" Index="#x200a" Sub="#x1d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 015 L" Index="#x200a" Sub="#x1e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 016 H" Index="#x200a" Sub="#x1f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 016 L" Index="#x200a" Sub="#x20">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 017 H" Index="#x200a" Sub="#x21">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 017 L" Index="#x200a" Sub="#x22">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 018 H" Index="#x200a" Sub="#x23">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 018 L" Index="#x200a" Sub="#x24">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 019 H" Index="#x200a" Sub="#x25">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 019 L" Index="#x200a" Sub="#x26">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 020 H" Index="#x200a" Sub="#x27">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 020 L" Index="#x200a" Sub="#x28">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 021 H" Index="#x200a" Sub="#x29">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 021 L" Index="#x200a" Sub="#x2a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 022 H" Index="#x200a" Sub="#x2b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 022 L" Index="#x200a" Sub="#x2c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 023 H" Index="#x200a" Sub="#x2d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 023 L" Index="#x200a" Sub="#x2e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Diagnostic Word 024 H" Index="#x200a" Sub="#x2f">
+						<Type>USINT</Type>
+					</Entry>
+				</Pdo>
+				<Pdo Name="RxPDO" Index="#x1600" InOut="1" Flags="#x0000" SyncMan="2">
+					<Entry Name="Virtual Input 000...007" Index="#x2100" Sub="#x01">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 008...015" Index="#x2100" Sub="#x02">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 016...023" Index="#x2100" Sub="#x03">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 024...031" Index="#x2100" Sub="#x04">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 032...039" Index="#x2100" Sub="#x05">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 040...047" Index="#x2100" Sub="#x06">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 048...055" Index="#x2100" Sub="#x07">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 056...063" Index="#x2100" Sub="#x08">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 064...071" Index="#x2100" Sub="#x09">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 072...079" Index="#x2100" Sub="#x0a">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 080...087" Index="#x2100" Sub="#x0b">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 088...095" Index="#x2100" Sub="#x0c">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 096...103" Index="#x2100" Sub="#x0d">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 104...111" Index="#x2100" Sub="#x0e">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 112...119" Index="#x2100" Sub="#x0f">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Virtual Input 120...127" Index="#x2100" Sub="#x10">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Not Used 017" Index="#x2100" Sub="#x11">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Table Number" Index="#x2100" Sub="#x12">
+						<Type>USINT</Type>
+					</Entry>
+					<Entry Name="Segment Number" Index="#x2100" Sub="#x13">
+						<Type>USINT</Type>
+					</Entry>
+				</Pdo>
+			</EtherCAT>
+		</Box>
+		<EtherCAT/>
+	</Device>
+</TcSmItem>

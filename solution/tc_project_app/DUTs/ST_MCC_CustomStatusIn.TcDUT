@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="ST_MCC_CustomStatusIn" Id="{3047c094-43cd-0281-2261-d5308c49a667}">
+    <Declaration><![CDATA[TYPE ST_MCC_CustomStatusIn :
+STRUCT
+    //Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
+    //Map the bits in specific application code.
+    bEStopExperimentOK: BIT; //The experiment cave, bitEStopOK (MCC5)
+    bEStopOpticsOK: BIT; //The Optics cave, bitEStopOK (MCC3)
+    bEStopExternalOK: BIT; //The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)
+    bReserved19: BIT;
+    bFocusDoorClosed: BIT;
+    bOptCaveInRemote: BIT; //Allow requests to jog focus changer from NICOS
+    bFocusChangerPos: BIT; //Request Changer move positive
+    bFocusChangerNeg: BIT; //Request Changer move negative
+    bChangerStandstill: BIT;
+    bReserved25: BIT;
+    bReserved26: BIT;
+    bReserved27: BIT;
+    bReserved28: BIT;
+    bReserved29: BIT;
+    bReserved30: BIT;
+    bReserved31: BIT;
+END_STRUCT
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>

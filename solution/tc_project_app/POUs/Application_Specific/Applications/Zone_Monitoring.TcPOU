@@ -1,0 +1,19 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Zone_Monitoring" Id="{2b0d7b86-187f-0bc2-2f54-f64dd930b8f4}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Zone_Monitoring
+VAR
+    fbZoneMonitoring: FB_ZoneMonitoring;
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbZoneMonitoring(
+    iSafetyProvider := Motion_Safety.fbMotionSafety,
+    stSafety := Motion_Safety.stSafety,
+    aErrorID =>,
+    aErrorMsg =>,
+    nAlarmGrpBitNumber =>);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

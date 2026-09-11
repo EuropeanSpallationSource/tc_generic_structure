@@ -1,0 +1,31 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <POU Name="Motion_Safety" Id="{2cc620d0-4324-0fec-1587-9760faae60d9}" SpecialFunc="None">
+    <Declaration><![CDATA[PROGRAM Motion_Safety
+VAR
+    fbMotionSafety: FB_MotionSafety;
+    stSafety: ST_Safety;
+    bMCC_OK: BOOL;
+    bAxisEnableAllowed: BOOL;
+
+    bMCCWatchdogFault: BOOL;
+
+    //Specific Application
+END_VAR
+]]></Declaration>
+    <Implementation>
+      <ST><![CDATA[fbMotionSafety(
+    bEnable := TRUE,
+    stSafety := stSafety,
+    bMCC_OK => bMCC_OK,
+    bAxisEnableAllowed => bAxisEnableAllowed,
+    bMCCWatchdogFault => bMCCWatchdogFault);
+
+//Specific Application
+
+
+fbMotionSafety.mWriteOutputs(stSafetyData := stSafety);
+]]></ST>
+    </Implementation>
+  </POU>
+</TcPlcObject>

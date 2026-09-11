@@ -17,6 +17,9 @@ VAR_GLOBAL CONSTANT
     fHIGH_LIMIT_AIR_PRESSURE1: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 1
     fLOW_LIMIT_AIR_PRESSURE2: REAL := 1; //User defined value in bar for low limit air pressure value for pneumatic axes group 2
     fHIGH_LIMIT_AIR_PRESSURE2: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 2
+
+    nNUM_OF_SAFETY_FUNCTIONS: UINT := 8;  //Virtual Output/Input bytes 04..15, each containing 8 bits
+    nNUM_OF_TECHNOSOFT: UINT := 0; //Number of Technosoft axises
 END_VAR
 ]]></Declaration>
   </GVL>
