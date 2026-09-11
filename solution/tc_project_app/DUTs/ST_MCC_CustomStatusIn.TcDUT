@@ -3,22 +3,24 @@
   <DUT Name="ST_MCC_CustomStatusIn" Id="{3047c094-43cd-0281-2261-d5308c49a667}">
     <Declaration><![CDATA[TYPE ST_MCC_CustomStatusIn :
 STRUCT
-    bit16_EStopExperimentOK: BIT; //The experiment cave, bitEStopOK (MCC5)
-    bit17_EStopOpticsOK: BIT; //The Optics cave, bitEStopOK (MCC3)
-    bit18_EStopExternalOK: BIT; //The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)
-    bit19_Reserved: BIT;
-    bit20_FocusDoorClosed: BIT;
-    bit21_OptCaveInRemote: BIT; //Allow requests to jog focus changer from NICOS
-    bit22_FocusChangerPos: BIT; //Request Changer move positive
-    bit23_FocusChangerNeg: BIT; //Request Changer move negative
-    bit24_ChangerStandstill: BIT;
-    bit25_Reserved: BIT;
-    bit26_Reserved: BIT;
-    bit27_Reserved: BIT;
-    bit28_Reserved: BIT;
-    bit29_Reserved: BIT;
-    bit30_Reserved: BIT;
-    bit31_Reserved: BIT;
+	//Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
+	//Map the bits in specific application code. 
+    bEStopExperimentOK: BIT; //The experiment cave, bitEStopOK (MCC5)
+    bEStopOpticsOK: BIT; //The Optics cave, bitEStopOK (MCC3)
+    bEStopExternalOK: BIT; //The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)
+    bReserved19: BIT;
+    bFocusDoorClosed: BIT;
+    bOptCaveInRemote: BIT; //Allow requests to jog focus changer from NICOS
+    bFocusChangerPos: BIT; //Request Changer move positive
+    bFocusChangerNeg: BIT; //Request Changer move negative
+    bChangerStandstill: BIT;
+    bReserved25: BIT;
+    bReserved26: BIT;
+    bReserved27: BIT;
+    bReserved28: BIT;
+    bReserved29: BIT;
+    bReserved30: BIT;
+    bReserved31: BIT;
 END_STRUCT
 END_TYPE
 ]]></Declaration>

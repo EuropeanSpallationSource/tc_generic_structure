@@ -10,7 +10,8 @@ Each safety function represents 4-bits of information. However the PLC still sto
 into 1-byte.
 *)
 TYPE E_SafetyFunctions :
-(
+(	
+	//Note: This is just an example
     eNone,
     eEStop,
     ePSSAccess,
