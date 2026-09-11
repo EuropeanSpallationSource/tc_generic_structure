@@ -3,8 +3,8 @@
   <DUT Name="ST_MCC_CustomStatusIn" Id="{3047c094-43cd-0281-2261-d5308c49a667}">
     <Declaration><![CDATA[TYPE ST_MCC_CustomStatusIn :
 STRUCT
-	//Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
-	//Map the bits in specific application code. 
+    //Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
+    //Map the bits in specific application code.
     bEStopExperimentOK: BIT; //The experiment cave, bitEStopOK (MCC5)
     bEStopOpticsOK: BIT; //The Optics cave, bitEStopOK (MCC3)
     bEStopExternalOK: BIT; //The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)

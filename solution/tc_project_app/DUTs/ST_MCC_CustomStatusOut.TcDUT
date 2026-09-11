@@ -4,8 +4,8 @@
     <Declaration><![CDATA[//Status information specific to the cabinet IPC --> PNOZ, can be customized depending on cabinet
 TYPE ST_MCC_CustomStatusOut :
 STRUCT
-	//Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
-	//Map the bits in specific application code. 
+    //Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
+    //Map the bits in specific application code.
     bReserved16: BIT;
     bReserved17: BIT;
     bReserved18: BIT;
