@@ -4,6 +4,8 @@
     <Declaration><![CDATA[PROGRAM Pneumatics_Template
 VAR
     //Define all necessary variables for your application
+    //{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF209 (EL2014)^DIG Outputs^Channel 1^Output'}
+    bEndSwitchesPowerON AT %Q*: BOOL := TRUE; //Power output for pneumatic axis end switches
 END_VAR
 VAR CONSTANT
     cAXIS_ID: USINT := 1;
