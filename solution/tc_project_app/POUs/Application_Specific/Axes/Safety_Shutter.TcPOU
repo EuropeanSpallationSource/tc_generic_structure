@@ -11,24 +11,24 @@ VAR
     //{attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF208 (EL1808)^Channel 6^Input'}
     bPSSPermit2 at %I*: BOOL;
 END_VAR
+VAR CONSTANT
+    cAXIS_ID: USINT := 1;
+END_VAR
 ]]></Declaration>
     <Implementation>
       <ST><![CDATA[//Initial parameters of an Pneumatic Axis
 //Uncomment the next IF statement to configure and activate the intial parameters of the axis
 (*
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.sPneumaticAxisName := 'SafetyShutter';
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.bSafetyShutter := TRUE;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToExtend := 10;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.nTimeToRetract := 10;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.tAllowTimePressureOutOfRange := GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup1;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fLowLimitPressureValue := GVL_APP.fLOW_LIMIT_AIR_PRESSURE1;
-    GVL.astPneumaticAxes[1].stPneumaticAxisConfig.fHighLimitPressureValue := GVL_APP.fHIGH_LIMIT_AIR_PRESSURE1;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.sPneumaticAxisName := 'SafetyShutter';
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.bSafetyShutter := TRUE;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeLimitMovingWithValveOff := 10;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeLimitMovingWithValveOn := 10;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup1;
 END_IF
 
 //PSS Permit signal
-//GVL.astPneumaticAxes[1].stPneumaticAxisStatus.bPSSPermitOK := bPSSPermit1 AND bPSSPermit2
+GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisInputs.bPSSPermitOK := bPSSPermit1 AND bPSSPermit2
 *)
 ]]></ST>
     </Implementation>
