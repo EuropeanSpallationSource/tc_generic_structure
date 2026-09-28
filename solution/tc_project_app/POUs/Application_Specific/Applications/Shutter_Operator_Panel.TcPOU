@@ -4,18 +4,18 @@
     <Declaration><![CDATA[PROGRAM Shutter_Operator_Panel
 VAR
     //Variables used to control the LEDs of the Safety Shutter Operator panel
-(*
+    (*
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 1^Output'}
-    bExtendedLight AT %Q*: BOOL; //Power output for Open position + LED
+    bInPositionValveOnLight AT %Q*: BOOL; //Power output for in valve on position + LED
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 3^Output'}
-    bRetractedLight AT %Q*: BOOL; //Power output for Close position + LED
+    bInPositionValveOffLight AT %Q*: BOOL; //Power output for in valve off position + LED
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF03 (EL2014)^DIG Outputs^Channel 2^Output'}
     bMovingLight AT %Q*: BOOL; //Power output for cylinder Moving LED
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF04 (EL2014)^DIG Outputs^Channel 1^Output'}
     bPermitLight AT %Q*: BOOL; //Power output for PSS permit LED
     {attribute 'TcLinkTo' := 'TIID^Device 1 (EtherCAT)^KF201 (EK1200)^KF217 (EK1521)^KF01 (EK1501-0100)^KF04 (EL2014)^DIG Outputs^Channel 2^Output'}
     bErrorLight AT %Q*: BOOL; //Power output for Error LED
-*)
+    *)
 END_VAR
 VAR CONSTANT
     cAXIS_ID: USINT := 1;
@@ -31,11 +31,12 @@ bPermitLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bPSSPermitO
 bErrorLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bError;
 
 //Assign LEDs to the end switches statuses
-bExtendedLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bExtended;
-bRetractedLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bRetracted;
+bInPositionValveOnLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bInPositionValveOn;
+bInPositionValveOffLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bInPositionValveOff;
 
 //Checking the condition for the Moving LED
-bMovingLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bRetracting OR GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bExtending;
+bMovingLight := GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bMovingWithValveOn
+    OR GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisStatus.bMovingWithValveOff;
 *)
 ]]></ST>
     </Implementation>
