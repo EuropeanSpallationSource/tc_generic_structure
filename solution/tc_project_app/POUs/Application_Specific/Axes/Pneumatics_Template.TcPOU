@@ -16,12 +16,9 @@ END_VAR
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.sPneumaticAxisName := 'P1PneuAxis';
     GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.bSafetyShutter := FALSE;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeToExtend := 10;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeToRetract := 10;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.tAllowTimePressureOutOfRange := GVL_APP.tTIME_PRESSURE_OUT_OF_RANGE;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup#;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.fLowLimitPressureValue := GVL_APP.fLOW_LIMIT_AIR_PRESSURE#;
-    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.fHighLimitPressureValue := GVL_APP.fHIGH_LIMIT_AIR_PRESSURE#;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeLimitMovingWithValveOff := 10;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.nTimeLimitMovingWithValveOn := 10;
+    GVL.astPneumaticAxes[cAXIS_ID].stPneumaticAxisConfig.eSelectPneumaticAxisGroup := E_PneumaticAxisGroup.ePneumaticAxisGroup1;
 END_IF
 *)
 ]]></ST>
