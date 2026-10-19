@@ -24,13 +24,7 @@
     <Compile Include="DUTs\E_CPUType.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="DUTs\E_SafetyFunctions.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\ST_MCC_CustomStatusIn.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="DUTs\ST_MCC_CustomStatusOut.TcDUT">
+    <Compile Include="DUTs\E_DiagnosticElements.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="GlobalTextList.TcGTLO">
@@ -151,6 +145,9 @@
     <Compile Include="tc_mca_std_lib\DUTs\E_MonitorLed.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\E_MotionFunctions.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\E_RestorePosition.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -196,6 +193,21 @@
     <Compile Include="tc_mca_std_lib\DUTs\Safety\I_SafetyProvider.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_DiagnosticElementIn.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_DiagnosticElementOut.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_DiagnosticElementRawIn.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_ExpansionModuleLeft.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_ExpansionModuleRight.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_LEDState.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -208,16 +220,16 @@
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZCommDiag.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATDiagIn.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATDiagOut.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATIn.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATOut.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionIn.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionOut.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\ST_Safety.TcDUT">

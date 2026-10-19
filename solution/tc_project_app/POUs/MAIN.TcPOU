@@ -138,6 +138,9 @@ Pneumatic_Box();
 //Shutter_Operator_Panel();
 //Slit_Template();
 //Application_Template();
+Motion_Safety();
+Zone_Monitoring();
+
 ]]></ST>
       </Implementation>
     </Action>

@@ -7,10 +7,9 @@ VAR
     stSafety: ST_Safety;
     bMCC_OK: BOOL;
     bAxisEnableAllowed: BOOL;
-
     bMCCWatchdogFault: BOOL;
 
-    //Specific Application
+    //Add specific motion safety application below
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -21,7 +20,7 @@ END_VAR
     bAxisEnableAllowed => bAxisEnableAllowed,
     bMCCWatchdogFault => bMCCWatchdogFault);
 
-//Specific Application
+ //Add specific motion safety application below
 
 
 fbMotionSafety.mWriteOutputs(stSafetyData := stSafety);

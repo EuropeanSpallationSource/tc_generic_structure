@@ -2,347 +2,203 @@
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62" ClassName="CNestedPlcProjDef">
 	<DataTypes>
 		<DataType>
-			<Name GUID="{A1F64E0F-C293-2072-6E6F-1D184246CB80}" AutoDeleteType="true">ST_MCCStatusIn</Name>
-			<Comment><![CDATA[ Status information related to the cabinet PNOZ --> IPC, will not change from cabinet to cabinet]]></Comment>
+			<Name GUID="{0D291AD9-0C19-89A8-9351-A106BDF9AF70}" AutoDeleteType="true">ST_DiagnosticElementRawIn</Name>
+			<Comment><![CDATA[ Raw diagnostic bytes; preserves your existing high-byte-first order.]]></Comment>
 			<BitSize>16</BitSize>
 			<SubItem>
-				<Name>bHeartbeat</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[The loop-back signal of the heartbeat signal from the PLC-to-PNOZ-to-PLC.]]></Comment>
-				<BitSize>1</BitSize>
+				<Name>byHigh</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[Diagnostic bits 8..15: pulse-test error and inputs 1..4.]]></Comment>
+				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bEStopOK</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[If no E-Stop connected to this cabinet is pressed, this bit is TRUE. When pressed, it is FALSE.]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
+				<Name>byLow</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[Diagnostic bits 0..7: element status and errors.]]></Comment>
+				<BitSize>8</BitSize>
+				<BitOffs>8</BitOffs>
+			</SubItem>
+		</DataType>
+		<DataType>
+			<Name GUID="{4395932D-F6E9-97DA-798B-119E0A13B829}" AutoDeleteType="true">ST_ExpansionModuleRight</Name>
+			<BitSize>40</BitSize>
+			<SubItem>
+				<Name>byExpansionModuleInput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
+				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bRemote</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[When remote mode is active, this allows remote resetting of E-Stop zones from EPICS/NICOS. Remote is active when the physical doors/access into said instruments are locked.]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFault</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Feedback to safety controller that fault has been acknowledged]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved5</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved6</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved7</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved8</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
+				<Name>byExpansionModuleOutput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<BitSize>8</BitSize>
 				<BitOffs>8</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bReserved9</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved10</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved11</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved12</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved13</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved14</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved15</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
+				<Name>byExpansionModuleLEDState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>3</Elements>
+				</ArrayInfo>
+				<BitSize>24</BitSize>
+				<BitOffs>16</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{1C05817E-FE3B-B290-01C6-7DFB25E7A300}" AutoDeleteType="true">ST_MCC_CustomStatusIn</Name>
-			<BitSize>16</BitSize>
+			<Name GUID="{F31F0C02-7FF1-32BF-E232-12FF3E0A278A}" AutoDeleteType="true">ST_ExpansionModuleLeft</Name>
+			<BitSize>88</BitSize>
 			<SubItem>
-				<Name>bEStopExperimentOK</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[The experiment cave, bitEStopOK (MCC5)]]></Comment>
-				<BitSize>1</BitSize>
+				<Name>abyExpansionModuleInput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>4</Elements>
+				</ArrayInfo>
+				<BitSize>32</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bEStopOpticsOK</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[The Optics cave, bitEStopOK (MCC3)]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
+				<Name>abyExpansionModuleOutput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>4</Elements>
+				</ArrayInfo>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bEStopExternalOK</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[The Selene Guides, bitEStopOK (MCC4) = bitEStopOK (MCC3) AND bitEStopOK (MCC5)]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved19</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFocusDoorClosed</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bOptCaveInRemote</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Allow requests to jog focus changer from NICOS]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFocusChangerPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Request Changer move positive]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFocusChangerNeg</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Request Changer move negative]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bChangerStandstill</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved25</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved26</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved27</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved28</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved29</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved30</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved31</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
+				<Name>abyExpansionModuleLEDState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>3</Elements>
+				</ArrayInfo>
+				<BitSize>24</BitSize>
+				<BitOffs>64</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{150DFC0E-E44B-851D-C99F-E95C52F4E5E7}" AutoDeleteType="true">ST_SafetyFunctionIn</Name>
-			<BitSize>8</BitSize>
+			<Name GUID="{D62B96EB-BC6A-DF02-9CE5-98A89073A007}" AutoDeleteType="true">ST_PNOZEtherCATDiagIn</Name>
+			<BitSize>904</BitSize>
 			<SubItem>
-				<Name>bEnabled</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
+				<Name>astDiagnosticElementsIn</Name>
+				<Type GUID="{0D291AD9-0C19-89A8-9351-A106BDF9AF70}">ST_DiagnosticElementRawIn</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>32</Elements>
+				</ArrayInfo>
+				<BitSize>512</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bReady</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Input TRUE, ready for RESET]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
+				<Name>astBaseModuleInput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>3</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 64..66]]></Comment>
+				<BitSize>24</BitSize>
+				<BitOffs>512</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bFault</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Specific to this safety function]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
+				<Name>astBaseModuleOutput</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>2</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 66..67]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>536</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bStart</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Status of start signal]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{6CB48ABF-985F-9852-456E-AC1A7B56BCED}" AutoDeleteType="true">ST_LEDState</Name>
-			<Comment><![CDATA[LED state of the safety controller PNOZmulti 2 B0]]></Comment>
-			<BitSize>8</BitSize>
-			<SubItem>
-				<Name>bLED_OFAULT</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[OFAULT LED is lit or flashing, bit 1]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
+				<Name>astFieldbusModuleLED</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>2</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 68..69]]></Comment>
+				<BitSize>16</BitSize>
+				<BitOffs>552</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bLED_IFAULT</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[IFAULT LED is lit or flashing, bit 2]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
+				<Name>astExpansionModuleRight</Name>
+				<Type GUID="{4395932D-F6E9-97DA-798B-119E0A13B829}">ST_ExpansionModuleRight</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>4</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 70..90]]></Comment>
+				<BitSize>160</BitSize>
+				<BitOffs>568</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>bLED_FAULT</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[FAULT LED is lit or flashing, bit 3]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bLED_DIAG</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[DIAG LED is lit or flashing, bit 4]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bLED_RUN</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[RUN LED is lit, bit 5]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved6</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Reserved]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved7</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Reserved]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved8</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Reserved]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
+				<Name>astExpansionModuleLeft</Name>
+				<Type GUID="{F31F0C02-7FF1-32BF-E232-12FF3E0A278A}">ST_ExpansionModuleLeft</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>2</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 91..113]]></Comment>
+				<BitSize>176</BitSize>
+				<BitOffs>728</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{E66DF454-9DDD-A4C4-4208-867B8E48330F}" AutoDeleteType="true">ST_PNOZEtherCATIn</Name>
-			<Comment><![CDATA[Formatted PNOZ -> PLC EtherCAT input data copied from the raw %I* process image.]]></Comment>
-			<BitSize>104</BitSize>
+			<Name GUID="{A9A7F58B-7D18-0962-56EA-772D853C5B2F}" AutoDeleteType="true">ST_PNOZEtherCATIn</Name>
+			<Comment><![CDATA[Raw PNOZ -> PLC TxPDO data.]]></Comment>
+			<BitSize>144</BitSize>
 			<SubItem>
-				<Name>stMCCStatusIn</Name>
-				<Type GUID="{A1F64E0F-C293-2072-6E6F-1D184246CB80}">ST_MCCStatusIn</Type>
-				<Comment><![CDATA[Input Byte 00..01]]></Comment>
+				<Name>wMCCStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<Comment><![CDATA[Input bytes 00..01: common cabinet status.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>stMCC_CustomStatusIn</Name>
-				<Type GUID="{1C05817E-FE3B-B290-01C6-7DFB25E7A300}">ST_MCC_CustomStatusIn</Type>
-				<Comment><![CDATA[Input Byte 02..03]]></Comment>
+				<Name>wMCCCustomStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<Comment><![CDATA[Input bytes 02..03: application-specific cabinet status.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>16</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>astSafetyFunctionIn</Name>
-				<Type GUID="{150DFC0E-E44B-851D-C99F-E95C52F4E5E7}">ST_SafetyFunctionIn</Type>
+				<Name>abyDigitalInputs</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>4</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Input bytes 04..07: digital input states.]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>abySafeInputGroups</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
 					<Elements>8</Elements>
 				</ArrayInfo>
-				<Comment><![CDATA[Input Byte 04..15]]></Comment>
+				<Comment><![CDATA[Input bytes 08..15: safe input group states.]]></Comment>
 				<BitSize>64</BitSize>
-				<BitOffs>32</BitOffs>
+				<BitOffs>64</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>stLEDState</Name>
-				<Type GUID="{6CB48ABF-985F-9852-456E-AC1A7B56BCED}">ST_LEDState</Type>
-				<Comment><![CDATA[Input Byte 16]]></Comment>
+				<Name>byLEDState</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<Comment><![CDATA[Input byte 16: PNOZ controller LED states.]]></Comment>
 				<BitSize>8</BitSize>
-				<BitOffs>96</BitOffs>
+				<BitOffs>128</BitOffs>
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{56F3E539-8496-E31B-E241-2221CC370616}" AutoDeleteType="true">ST_TechnosoftMotionError</Name>
+			<Name GUID="{300D84C5-2AA0-A822-500E-957F2B5AE20E}" AutoDeleteType="true">ST_TechnosoftMotionError</Name>
 			<BitSize>16</BitSize>
 			<SubItem>
 				<Name>bEtherCATCommunicationError</Name>
@@ -368,7 +224,7 @@
 			<SubItem>
 				<Name>bControlError</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Position or speed error, bit3 ]]></Comment>
+				<Comment><![CDATA[Position or speed error, bit3]]></Comment>
 				<BitSize>1</BitSize>
 				<BitOffs>3</BitOffs>
 			</SubItem>
@@ -458,287 +314,59 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{F0E04440-8D86-472A-729A-B81235D8E900}" IecBaseType="true" AutoDeleteType="true">ARRAY [1..0] OF ST_TechnosoftMotionError</Name>
+			<Name GUID="{09559DC1-BFAC-DD31-ACA8-F0249E974087}" IecBaseType="true" AutoDeleteType="true">ARRAY [1..0] OF ST_TechnosoftMotionError</Name>
 			<Comment><![CDATA[Motion error registers from the Technosoft drives]]></Comment>
 			<BitSize>0</BitSize>
-			<BaseType GUID="{56F3E539-8496-E31B-E241-2221CC370616}">ST_TechnosoftMotionError</BaseType>
+			<BaseType GUID="{300D84C5-2AA0-A822-500E-957F2B5AE20E}">ST_TechnosoftMotionError</BaseType>
 			<ArrayInfo>
 				<LBound>1</LBound>
 				<Elements>0</Elements>
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{25267E25-DD5D-FA36-A379-8440B4F1773A}" AutoDeleteType="true">ST_MCCStatusOut</Name>
-			<Comment><![CDATA[Status information related to the cabinet IPC --> PNOZ, will not change from cabinet to cabinet]]></Comment>
-			<BitSize>16</BitSize>
+			<Name GUID="{4327C865-C0CC-5761-01F0-C0FFAC26F270}" AutoDeleteType="true">ST_PNOZEtherCATOut</Name>
+			<Comment><![CDATA[Raw PLC -> PNOZ RxPDO layout.]]></Comment>
+			<BitSize>128</BitSize>
 			<SubItem>
-				<Name>bHeartbeat</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Pulsed every ~200ms by the PLC-to-PNOZ, the PNOZ is expected to loop back this signal.]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved1</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved2</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bErrAck</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[If there is a fault requiring intervention (from cabinet), CabAck will clear it]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved4</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved5</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bSTOFbk</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bSTO_OK</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved8</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved9</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved10</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved11</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved12</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved13</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved14</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved15</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{0D7E105E-6687-10BD-2597-5C77BB7CF7AF}" AutoDeleteType="true">ST_MCC_CustomStatusOut</Name>
-			<Comment><![CDATA[Status information specific to the cabinet IPC --> PNOZ, can be customized depending on cabinet]]></Comment>
-			<BitSize>16</BitSize>
-			<SubItem>
-				<Name>bReserved16</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Note: This is just an example, move status bits into tc_mca_std_lib make it a UDINT.
-Map the bits in specific application code. ]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved17</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved18</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved19</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bFocusDoorLocked</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>4</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved21</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>5</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bChangerMovingPos</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Set if moving in a positive direction]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>6</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bChangerMovingNeg</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Set if moving in a negative direction]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>7</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved24</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>8</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved25</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>9</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved26</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>10</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved27</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>11</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved28</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>12</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved29</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>13</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved30</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>14</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bReserved31</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>15</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{1DE9F69D-592E-FA17-E05F-F40A6EC1165E}" AutoDeleteType="true">ST_SafetyFunctionOut</Name>
-			<BitSize>8</BitSize>
-			<SubItem>
-				<Name>bDiagOk</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[OK (Where diagnostics need TO be checked, i.e. drive errors)]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>0</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bOutput</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Where PLC checks consistency (i.e. STO)]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>1</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bRequest</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<BitSize>1</BitSize>
-				<BitOffs>2</BitOffs>
-			</SubItem>
-			<SubItem>
-				<Name>bDummy</Name>
-				<Type GUID="{18071995-0000-0000-0000-000000000010}">BIT</Type>
-				<Comment><![CDATA[Not in use]]></Comment>
-				<BitSize>1</BitSize>
-				<BitOffs>3</BitOffs>
-			</SubItem>
-		</DataType>
-		<DataType>
-			<Name GUID="{5F6F5BFA-7A4F-A710-566F-7744A55DA731}" AutoDeleteType="true">ST_PNOZEtherCATOut</Name>
-			<Comment><![CDATA[Formatted PLC -> PNOZ EtherCAT output data mapped to the raw %Q* process image.]]></Comment>
-			<BitSize>96</BitSize>
-			<SubItem>
-				<Name>stMCCStatusOut</Name>
-				<Type GUID="{25267E25-DD5D-FA36-A379-8440B4F1773A}">ST_MCCStatusOut</Type>
-				<Comment><![CDATA[Output Byte 00..01]]></Comment>
+				<Name>wMCCStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<Comment><![CDATA[Output bytes 00..01: common cabinet commands.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>stMCC_CustomStatusOut</Name>
-				<Type GUID="{0D7E105E-6687-10BD-2597-5C77BB7CF7AF}">ST_MCC_CustomStatusOut</Type>
-				<Comment><![CDATA[Output Byte 02..03]]></Comment>
+				<Name>wMCCCustomStatus</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
+				<Comment><![CDATA[Output bytes 02..03: application-specific commands.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>16</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>aSafetyFunctionOut</Name>
-				<Type GUID="{1DE9F69D-592E-FA17-E05F-F40A6EC1165E}">ST_SafetyFunctionOut</Type>
+				<Name>abyDigitalOutputs</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
+				<ArrayInfo>
+					<LBound>1</LBound>
+					<Elements>4</Elements>
+				</ArrayInfo>
+				<Comment><![CDATA[Output bytes 04..07: Currently unused]]></Comment>
+				<BitSize>32</BitSize>
+				<BitOffs>32</BitOffs>
+			</SubItem>
+			<SubItem>
+				<Name>astSafeOutputGroups</Name>
+				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
 					<Elements>8</Elements>
 				</ArrayInfo>
-				<Comment><![CDATA[Output Byte 04..15]]></Comment>
+				<Comment><![CDATA[Output Byte 08..15: Currently unused]]></Comment>
 				<BitSize>64</BitSize>
-				<BitOffs>32</BitOffs>
+				<BitOffs>64</BitOffs>
 			</SubItem>
 		</DataType>
 	</DataTypes>
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" ClearInvalidPersist="true" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{58C32663-7008-1F48-9E4B-87F183A31E56}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{DB655AE2-B98F-9674-5878-026DF9A79E82}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -754,20 +382,6 @@ Map the bits in specific application code. ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATIn</Name>
-					<Comment><![CDATA[Raw EtherCAT input]]></Comment>
-					<Type GUID="{E66DF454-9DDD-A4C4-4208-867B8E48330F}">ST_PNOZEtherCATIn</Type>
-				</Var>
-				<Var>
-					<Name>Motion_Safety.fbMotionSafety.bWcState</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
-					<Name>Motion_Safety.fbMotionSafety.astTechnosoftMotionError</Name>
-					<Comment><![CDATA[Motion error registers from the Technosoft drives]]></Comment>
-					<Type GUID="{F0E04440-8D86-472A-729A-B81235D8E900}">ARRAY [1..0] OF ST_TechnosoftMotionError</Type>
-				</Var>
-				<Var>
 					<Name>GVL.nAirPressureSensorGroup1</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 1]]></Comment>
 					<Type>INT</Type>
@@ -776,6 +390,30 @@ Map the bits in specific application code. ]]></Comment>
 					<Name>GVL.nAirPressureSensorGroup2</Name>
 					<Comment><![CDATA[Raw value from analog air pressure sensor for pneumatic axes group 2]]></Comment>
 					<Type>INT</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATDiagIn</Name>
+					<Comment><![CDATA[Raw EtherCAT Input of TxPDO_1]]></Comment>
+					<Type GUID="{D62B96EB-BC6A-DF02-9CE5-98A89073A007}">ST_PNOZEtherCATDiagIn</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATIn</Name>
+					<Comment><![CDATA[Raw EtherCAT input]]></Comment>
+					<Type GUID="{A9A7F58B-7D18-0962-56EA-772D853C5B2F}">ST_PNOZEtherCATIn</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.bWcState</Name>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.nEtherCATState</Name>
+					<Comment><![CDATA[State of EtherCAT slave]]></Comment>
+					<Type>UINT</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.astTechnosoftMotionError</Name>
+					<Comment><![CDATA[Motion error registers from the Technosoft drives]]></Comment>
+					<Type GUID="{09559DC1-BFAC-DD31-ACA8-F0249E974087}">ARRAY [1..0] OF ST_TechnosoftMotionError</Type>
 				</Var>
 			</Vars>
 			<Vars VarGrpType="2" AreaNo="1">
@@ -797,15 +435,6 @@ Map the bits in specific application code. ]]></Comment>
 					<Type>BOOL</Type>
 				</Var>
 				<Var>
-					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATOut</Name>
-					<Comment><![CDATA[Raw EtherCAT output]]></Comment>
-					<Type GUID="{5F6F5BFA-7A4F-A710-566F-7744A55DA731}">ST_PNOZEtherCATOut</Type>
-				</Var>
-				<Var>
-					<Name>Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED</Name>
-					<Type>BOOL</Type>
-				</Var>
-				<Var>
 					<Name>GVL_Safety.bOpticalCaveLED</Name>
 					<Comment><![CDATA[Optical Cave]]></Comment>
 					<Type>BOOL</Type>
@@ -813,6 +442,15 @@ Map the bits in specific application code. ]]></Comment>
 				<Var>
 					<Name>GVL_Safety.bExperimentCaveLED</Name>
 					<Comment><![CDATA[Expirement Cave]]></Comment>
+					<Type>BOOL</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATOut</Name>
+					<Comment><![CDATA[Raw EtherCAT output]]></Comment>
+					<Type GUID="{4327C865-C0CC-5761-01F0-C0FFAC26F270}">ST_PNOZEtherCATOut</Type>
+				</Var>
+				<Var>
+					<Name>Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED</Name>
 					<Type>BOOL</Type>
 				</Var>
 			</Vars>
@@ -832,4 +470,22 @@ Map the bits in specific application code. ]]></Comment>
 			</TaskPouOids>
 		</Instance>
 	</Project>
+	<Mappings>
+		<OwnerA Name="tc_project_app Instance">
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF207 (EL2014)">
+				<Link VarA="PlcTask Outputs^GVL_Safety.bExperimentCaveLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.bOpticalCaveLED" VarB="DIG Outputs^Channel 2^Output" AutoLink="true" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF208 (EL2014)">
+				<Link VarA="PlcTask Outputs^Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
+			</OwnerB>
+			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF509 (PNOZ m ES EtherCAT)">
+				<Link VarA="PlcTask Inputs^Motion_Safety.fbMotionSafety.bWcState" VarB="WcState^WcState" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Inputs^Motion_Safety.fbMotionSafety.nEtherCATState" VarB="InfoData^State" AutoLink="true"/>
+				<Link VarA="PlcTask Inputs^Motion_Safety.fbMotionSafety.stPNOZEtherCATDiagIn" VarB="SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO_1" AutoLink="true" Size="904"/>
+				<Link VarA="PlcTask Inputs^Motion_Safety.fbMotionSafety.stPNOZEtherCATIn" VarB="SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_3^TxPDO" AutoLink="true" Size="144"/>
+				<Link VarA="PlcTask Outputs^Motion_Safety.fbMotionSafety.stPNOZEtherCATOut" VarB="SmPdoVariables^PNOZ_m_ES_EtherCAT__2_2__SM_2^RxPDO" AutoLink="true" Size="128"/>
+			</OwnerB>
+		</OwnerA>
+	</Mappings>
 </TcSmItem>
