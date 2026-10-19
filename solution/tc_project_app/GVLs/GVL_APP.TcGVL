@@ -17,7 +17,7 @@ VAR_GLOBAL CONSTANT
     fHIGH_LIMIT_AIR_PRESSURE1: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 1
     fLOW_LIMIT_AIR_PRESSURE2: REAL := 1; //User defined value in bar for low limit air pressure value for pneumatic axes group 2
     fHIGH_LIMIT_AIR_PRESSURE2: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 2
-	
+
     nNUM_OF_DIAGNOSTIC_ELEMENTS: UINT := 32; //TxPDO_1, each diagnostic word is a safety element in the safety controller
     nNUM_OF_TECHNOSOFT: UINT := 0; //Number of Technosoft axises
 END_VAR
