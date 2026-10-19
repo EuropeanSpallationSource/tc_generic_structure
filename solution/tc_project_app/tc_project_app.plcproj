@@ -193,8 +193,6 @@
     <Compile Include="tc_mca_std_lib\DUTs\E_SlitPairStates.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\I_SafetyProvider.TcIO">
       <SubType>Code</SubType>
     </Compile>
