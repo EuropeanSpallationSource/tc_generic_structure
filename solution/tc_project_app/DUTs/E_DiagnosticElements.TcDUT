@@ -1,0 +1,28 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<TcPlcObject Version="1.1.0.1">
+  <DUT Name="E_DiagnosticElements" Id="{76a74892-8755-046f-07bf-fa08134bbbcd}">
+    <Declaration><![CDATA[{attribute 'qualified_only'}
+{attribute 'strict'}
+(*
+The enum represents the diagnostic elements for a motion control cabinet.
+Add new diagnostic elements to match the incoming diagnostic elements from the safety controller.
+Each diagnostic elements represents 16-bits (HIGH 8-bits; LOW 8-bits see TxPDO_1) of information.
+*)
+TYPE E_DiagnosticElements :
+(
+    //Note: This is just an example,
+    eNone,
+    eEStop,         //[1]
+    eEnable,        //[2]
+    eSGate,         //[3]
+    eLightCurtain,  //[4]
+    eSafetyDevice,  //[5]
+    eTwoHand,       //[6]
+    eSetResetBlock, //[7]
+    eMode,          //[8]
+    eStart          //[9]
+);
+END_TYPE
+]]></Declaration>
+  </DUT>
+</TcPlcObject>
