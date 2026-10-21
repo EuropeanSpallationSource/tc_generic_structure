@@ -20,7 +20,8 @@ TYPE E_DiagnosticElements :
     eTwoHand,       //[6]
     eSetResetBlock, //[7]
     eMode,          //[8]
-    eStart          //[9]
+    eStart,         //[9]
+    eCount          //Keep last, not a diagnostic element.
 );
 END_TYPE
 ]]></Declaration>
