@@ -2,18 +2,18 @@
 <TcSmItem xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="http://www.beckhoff.com/schemas/2012/07/TcSmProject" TcSmVersion="1.0" TcVersion="3.1.4024.62" ClassName="CNestedPlcProjDef">
 	<DataTypes>
 		<DataType>
-			<Name GUID="{0D291AD9-0C19-89A8-9351-A106BDF9AF70}" AutoDeleteType="true">ST_DiagnosticElementRawIn</Name>
+			<Name GUID="{4B1B0995-4D0B-7B29-D8B3-74F20999A97B}" AutoDeleteType="true">ST_DiagnosticElementRawIn</Name>
 			<Comment><![CDATA[ Raw diagnostic bytes; preserves your existing high-byte-first order.]]></Comment>
 			<BitSize>16</BitSize>
 			<SubItem>
-				<Name>byHigh</Name>
+				<Name>nHigh</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<Comment><![CDATA[Diagnostic bits 8..15: pulse-test error and inputs 1..4.]]></Comment>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>byLow</Name>
+				<Name>nLow</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<Comment><![CDATA[Diagnostic bits 0..7: element status and errors.]]></Comment>
 				<BitSize>8</BitSize>
@@ -21,22 +21,22 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{4395932D-F6E9-97DA-798B-119E0A13B829}" AutoDeleteType="true">ST_ExpansionModuleRight</Name>
+			<Name GUID="{4E038E74-F7C4-D880-C61E-900DC769D818}" AutoDeleteType="true">ST_ExpansionModuleRight</Name>
 			<BitSize>40</BitSize>
 			<SubItem>
-				<Name>byExpansionModuleInput</Name>
+				<Name>nExpansionModuleInput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>byExpansionModuleOutput</Name>
+				<Name>nExpansionModuleOutput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<BitSize>8</BitSize>
 				<BitOffs>8</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>byExpansionModuleLEDState</Name>
+				<Name>anExpansionModuleLEDState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -47,10 +47,10 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{F31F0C02-7FF1-32BF-E232-12FF3E0A278A}" AutoDeleteType="true">ST_ExpansionModuleLeft</Name>
+			<Name GUID="{08A1B41D-0B4A-F861-CCDF-4F146145469D}" AutoDeleteType="true">ST_ExpansionModuleLeft</Name>
 			<BitSize>88</BitSize>
 			<SubItem>
-				<Name>abyExpansionModuleInput</Name>
+				<Name>anExpansionModuleInput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -60,7 +60,7 @@
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>abyExpansionModuleOutput</Name>
+				<Name>anExpansionModuleOutput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -70,7 +70,7 @@
 				<BitOffs>32</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>abyExpansionModuleLEDState</Name>
+				<Name>anExpansionModuleLEDState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -81,11 +81,11 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{D62B96EB-BC6A-DF02-9CE5-98A89073A007}" AutoDeleteType="true">ST_PNOZEtherCATDiagIn</Name>
+			<Name GUID="{7866F33A-D57F-A759-54C5-1853CCFD9365}" AutoDeleteType="true">ST_PNOZEtherCATDiagIn</Name>
 			<BitSize>904</BitSize>
 			<SubItem>
 				<Name>astDiagnosticElementsIn</Name>
-				<Type GUID="{0D291AD9-0C19-89A8-9351-A106BDF9AF70}">ST_DiagnosticElementRawIn</Type>
+				<Type GUID="{4B1B0995-4D0B-7B29-D8B3-74F20999A97B}">ST_DiagnosticElementRawIn</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
 					<Elements>32</Elements>
@@ -94,7 +94,7 @@
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>astBaseModuleInput</Name>
+				<Name>anBaseModuleInput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -105,7 +105,7 @@
 				<BitOffs>512</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>astBaseModuleOutput</Name>
+				<Name>anBaseModuleOutput</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -116,7 +116,7 @@
 				<BitOffs>536</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>astFieldbusModuleLED</Name>
+				<Name>anFieldbusModuleLED</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -128,7 +128,7 @@
 			</SubItem>
 			<SubItem>
 				<Name>astExpansionModuleRight</Name>
-				<Type GUID="{4395932D-F6E9-97DA-798B-119E0A13B829}">ST_ExpansionModuleRight</Type>
+				<Type GUID="{4E038E74-F7C4-D880-C61E-900DC769D818}">ST_ExpansionModuleRight</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
 					<Elements>4</Elements>
@@ -139,7 +139,7 @@
 			</SubItem>
 			<SubItem>
 				<Name>astExpansionModuleLeft</Name>
-				<Type GUID="{F31F0C02-7FF1-32BF-E232-12FF3E0A278A}">ST_ExpansionModuleLeft</Type>
+				<Type GUID="{08A1B41D-0B4A-F861-CCDF-4F146145469D}">ST_ExpansionModuleLeft</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
 					<Elements>2</Elements>
@@ -150,25 +150,25 @@
 			</SubItem>
 		</DataType>
 		<DataType>
-			<Name GUID="{A9A7F58B-7D18-0962-56EA-772D853C5B2F}" AutoDeleteType="true">ST_PNOZEtherCATIn</Name>
+			<Name GUID="{E3D3C25D-8082-AC9E-F556-B74CB191C8F4}" AutoDeleteType="true">ST_PNOZEtherCATIn</Name>
 			<Comment><![CDATA[Raw PNOZ -> PLC TxPDO data.]]></Comment>
 			<BitSize>144</BitSize>
 			<SubItem>
-				<Name>wMCCStatus</Name>
+				<Name>nMCCStatus</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<Comment><![CDATA[Input bytes 00..01: common cabinet status.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>wMCCCustomStatus</Name>
+				<Name>nMCCCustomStatus</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<Comment><![CDATA[Input bytes 02..03: application-specific cabinet status.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>16</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>abyDigitalInputs</Name>
+				<Name>anDigitalInputs</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -179,7 +179,7 @@
 				<BitOffs>32</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>abySafeInputGroups</Name>
+				<Name>anSafeInputGroups</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -190,7 +190,7 @@
 				<BitOffs>64</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>byLEDState</Name>
+				<Name>nLEDState</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<Comment><![CDATA[Input byte 16: PNOZ controller LED states.]]></Comment>
 				<BitSize>8</BitSize>
@@ -324,25 +324,25 @@
 			</ArrayInfo>
 		</DataType>
 		<DataType>
-			<Name GUID="{4327C865-C0CC-5761-01F0-C0FFAC26F270}" AutoDeleteType="true">ST_PNOZEtherCATOut</Name>
+			<Name GUID="{257B7EB7-615A-A595-EC05-2FD5754D0DA3}" AutoDeleteType="true">ST_PNOZEtherCATOut</Name>
 			<Comment><![CDATA[Raw PLC -> PNOZ RxPDO layout.]]></Comment>
 			<BitSize>128</BitSize>
 			<SubItem>
-				<Name>wMCCStatus</Name>
+				<Name>nMCCStatus</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<Comment><![CDATA[Output bytes 00..01: common cabinet commands.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>0</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>wMCCCustomStatus</Name>
+				<Name>nMCCCustomStatus</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000004}">WORD</Type>
 				<Comment><![CDATA[Output bytes 02..03: application-specific commands.]]></Comment>
 				<BitSize>16</BitSize>
 				<BitOffs>16</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>abyDigitalOutputs</Name>
+				<Name>anDigitalOutputs</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -353,7 +353,7 @@
 				<BitOffs>32</BitOffs>
 			</SubItem>
 			<SubItem>
-				<Name>astSafeOutputGroups</Name>
+				<Name>anSafeOutputGroups</Name>
 				<Type GUID="{18071995-0000-0000-0000-000000000001}">BYTE</Type>
 				<ArrayInfo>
 					<LBound>1</LBound>
@@ -366,7 +366,7 @@
 		</DataType>
 	</DataTypes>
 	<Project GUID="{FB261665-FD20-4BF2-97F8-2854C82B752D}" Name="tc_project_app" PrjFilePath="..\..\tc_project_app\tc_project_app.plcproj" TmcFilePath="..\..\tc_project_app\tc_project_app.tmc" ReloadTmc="true" AmsPort="852" FileArchiveSettings="#x000e" ClearInvalidPersist="true" SymbolicMapping="true">
-		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{DB655AE2-B98F-9674-5878-026DF9A79E82}">
+		<Instance Id="#x08502040" TcSmClass="TComPlcObjDef" KeepUnrestoredLinks="2" TmcPath="tc_project_app\tc_project_app.tmc" TmcHash="{E4AD3324-495D-2C21-F11D-7FC303D9DE76}">
 			<Name>tc_project_app Instance</Name>
 			<CLSID ClassFactory="TcPlc30">{08500001-0000-0000-F000-000000000064}</CLSID>
 			<Vars VarGrpType="1">
@@ -394,12 +394,12 @@
 				<Var>
 					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATDiagIn</Name>
 					<Comment><![CDATA[Raw EtherCAT Input of TxPDO_1]]></Comment>
-					<Type GUID="{D62B96EB-BC6A-DF02-9CE5-98A89073A007}">ST_PNOZEtherCATDiagIn</Type>
+					<Type GUID="{7866F33A-D57F-A759-54C5-1853CCFD9365}">ST_PNOZEtherCATDiagIn</Type>
 				</Var>
 				<Var>
 					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATIn</Name>
 					<Comment><![CDATA[Raw EtherCAT input]]></Comment>
-					<Type GUID="{A9A7F58B-7D18-0962-56EA-772D853C5B2F}">ST_PNOZEtherCATIn</Type>
+					<Type GUID="{E3D3C25D-8082-AC9E-F556-B74CB191C8F4}">ST_PNOZEtherCATIn</Type>
 				</Var>
 				<Var>
 					<Name>Motion_Safety.fbMotionSafety.bWcState</Name>
@@ -447,7 +447,7 @@
 				<Var>
 					<Name>Motion_Safety.fbMotionSafety.stPNOZEtherCATOut</Name>
 					<Comment><![CDATA[Raw EtherCAT output]]></Comment>
-					<Type GUID="{4327C865-C0CC-5761-01F0-C0FFAC26F270}">ST_PNOZEtherCATOut</Type>
+					<Type GUID="{257B7EB7-615A-A595-EC05-2FD5754D0DA3}">ST_PNOZEtherCATOut</Type>
 				</Var>
 				<Var>
 					<Name>Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED</Name>
