@@ -1,6 +1,6 @@
 ﻿<?xml version="1.0" encoding="utf-8"?>
 <TcPlcObject Version="1.1.0.1">
-  <GVL Name="GVL_APP" Id="{8fe9690c-7907-432e-bedb-6fc99b5ce255}">
+  <GVL Name="GVL_APP" Id="{f2c13afb-d30c-0def-13ca-1ab1a455d4a2}">
     <Declaration><![CDATA[{attribute 'qualified_only'}
 VAR_GLOBAL
     //Defines the CPU type: 0 for CX5130 and 1 for c6017-0020
@@ -17,9 +17,21 @@ VAR_GLOBAL CONSTANT
     fHIGH_LIMIT_AIR_PRESSURE1: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 1
     fLOW_LIMIT_AIR_PRESSURE2: REAL := 1; //User defined value in bar for low limit air pressure value for pneumatic axes group 2
     fHIGH_LIMIT_AIR_PRESSURE2: REAL := 6; //User defined value in bar for high limit air pressure value for pneumatic axes group 2
-
-    nNUM_OF_DIAGNOSTIC_ELEMENTS: UINT := 32; //TxPDO_1, each diagnostic word is a safety element in the safety controller
-    nNUM_OF_TECHNOSOFT: UINT := 0; //Number of Technosoft axises
+	
+	//Safety variables
+	
+	//Configurable parameters, adjust to hardware
+	nNUM_OF_SAFE_INPUTS: USINT := 10;
+	nNUM_OF_SAFE_FUNCTIONS: USINT := 12;
+	nNUM_OF_SAFE_OUTPUTS: USINT := 10;
+	nNUM_OF_TECHNOSOFT: USINT := 0; //Number of Technosoft axises
+	nNUM_OF_EXPANSION_LEFT: USINT := 0;
+	nNUM_OF_EXPANSION_RIGHT: USINT := 2;
+	
+	//Fixed constants, should not be changed
+	nMAX_DIAGNOSTIC_ELEMENTS: USINT := 32; //TxPDO_1, each diagnostic word is a safety element in the safety controller
+	nMAX_EXPANSION_MODULE_LEFT: USINT := 4; //PILZ m B0 maximum left module count
+	nMAX_EXPANSION_MODULE_RIGHT: USINT := 6; //PILZ m B0 maximum right module count
 END_VAR
 ]]></Declaration>
   </GVL>
