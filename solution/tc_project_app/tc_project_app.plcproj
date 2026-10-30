@@ -193,6 +193,18 @@
     <Compile Include="tc_mca_std_lib\DUTs\Safety\I_SafetyProvider.TcIO">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\Device_Data\E_PNOZDeviceType.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\Device_Data\ST_PNOZData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\Device_Data\ST_PNOZModuleData.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_8Bit.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_DiagnosticElementIn.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -209,6 +221,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_LEDState.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_MCCAppSpecificIn.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_MCCStatusIn.TcDUT">
@@ -232,6 +247,12 @@
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATOut.TcDUT">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionIn.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionOut.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\ST_Safety.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -251,9 +272,6 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\GVLs\GVL_Safety.TcGVL">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\FB_PulseGenerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringBase.TcPOU">
@@ -295,13 +313,25 @@
     <Compile Include="tc_mca_std_lib\POUs\Motion\Homing\FB_Homing.TcPOU">
       <SubType>Code</SubType>
     </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Safety\FB_PNOZData.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\FB_PulseGenerator.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_IsHighNibbleSet.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_IsLowNibbleSet.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_TechnosoftErrorActive.TcPOU">
+      <SubType>Code</SubType>
+    </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Pneumatics\FB_PneumaticAxis.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Safety\FB_MotionSafety.TcPOU">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\Safety\F_TechnosoftErrorActive.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\VISUs\CoEParamTextList.TcTLO">
@@ -337,8 +367,10 @@
     <Folder Include="POUs\Application_Specific\Applications" />
     <Folder Include="POUs\Application_Specific\Axes" />
     <Folder Include="tc_mca_std_lib\DUTs\Safety\PNOZ" />
+    <Folder Include="tc_mca_std_lib\DUTs\Safety\PNOZ\Device_Data" />
     <Folder Include="tc_mca_std_lib\POUs\Motion\Homing" />
     <Folder Include="tc_mca_std_lib\POUs\Monitoring" />
+    <Folder Include="tc_mca_std_lib\POUs\Utilities" />
     <Folder Include="tc_mca_std_lib\POUs\Safety" />
     <Folder Include="tc_mca_std_lib\POUs\Pneumatics" />
     <Folder Include="tc_mca_std_lib\VISUs" />
