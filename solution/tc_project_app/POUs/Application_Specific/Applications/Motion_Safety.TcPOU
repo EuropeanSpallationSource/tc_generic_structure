@@ -23,7 +23,7 @@ END_VAR
  //Add specific motion safety application below
 
 
-fbMotionSafety.mWriteOutputs(stSafetyData := stSafety);
+fbMotionSafety.mWriteOutputs(stSafetyOut := stSafety.stOut);
 ]]></ST>
     </Implementation>
   </POU>
