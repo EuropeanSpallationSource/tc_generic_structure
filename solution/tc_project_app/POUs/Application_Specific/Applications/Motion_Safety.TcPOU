@@ -8,18 +8,18 @@ VAR
     bMCC_OK: BOOL;
     bMotionEnableAllowed: BOOL;
     bMCCWatchdogFault: BOOL;
-	bInit: BOOL;
+    bInit: BOOL;
 
     //Add specific motion safety application below
-	(*
-	fbCaveFlashLED: FB_PulseGenerator;
-	
-	bEnableSO1: BOOL; //Safe output group 1, controls contactors QA60X..QA60X+N (MX..MX+N)
-	bEnableSO2: BOOL; //Safe output group 2, controls contactors QA60X..QA60X+N (MX..MX+N)
-	bEnableSO3: BOOL; //Safe output group 3, controls contactors QA60X..QA60X+N (MX..MX+N)
-	bEnableSO4: BOOL; //Safe output group 4, controls contactors QA60X..QA60X+N (PX..PX+N)
-	
-	*)
+    (*
+    fbCaveFlashLED: FB_PulseGenerator;
+
+    bEnableSO1: BOOL; //Safe output group 1, controls contactors QA60X..QA60X+N (MX..MX+N)
+    bEnableSO2: BOOL; //Safe output group 2, controls contactors QA60X..QA60X+N (MX..MX+N)
+    bEnableSO3: BOOL; //Safe output group 3, controls contactors QA60X..QA60X+N (MX..MX+N)
+    bEnableSO4: BOOL; //Safe output group 4, controls contactors QA60X..QA60X+N (PX..PX+N)
+
+    *)
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -44,7 +44,7 @@ fbMotionSafety.mWriteOutputs(stSafetyOut := stSafety.stOut);
       <Declaration><![CDATA[METHOD mGeneralMotionPermission
 VAR
     nAxis: UINT;
-	nPneumaticAxis: UINT;
+    nPneumaticAxis: UINT;
 END_VAR
 ]]></Declaration>
       <Implementation>
@@ -84,7 +84,8 @@ ELSIF rtrigAxisEnableAllowed.Q THEN
         END_IF
     END_FOR
 END_IF
-*)]]></ST>
+*)
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mInit" Id="{280b85c8-9dab-069e-37fb-2898aabfbce3}">
@@ -92,10 +93,10 @@ END_IF
 ]]></Declaration>
       <Implementation>
         <ST><![CDATA[IF NOT bInit THEN
-	RETURN;
+    RETURN;
 END_IF
 
-(*Fill in specific diagnostic elements, specific for each instrument. 
+(*Fill in specific diagnostic elements, specific for each instrument.
 stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eEStop].sName := 'SFunc01 EStop';
 stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eOPStop].sName := 'SFunc02 OpStop';
 stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eOPEnable].sName := 'SFunc03 OpEnable';
@@ -123,8 +124,8 @@ bEnableSO4 := FALSE;
 
 //bSafe and bReady will go to false when there is air/power to axis
 IF bMotionEnableAllowed AND NOT stSafety.stIn.stMCCStatus.bRemote THEN
-	bEnableSO1 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
-	bEnableSO4 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
+    bEnableSO1 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
+    bEnableSO4 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
 END_IF
 
 GVL.astAxes[Axis_01_BeamShapingPinholeX.cAXIS_ID].stInputs.bSafetyPermission := bEnableSO1;
@@ -134,7 +135,8 @@ GVL.astAxes[Axis_04_BeamShapingPinholeRz.cAXIS_ID].stStatus.bSafetyPermissionMis
 
 GVL.astPneumaticAxes[P05_BeamShapingPinholeCarRaise.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
 GVL.astPneumaticAxes[P06_BeamShapingPinholeAperture.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
-*)]]></ST>
+*)
+]]></ST>
       </Implementation>
     </Method>
     <Method Name="mSafetyZoneLED" Id="{d293da0b-0bcb-011e-006d-6ae3bcdda101}">
@@ -151,12 +153,13 @@ IF NOT bMCC_OK THEN
         nFlashCount := 3,
         bOut => GVL_Safety.bCaveLED);
 ELSIF stSafety.stIn.stMCCStatus.bRemote THEN
-	GVL_Safety.bCaveLED := FALSE;
+    GVL_Safety.bCaveLED := FALSE;
 ELSE
     fbCaveFlashLED(bEnable := FALSE);
     GVL_Safety.bCaveLED := TRUE;
 END_IF
-*)]]></ST>
+*)
+]]></ST>
       </Implementation>
     </Method>
   </POU>
