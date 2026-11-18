@@ -6,10 +6,20 @@ VAR
     fbMotionSafety: FB_MotionSafety;
     stSafety: ST_Safety;
     bMCC_OK: BOOL;
-    bAxisEnableAllowed: BOOL;
+    bMotionEnableAllowed: BOOL;
     bMCCWatchdogFault: BOOL;
+	bInit: BOOL;
 
     //Add specific motion safety application below
+	(*
+	fbCaveFlashLED: FB_PulseGenerator;
+	
+	bEnableSO1: BOOL; //Safe output group 1, controls contactors QA60X..QA60X+N (MX..MX+N)
+	bEnableSO2: BOOL; //Safe output group 2, controls contactors QA60X..QA60X+N (MX..MX+N)
+	bEnableSO3: BOOL; //Safe output group 3, controls contactors QA60X..QA60X+N (MX..MX+N)
+	bEnableSO4: BOOL; //Safe output group 4, controls contactors QA60X..QA60X+N (PX..PX+N)
+	
+	*)
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -17,14 +27,137 @@ END_VAR
     bEnable := TRUE,
     stSafety := stSafety,
     bMCC_OK => bMCC_OK,
-    bAxisEnableAllowed => bAxisEnableAllowed,
+    bMotionEnableAllowed => bMotionEnableAllowed,
     bMCCWatchdogFault => bMCCWatchdogFault);
 
- //Add specific motion safety application below
 
+ //Add specific motion safety application below
+mInit(); //Placeholder, string name of diagnostic elements, specific for each instrument
+mSafetyZoneLED(); //Placeholder, LED specific to safety zone = E-Stop Loop
+mLocalMotionPermission(); //Placeholder, related to general pendant logic in local mode (OP-Stop, Jog Buttons etc.)
+mGeneralMotionPermission(); //Placeholder, triggered by E-Stop
 
 fbMotionSafety.mWriteOutputs(stSafetyOut := stSafety.stOut);
 ]]></ST>
     </Implementation>
+    <Method Name="mGeneralMotionPermission" Id="{8f13f9d3-ef1f-059d-2fc4-3b84e90fdf14}">
+      <Declaration><![CDATA[METHOD mGeneralMotionPermission
+VAR
+    nAxis: UINT;
+	nPneumaticAxis: UINT;
+END_VAR
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+ftrigAxisEnableAllowed(CLK := bMotionEnableAllowed);
+rtrigAxisEnableAllowed(CLK := bMotionEnableAllowed);
+
+IF ftrigAxisEnableAllowed.Q THEN
+    //Loss of global permission overrides every axis
+    FOR nAxis := 1 TO GVL_APP.nAXIS_NUM DO
+        astAxes[nAxis].stControl.bEnable := FALSE;
+        astAxes[nAxis].stStatus.bSafetyPermission := FALSE;
+    END_FOR
+
+    FOR nPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
+        astPneumaticAxes[nPneumaticAxis].stPneumaticAxisControl.bValveOff := FALSE;
+        astPneumaticAxes[nPneumaticAxis].stPneumaticAxisStatus.bSafetyPermission := FALSE;
+    END_FOR
+
+ELSIF rtrigAxisEnableAllowed.Q THEN
+    //Restore permission only for axes outside OP-Stop control
+    FOR nAxis := 1 TO GVL_APP.nAXIS_NUM DO
+        IF (nAxis <> Axis_01_BeamShapingPinholeX.cAXIS_ID)
+            AND (nAxis <> Axis_02_BeamShapingPinholeY.cAXIS_ID)
+            AND (nAxis <> Axis_03_BeamShapingPinholeZ.cAXIS_ID)
+            AND (nAxis <> Axis_04_BeamShapingPinholeRz.cAXIS_ID)
+        THEN
+            astAxes[nAxis].stStatus.bSafetyPermission := TRUE;
+        END_IF
+    END_FOR
+
+    FOR nPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
+        IF (nPneumaticAxis <> P05_BeamShapingPinholeCarRaise.cAXIS_ID)
+            AND (nPneumaticAxis <> P06_BeamShapingPinholeAperture.cAXIS_ID)
+        THEN
+            astPneumaticAxes[nPneumaticAxis].stPneumaticAxisStatus.bSafetyPermission := TRUE;
+        END_IF
+    END_FOR
+END_IF
+*)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mInit" Id="{280b85c8-9dab-069e-37fb-2898aabfbce3}">
+      <Declaration><![CDATA[METHOD mInit
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[IF NOT bInit THEN
+	RETURN;
+END_IF
+
+(*Fill in specific diagnostic elements, specific for each instrument. 
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eEStop].sName := 'SFunc01 EStop';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eOPStop].sName := 'SFunc02 OpStop';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eOPEnable].sName := 'SFunc03 OpEnable';
+
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN2Door].sName := 'IN2 Door';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN3OpStop].sName := 'IN3 OpStop';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN4OpEn].sName := 'IN4 OpEn';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN5EStop].sName := 'IN5 EStop';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN6PStop].sName := 'IN6 PStop';
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eIN7Degraded].sName := 'IN7 Degraded';
+
+stSafety.stOut.astDiagnosticElement[E_DiagnosticElements.eEnTimerPendant].sName := 'EnTimer Pendant';
+*)
+bInit := FALSE;
+]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mLocalMotionPermission" Id="{dac061d6-7611-0b60-26a1-6d091f2bdb9b}">
+      <Declaration><![CDATA[METHOD mLocalMotionPermission
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+bEnableSO1 := FALSE;
+bEnableSO4 := FALSE;
+
+//bSafe and bReady will go to false when there is air/power to axis
+IF bMotionEnableAllowed AND NOT stSafety.stIn.stMCCStatus.bRemote THEN
+	bEnableSO1 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
+	bEnableSO4 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
+END_IF
+
+GVL.astAxes[Axis_01_BeamShapingPinholeX.cAXIS_ID].stInputs.bSafetyPermission := bEnableSO1;
+GVL.astAxes[Axis_02_BeamShapingPinholeY.cAXIS_ID].stInputs.bSafetyPermission := bEnableSO1;
+GVL.astAxes[Axis_03_BeamShapingPinholeZ.cAXIS_ID].stStatus.bSafetyPermissionMissing := bEnableSO1;
+GVL.astAxes[Axis_04_BeamShapingPinholeRz.cAXIS_ID].stStatus.bSafetyPermissionMissing := bEnableSO1;
+
+GVL.astPneumaticAxes[P05_BeamShapingPinholeCarRaise.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
+GVL.astPneumaticAxes[P06_BeamShapingPinholeAperture.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
+*)]]></ST>
+      </Implementation>
+    </Method>
+    <Method Name="mSafetyZoneLED" Id="{d293da0b-0bcb-011e-006d-6ae3bcdda101}">
+      <Declaration><![CDATA[METHOD mSafetyZoneLED
+]]></Declaration>
+      <Implementation>
+        <ST><![CDATA[(*
+IF NOT bMCC_OK THEN
+    fbCaveFlashLED(
+        bEnable := TRUE,
+        tFlashPeriod := T#1000MS,
+        tOffTime := T#100MS,
+        tOnTime := T#100MS,
+        nFlashCount := 3,
+        bOut => GVL_Safety.bCaveLED);
+ELSIF stSafety.stIn.stMCCStatus.bRemote THEN
+	GVL_Safety.bCaveLED := FALSE;
+ELSE
+    fbCaveFlashLED(bEnable := FALSE);
+    GVL_Safety.bCaveLED := TRUE;
+END_IF
+*)]]></ST>
+      </Implementation>
+    </Method>
   </POU>
 </TcPlcObject>
