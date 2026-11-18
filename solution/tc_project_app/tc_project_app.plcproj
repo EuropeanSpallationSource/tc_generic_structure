@@ -249,12 +249,6 @@
     <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_PNOZEtherCATOut.TcDUT">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionIn.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="tc_mca_std_lib\DUTs\Safety\PNOZ\ST_SafetyFunctionOut.TcDUT">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\ST_Safety.TcDUT">
       <SubType>Code</SubType>
     </Compile>
@@ -262,6 +256,9 @@
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\Safety\ST_SafetyOut.TcDUT">
+      <SubType>Code</SubType>
+    </Compile>
+    <Compile Include="tc_mca_std_lib\DUTs\Safety\ST_SafetyOutputGroups.TcDUT">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\DUTs\ST_McStatus.TcDUT">

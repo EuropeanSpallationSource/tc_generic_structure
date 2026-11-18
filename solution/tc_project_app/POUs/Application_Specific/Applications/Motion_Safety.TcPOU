@@ -9,17 +9,20 @@ VAR
     bMotionEnableAllowed: BOOL;
     bMCCWatchdogFault: BOOL;
     bInit: BOOL;
-
+	
+	
     //Add specific motion safety application below
-    (*
     fbCaveFlashLED: FB_PulseGenerator;
 
-    bEnableSO1: BOOL; //Safe output group 1, controls contactors QA60X..QA60X+N (MX..MX+N)
-    bEnableSO2: BOOL; //Safe output group 2, controls contactors QA60X..QA60X+N (MX..MX+N)
-    bEnableSO3: BOOL; //Safe output group 3, controls contactors QA60X..QA60X+N (MX..MX+N)
-    bEnableSO4: BOOL; //Safe output group 4, controls contactors QA60X..QA60X+N (PX..PX+N)
-
-    *)
+	//A safe output group is related to specific contactors QA60X..QA60X+N controlling (MX..MX+N/PX..PX+N)
+	//According to EPLAN (see Safety Output Zones)
+    astSafetyOutputGroups: ARRAY[1..GVL_APP.nNUM_OF_SAFETY_OUTPUT_GROUPS] OF ST_SafetyOutputGroups := [
+    (*SO1*) (nMotorAxisCount := 6, nPneumaticAxisCount := 0, anMotorAxisID := [1, 2, 3, 4]),
+    (*SO2*) (nMotorAxisCount := 1, nPneumaticAxisCount := 0, anMotorAxisID := [5]),
+    (*SO3*) (nMotorAxisCount := 0, nPneumaticAxisCount := 0),
+    (*SO4*) (nMotorAxisCount := 0, nPneumaticAxisCount := 2, anPneumaticAxisID := [5, 6])
+	];
+	
 END_VAR
 ]]></Declaration>
     <Implementation>
@@ -35,59 +38,10 @@ END_VAR
 mInit(); //Placeholder, string name of diagnostic elements, specific for each instrument
 mSafetyZoneLED(); //Placeholder, LED specific to safety zone = E-Stop Loop
 mLocalMotionPermission(); //Placeholder, related to general pendant logic in local mode (OP-Stop, Jog Buttons etc.)
-mGeneralMotionPermission(); //Placeholder, triggered by E-Stop
 
 fbMotionSafety.mWriteOutputs(stSafetyOut := stSafety.stOut);
 ]]></ST>
     </Implementation>
-    <Method Name="mGeneralMotionPermission" Id="{8f13f9d3-ef1f-059d-2fc4-3b84e90fdf14}">
-      <Declaration><![CDATA[METHOD mGeneralMotionPermission
-VAR
-    nAxis: UINT;
-    nPneumaticAxis: UINT;
-END_VAR
-]]></Declaration>
-      <Implementation>
-        <ST><![CDATA[(*
-ftrigAxisEnableAllowed(CLK := bMotionEnableAllowed);
-rtrigAxisEnableAllowed(CLK := bMotionEnableAllowed);
-
-IF ftrigAxisEnableAllowed.Q THEN
-    //Loss of global permission overrides every axis
-    FOR nAxis := 1 TO GVL_APP.nAXIS_NUM DO
-        astAxes[nAxis].stControl.bEnable := FALSE;
-        astAxes[nAxis].stStatus.bSafetyPermission := FALSE;
-    END_FOR
-
-    FOR nPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-        astPneumaticAxes[nPneumaticAxis].stPneumaticAxisControl.bValveOff := FALSE;
-        astPneumaticAxes[nPneumaticAxis].stPneumaticAxisStatus.bSafetyPermission := FALSE;
-    END_FOR
-
-ELSIF rtrigAxisEnableAllowed.Q THEN
-    //Restore permission only for axes outside OP-Stop control
-    FOR nAxis := 1 TO GVL_APP.nAXIS_NUM DO
-        IF (nAxis <> Axis_01_BeamShapingPinholeX.cAXIS_ID)
-            AND (nAxis <> Axis_02_BeamShapingPinholeY.cAXIS_ID)
-            AND (nAxis <> Axis_03_BeamShapingPinholeZ.cAXIS_ID)
-            AND (nAxis <> Axis_04_BeamShapingPinholeRz.cAXIS_ID)
-        THEN
-            astAxes[nAxis].stStatus.bSafetyPermission := TRUE;
-        END_IF
-    END_FOR
-
-    FOR nPneumaticAxis := 1 TO GVL_APP.nPNEUMATIC_AXIS_NUM DO
-        IF (nPneumaticAxis <> P05_BeamShapingPinholeCarRaise.cAXIS_ID)
-            AND (nPneumaticAxis <> P06_BeamShapingPinholeAperture.cAXIS_ID)
-        THEN
-            astPneumaticAxes[nPneumaticAxis].stPneumaticAxisStatus.bSafetyPermission := TRUE;
-        END_IF
-    END_FOR
-END_IF
-*)
-]]></ST>
-      </Implementation>
-    </Method>
     <Method Name="mInit" Id="{280b85c8-9dab-069e-37fb-2898aabfbce3}">
       <Declaration><![CDATA[METHOD mInit
 ]]></Declaration>
@@ -116,27 +70,30 @@ bInit := FALSE;
     </Method>
     <Method Name="mLocalMotionPermission" Id="{dac061d6-7611-0b60-26a1-6d091f2bdb9b}">
       <Declaration><![CDATA[METHOD mLocalMotionPermission
-]]></Declaration>
+VAR
+    nGroup: UINT;
+END_VAR]]></Declaration>
       <Implementation>
-        <ST><![CDATA[(*
-bEnableSO1 := FALSE;
-bEnableSO4 := FALSE;
+        <ST><![CDATA[//Default groups to global permission
+//FOR nGroup := 1 TO GVL_APP.nNUM_OF_SAFETY_OUTPUT_GROUPS DO
+//    astSafetyOutputGroups[nGroup].bEnableSO := bMotionEnableAllowed;
+//END_FOR
 
-//bSafe and bReady will go to false when there is air/power to axis
-IF bMotionEnableAllowed AND NOT stSafety.stIn.stMCCStatus.bRemote THEN
-    bEnableSO1 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
-    bEnableSO4 := NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
-END_IF
 
-GVL.astAxes[Axis_01_BeamShapingPinholeX.cAXIS_ID].stInputs.bSafetyPermission := bEnableSO1;
-GVL.astAxes[Axis_02_BeamShapingPinholeY.cAXIS_ID].stInputs.bSafetyPermission := bEnableSO1;
-GVL.astAxes[Axis_03_BeamShapingPinholeZ.cAXIS_ID].stStatus.bSafetyPermissionMissing := bEnableSO1;
-GVL.astAxes[Axis_04_BeamShapingPinholeRz.cAXIS_ID].stStatus.bSafetyPermissionMissing := bEnableSO1;
+////Note: This is just an example, here specific application code will be written to set the bEnableSO 
+////for each output group
+////Application-specific permissions
+//astSafetyOutputGroups[1].bEnableSO :=
+//    bMotionEnableAllowed
+//    AND NOT stSafety.stIn.stMCCStatus.bRemote
+//    AND NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
 
-GVL.astPneumaticAxes[P05_BeamShapingPinholeCarRaise.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
-GVL.astPneumaticAxes[P06_BeamShapingPinholeAperture.cAXIS_ID].stPneumaticAxisStatus.bSafetyPermission := bEnableSO4;
-*)
-]]></ST>
+//astSafetyOutputGroups[4].bEnableSO :=
+//    bMotionEnableAllowed
+//    AND NOT stSafety.stIn.stMCCStatus.bRemote
+//    AND NOT stSafety.stIn.astDiagnosticElement[E_DiagnosticElements.eOPEnable].bSafe;
+
+//Add other application-specific group conditions here]]></ST>
       </Implementation>
     </Method>
     <Method Name="mSafetyZoneLED" Id="{d293da0b-0bcb-011e-006d-6ae3bcdda101}">

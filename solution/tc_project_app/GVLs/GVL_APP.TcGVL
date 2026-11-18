@@ -27,6 +27,8 @@ VAR_GLOBAL CONSTANT
     nNUM_OF_TECHNOSOFT: USINT := 0; //Number of Technosoft axises
     nNUM_OF_EXPANSION_LEFT: USINT := 0;
     nNUM_OF_EXPANSION_RIGHT: USINT := 2;
+	
+	nNUM_OF_SAFETY_OUTPUT_GROUPS: USINT := 4; //Number of safety output groups, according to EPLAN (see Safety Output Zones)
 
     //Fixed constants, should not be changed
     nMAX_DIAGNOSTIC_ELEMENTS: USINT := 32; //TxPDO_1, each diagnostic word is a safety element in the safety controller
