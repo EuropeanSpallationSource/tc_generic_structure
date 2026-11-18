@@ -593,11 +593,10 @@
 	<Mappings>
 		<OwnerA Name="tc_project_app Instance">
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF207 (EL2014)">
-				<Link VarA="PlcTask Outputs^GVL_Safety.bExperimentCaveLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
-				<Link VarA="PlcTask Outputs^GVL_Safety.bOpticalCaveLED" VarB="DIG Outputs^Channel 2^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF201 (EK1100)^KF208 (EL2014)">
-				<Link VarA="PlcTask Outputs^Motion_Safety.fbMotionSafety.bSafetyAcknowledgeLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
+				<Link VarA="PlcTask Outputs^GVL_Safety.bCaveLED" VarB="DIG Outputs^Channel 3^Output" AutoLink="true" Size="1"/>
 			</OwnerB>
 			<OwnerB Name="TIID^Device 2 (EtherCAT)^KF509 (PNOZ m ES EtherCAT)">
 				<Link VarA="PlcTask Inputs^Motion_Safety.fbMotionSafety.bWcState" VarB="WcState^WcState" AutoLink="true" Size="1"/>

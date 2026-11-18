@@ -32,7 +32,9 @@
     </Compile>
     <Compile Include="GVLs\GVL_APP.TcGVL">
       <SubType>Code</SubType>
-      <LinkAlways>true</LinkAlways>
+    </Compile>
+    <Compile Include="GVLs\GVL_Safety.TcGVL">
+      <SubType>Code</SubType>
     </Compile>
     <Compile Include="PlcTask.TcTTO">
       <SubType>Code</SubType>
@@ -271,9 +273,6 @@
     <Compile Include="tc_mca_std_lib\GVLs\GVL.TcGVL">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\GVLs\GVL_Safety.TcGVL">
-      <SubType>Code</SubType>
-    </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Monitoring\FB_ESSMonitoringBase.TcPOU">
       <SubType>Code</SubType>
     </Compile>
@@ -319,10 +318,10 @@
     <Compile Include="tc_mca_std_lib\POUs\Utilities\FB_PulseGenerator.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_IsHighNibbleSet.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_CheckHighNibbleLEDState.TcPOU">
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_IsLowNibbleSet.TcPOU">
+    <Compile Include="tc_mca_std_lib\POUs\Utilities\F_CheckLowNibbleLEDState.TcPOU">
       <SubType>Code</SubType>
     </Compile>
     <Compile Include="tc_mca_std_lib\POUs\Utilities\F_TechnosoftErrorActive.TcPOU">
