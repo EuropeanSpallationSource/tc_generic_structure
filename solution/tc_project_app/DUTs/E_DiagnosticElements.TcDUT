@@ -10,18 +10,19 @@ Each diagnostic elements represents 16-bits (HIGH 8-bits; LOW 8-bits see TxPDO_1
 *)
 TYPE E_DiagnosticElements :
 (
-    //Note: This is just an example,
+	//Note: This is application specific code for NMX.
     eNone,
-    eEStop,         //[1]
-    eEnable,        //[2]
-    eSGate,         //[3]
-    eLightCurtain,  //[4]
-    eSafetyDevice,  //[5]
-    eTwoHand,       //[6]
-    eSetResetBlock, //[7]
-    eMode,          //[8]
-    eStart,         //[9]
-    eCount          //Keep last, not a diagnostic element.
+	eEStop := 1, 				//[1]
+    eOPStop := 2, 				//[2]
+	eOPEnable := 3, 			//[3]
+	eIN2Door := 12, 			//[12]
+	eIN3OpStop := 13, 			//[13]
+	eIN4OpEn := 14, 			//[14]
+	eIN5EStop := 15,			//[15]
+	eIN6PStop := 16,			//[15]
+	eIN7Degraded := 17,			//[16]
+	eEnTimerPendant := 23, 		//[23]
+	eCount			//Keep last, not a diagnostic element.
 );
 END_TYPE
 ]]></Declaration>
