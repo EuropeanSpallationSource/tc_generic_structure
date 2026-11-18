@@ -133,16 +133,23 @@ GVL.fbGetCurTaskIndex();
 
 IF _TaskInfo[fbGetCurTaskIndex.index].FirstCycle THEN
     FOR iCount := 0 TO (SIZEOF(AMSNETID) - 1) DO
-        IF aEtherCATMasterNetId[iCount] = 0 THEN
-            ADSLOGSTR(ADSLOG_MSGTYPE_ERROR,'Invalid Device 2 AmsNetID','');
-            EXIT;
-        END_IF
+        sEtherCATMasterNetId := CONCAT(
+            sEtherCATMasterNetId,
+            TO_STRING(aEtherCATMasterNetId[iCount]));
 
-        sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, TO_STRING(aEtherCATMasterNetId[iCount]));
         IF iCount < (SIZEOF(AMSNETID) - 1) THEN
             sEtherCATMasterNetId := CONCAT(sEtherCATMasterNetId, '.');
         END_IF
     END_FOR
+
+    IF sEtherCATMasterNetId = '0.0.0.0.0.0' THEN
+        ADSLOGSTR(
+            msgCtrlMask := ADSLOG_MSGTYPE_ERROR,
+            msgFmtStr := 'Empty AmsNetID (%s), check EC name: "KF200-EC1 (EtherCAT Device)"',
+            strArg := sEtherCATMasterNetId);
+        sEtherCATMasterNetId := '';
+        RETURN;
+    END_IF
 END_IF
 ]]></ST>
       </Implementation>
